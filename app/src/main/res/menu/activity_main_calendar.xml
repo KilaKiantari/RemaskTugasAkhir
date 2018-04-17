@@ -4,7 +4,8 @@
     tools:context=".MainActivity">
     <item android:id="@+id/action_settings"
         android:title="action_settings"
-        android:orderInCategory="100" app:showAsAction="never" />
+        android:orderInCategory="100"
+        app:showAsAction="never" />
     <item android:id="@+id/action_new"
         android:icon="@drawable/ic_action_new"
         app:showAsAction="always"

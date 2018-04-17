@@ -1,10 +1,14 @@
 package com.example.asus_desktop.remask;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -31,6 +35,12 @@ public class HistoriTugas extends Fragment {
         View view = inflater.inflate(R.layout.histori_tugas, container, false);
         addData();
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
+
+        Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
+        toolbar.inflateMenu(R.menu.activity_histori_tugas);
+        Menu menu = toolbar.getMenu();
+
+
         adapter = new MahasiswaAdapter(mahasiswaArrayList);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
@@ -41,6 +51,20 @@ public class HistoriTugas extends Fragment {
 
     }
 
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch(item.getItemId()) {
+            case R.id.action_settings:
+                Intent ab = new Intent(getActivity(), Tools.class);
+                startActivity(ab);
+                return true;
+            //case R.id.a:
+
+                //return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
     void addData(){
         mahasiswaArrayList = new ArrayList<>();
