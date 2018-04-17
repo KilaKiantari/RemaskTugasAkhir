@@ -27,7 +27,7 @@ public class Splashscreen extends Activity {
                 } finally {
 
                     //activity yang akan dijalankan setelah splash screen selesai
-                    Intent main = new Intent(Splashscreen.this, MainActivity.class);
+                    Intent main = new Intent(Splashscreen.this, Login.class);
                     startActivity(main);
 
                     //sertakan method finish agar splash screen tidak bisa diakses kembali dgngan tombol back
