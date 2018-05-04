@@ -59,10 +59,10 @@ public class Skala_Prioritas extends Fragment {
 
     void addData(){
         mahasiswaArrayList = new ArrayList<>();
-        mahasiswaArrayList.add(new Mahasiswa("Tugas Matematika"));
-        mahasiswaArrayList.add(new Mahasiswa("Tugas Kimia"));
-        mahasiswaArrayList.add(new Mahasiswa("Tugas Sejarah"));
-        mahasiswaArrayList.add(new Mahasiswa("Tugas Biologi"));
+        mahasiswaArrayList.add(new Mahasiswa("Tugas Matematika",""));
+        mahasiswaArrayList.add(new Mahasiswa("Tugas Kimia",""));
+        mahasiswaArrayList.add(new Mahasiswa("Tugas Sejarah",""));
+        mahasiswaArrayList.add(new Mahasiswa("Tugas Biologi",""));
     }
 
 

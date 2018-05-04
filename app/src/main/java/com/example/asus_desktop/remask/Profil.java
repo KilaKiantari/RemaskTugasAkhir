@@ -22,8 +22,7 @@ public class Profil extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        view = (RelativeLayout) inflater.inflate(R.layout.activity_custom_calendar, container, false);
+        View view = inflater.inflate(R.layout.activity_profil, container, false);
 
         getActivity().setTitle("Profil Saya");
 

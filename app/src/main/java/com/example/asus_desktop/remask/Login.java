@@ -5,6 +5,7 @@ package com.example.asus_desktop.remask;
  */
 
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 //import android.view.WindowManager;
@@ -24,6 +26,7 @@ public class Login extends AppCompatActivity {
     private EditText inputEmail, inputPassword;
     private ProgressBar progressBar;
     private Button btnLogin ;
+    private TextView txtViewSingUp;
 
 
     @Override
@@ -38,7 +41,8 @@ public class Login extends AppCompatActivity {
         inputPassword = (EditText) findViewById(R.id.password);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         btnLogin = (Button) findViewById(R.id.btn_login);
-
+        txtViewSingUp = (TextView) findViewById(R.id.txtViewSingUp);
+        txtViewSingUp.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
                                         @Override
@@ -62,7 +66,19 @@ public class Login extends AppCompatActivity {
                                             Intent intent = new Intent(Login.this, MainActivity.class);
                                             startActivity(intent);
                                             finish();
+
+
                                         }
+
                                 });
+
+        txtViewSingUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Login.this, Register.class);
+                startActivity(intent);
+                finish();
                         }
-            }
+            });
+        }
+}

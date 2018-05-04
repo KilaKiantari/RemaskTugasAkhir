@@ -26,11 +26,10 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * Created by Asus-Desktop on 4/12/2018.
+ * Created by Asus-Desktop on 5/5/2018.
  */
 
-
-public class BuatCatatan extends AppCompatActivity {
+public class Buat_Catatan_Pendidikan extends AppCompatActivity {
     Toolbar toolbar;
     SQLiteDatabase db;
     //DbHelper mDbHelper;
@@ -68,7 +67,7 @@ public class BuatCatatan extends AppCompatActivity {
                 this, R.array.kategori_type, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSpinner.setAdapter(adapter);
-        BuatCatatan.this.setTitle("Buat Catatan");
+        Buat_Catatan_Pendidikan.this.setTitle("Buat Catatan Pendidikan");
         toolbar.setTitleTextColor(Color.parseColor("#FFFFFF"));
 
         /*FragmentManager manager = getFragmentManager();
@@ -101,7 +100,7 @@ public class BuatCatatan extends AppCompatActivity {
 
         switch(item.getItemId()) {
             case R.id.action_settings:
-                Intent ab = new Intent(BuatCatatan.this, MainActivity.class);
+                Intent ab = new Intent(Buat_Catatan_Pendidikan.this, MainActivity.class);
                 ab.putExtra("Extra","Tools");
                 startActivity(ab);
                 return true;
@@ -137,11 +136,11 @@ public class BuatCatatan extends AppCompatActivity {
                     PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
 
                     alarmMgr.set(AlarmManager.RTC_WAKEUP, calender.getTimeInMillis(), pendingIntent);
-                   // cv.put(mDbHelper.TIME, timeString);
+                    // cv.put(mDbHelper.TIME, timeString);
                     //cv.put(mDbHelper.DATE, dateString);
                 }
 
-               //db.insert(mDbHelper.TABLE_NAME, null, cv);
+                //db.insert(mDbHelper.TABLE_NAME, null, cv);
 
                 Intent openMainScreen = new Intent(this, MainActivity.class);
                 openMainScreen.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

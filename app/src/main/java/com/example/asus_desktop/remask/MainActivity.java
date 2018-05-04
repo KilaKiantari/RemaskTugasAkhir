@@ -40,11 +40,21 @@ public class MainActivity extends AppCompatActivity
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        // tampilan default awal ketika aplikasii dijalankan
-        if (savedInstanceState == null) {
+        Intent Extra = getIntent();
+        if(Extra.hasExtra("Extra")){
+            String goTo =  Extra.getStringExtra("Extra");
+            if(goTo.equals("Tools")){
+                fragment = new Tools();
+                callFragment(fragment);
+            }
+        }else{
             fragment = new Daftar_Catatan();
             callFragment(fragment);
         }
+//        // tampilan default awal ketika aplikasii dijalankan
+//        if (savedInstanceState == null) {
+//
+//        }
 
     }
 
@@ -57,6 +67,7 @@ public class MainActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }
+
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.activity_main_calendar, menu);
@@ -68,11 +79,12 @@ public class MainActivity extends AppCompatActivity
 
         switch(item.getItemId()) {
             case R.id.action_new:
-                Intent openCreateNote = new Intent(MainActivity.this, BuatCatatan.class);
+                Intent openCreateNote = new Intent(MainActivity.this, PopActivity.class);
                 startActivity(openCreateNote);
                 return true;
             case R.id.action_settings:
-                Intent ab = new Intent(MainActivity.this, Tools.class);
+                Intent ab = new Intent(MainActivity.this, MainActivity.class);
+                ab.putExtra("Extra","Tools");
                 startActivity(ab);
                 return true;
 
@@ -80,9 +92,6 @@ public class MainActivity extends AppCompatActivity
                 return super.onOptionsItemSelected(item);
         }
     }
-
-
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {

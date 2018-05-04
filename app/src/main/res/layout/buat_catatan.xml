@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <android.support.v7.widget.Toolbar
@@ -51,6 +53,9 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/txttitle"
                 android:maxLength="25"
+                android:drawableLeft="@drawable/ic_event_black_24dp"
+                android:drawablePadding="5dp"
+                android:drawableStart="@drawable/ic_event_black_24dp"
                 android:hint="@string/title_hint"
                 android:layout_below="@+id/btnBack"
                 android:layout_alignParentLeft="true"
@@ -63,12 +68,13 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/scrollView4" >
 
-
-
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/description"
+                    android:drawableLeft="@drawable/ic_description_black_24dp"
+                    android:drawablePadding="5dp"
+                    android:drawableStart="@drawable/ic_description_black_24dp"
                     android:hint="@string/hint_description"
                     android:layout_below="@+id/txttitle"
                     android:layout_alignParentLeft="true"
@@ -77,7 +83,7 @@
                     android:layout_alignParentEnd="true"
                     android:singleLine="false"
                     android:editable="true"
-                    android:lines="5"
+                    android:lines="3"
                     android:maxLength="140"
                     android:nestedScrollingEnabled="false" />
             </ScrollView>
@@ -90,7 +96,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="@string/note_type_text"
+                    android:drawableLeft="@drawable/ic_format_line_spacing_black_24dp"
+                    android:drawablePadding="5dp"
+                    android:drawableStart="@drawable/ic_format_line_spacing_black_24dp"
+                    android:text="Kategori"
                     android:id="@+id/txtNoteType"
                     android:layout_below="@+id/description"
                     android:layout_alignParentLeft="true"
@@ -100,37 +109,54 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/spinnerNoteType"
-                    android:entries="@array/note_type"
+                    android:entries="@array/kategori_type"
                     android:layout_below="@+id/description"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true"
                     android:layout_toRightOf="@+id/txttitle"
                     android:layout_toEndOf="@+id/txttitle" />
+
+
             </GridLayout>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textSize="20dp"
+                android:drawableLeft="@drawable/ic_notifications_active_black_24dp"
+                android:drawablePadding="5dp"
+                android:drawableStart="@drawable/ic_notifications_active_black_24dp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Alarm"
+                android:id="@+id/txtAlarm"
+                android:layout_below="@+id/txttitle"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <Spinner
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/spinnerAlarm"
+                android:entries="@array/set_alarm"
+                android:layout_below="@+id/spinnerNoteType"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                />
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent">
-
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/set_alert"
-                    android:id="@+id/checkBox"
-                    android:layout_below="@+id/spinnerNoteType"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:enabled="false"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true" />
 
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:layout_marginTop="15dp"
                     android:text="@string/txt_time"
+                    android:textStyle="bold"
+                    android:textSize="24dp"
                     android:id="@+id/txtTime" />
 
                 <TimePicker

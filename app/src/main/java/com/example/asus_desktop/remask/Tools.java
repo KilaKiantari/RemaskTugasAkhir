@@ -17,10 +17,18 @@ public class Tools extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        view = (RelativeLayout) inflater.inflate(R.layout.tools, container, false);
+        View view = inflater.inflate(R.layout.tools, container, false);
 
         getActivity().setTitle("Tools");
 
+
+
         return view;
+
+
+    }
+    public static Tools newInstance() {
+        Tools fragment = new Tools();
+        return fragment;
     }
 }

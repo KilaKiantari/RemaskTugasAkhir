@@ -16,7 +16,7 @@ public class Root extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        rootView = inflater.inflate(R.layout.root, container, false);
+        rootView = inflater.inflate(R.layout.activity_register, container, false);
 
         getActivity().setTitle("Remask");
 

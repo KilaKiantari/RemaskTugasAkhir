@@ -20,9 +20,18 @@
     <string name="sat">SAT</string>
     <string name="last_date">30</string>
     <string-array name="kategori_type">
-    <item>Pendidikan</item>
     <item>Organisasi</item>
         <item>Lain Lain</item>
+    </string-array>
+
+    <string-array name="set_alarm">
+        <item>7 hari sebelum</item>
+        <item>5 hari sebelum</item>
+        <item>3 hari sebelum</item>
+        <item>1 hari sebelum</item>
+        <item>3 jam sebelum</item>
+        <item>30 menit sebelum</item>
+
     </string-array>
 
     <string name="hello_world">Hello world!</string>
@@ -30,10 +39,6 @@
     <string name="title_activity_create_note">Create Note</string>
     <string name="title">Test</string>
     <string name="detail">Small Text</string>
-    <string-array name="note_type">
-        <item>Not Deadline</item>
-        <item>Deadline</item>
-    </string-array>
     <string name="title_activity_information">Information</string>
     <string name="title_activity_edit__note">Edit Note</string>
     <string name="New">Create New Note</string>

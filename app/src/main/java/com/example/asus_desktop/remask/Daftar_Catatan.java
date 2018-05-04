@@ -50,7 +50,7 @@ public class Daftar_Catatan extends Fragment {
         });
 
 
-        adapter = new DaftarAdapter(mahasiswaArrayList);
+        adapter = new DaftarAdapter(getActivity(),mahasiswaArrayList);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
@@ -58,13 +58,16 @@ public class Daftar_Catatan extends Fragment {
         return view;
 
     }
+
     void addData(){
         mahasiswaArrayList = new ArrayList<>();
-        mahasiswaArrayList.add(new Mahasiswa("Tugas Matematika"));
-        mahasiswaArrayList.add(new Mahasiswa("Tugas Kimia"));
-        mahasiswaArrayList.add(new Mahasiswa("Tugas Sejarah"));
-        mahasiswaArrayList.add(new Mahasiswa("Tugas Biologi"));
+        mahasiswaArrayList.add(new Mahasiswa("Tugas Matematika","belum"));
+        mahasiswaArrayList.add(new Mahasiswa("Tugas Kimia","belum"));
+        mahasiswaArrayList.add(new Mahasiswa("Tugas Sejarah","belum"));
+        mahasiswaArrayList.add(new Mahasiswa("Tugas Biologi","belum"));
     }
+
+
 }
 
 
