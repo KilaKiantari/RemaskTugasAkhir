@@ -23,6 +23,8 @@ public class PopActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pop);
 
+
+
         btn_pendidikan = (Button) findViewById(R.id.btn_pendidikan);
         btn_organisasi = (Button) findViewById(R.id.btn_organisasi);
         btn_lain = (Button) findViewById(R.id.btn_lain);
@@ -30,7 +32,7 @@ public class PopActivity extends Activity {
         btn_pendidikan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent openCreateNote = new Intent(PopActivity.this, BuatCatatan.class);
+                Intent openCreateNote = new Intent(PopActivity.this, JoinGroup.class);
                 startActivity(openCreateNote);
             }
         });
@@ -46,7 +48,7 @@ public class PopActivity extends Activity {
         btn_lain.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View view) {
-                                            Intent openCreateNote = new Intent(PopActivity.this, JoinGroup.class);
+                                            Intent openCreateNote = new Intent(PopActivity.this, BuatCatatan.class);
                                             startActivity(openCreateNote);
                                         }
                                     });
@@ -66,5 +68,7 @@ public class PopActivity extends Activity {
 
                 getWindow().setAttributes(params);
             }
+
+
         }
 

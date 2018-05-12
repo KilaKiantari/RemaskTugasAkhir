@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.asus_desktop.remask.Model.Result;
+
 import java.util.ArrayList;
 
 
@@ -17,10 +19,11 @@ import java.util.ArrayList;
 public class SkalaAdapter extends RecyclerView.Adapter<SkalaAdapter.MahasiswaViewHolder> {
 
 
-    private ArrayList<Mahasiswa> dataList;
+    private ArrayList<Result> result;
 
-    public SkalaAdapter(ArrayList<Mahasiswa> dataList) {
-        this.dataList = dataList;
+    public SkalaAdapter(ArrayList<Result> results) {
+
+        this.result = results;
     }
 
     @Override
@@ -32,21 +35,26 @@ public class SkalaAdapter extends RecyclerView.Adapter<SkalaAdapter.MahasiswaVie
 
     @Override
     public void onBindViewHolder(MahasiswaViewHolder holder, int position) {
-        holder.txtNama.setText(dataList.get(position).getNama());
+        holder.txtNama.setText(result.get(position).getNamaTugas());
+        holder.txtTgl.setText(result.get(position).getTanggalTugas());
+        holder.txtKategori.setText(result.get(position).getKategori());
 
     }
 
     @Override
     public int getItemCount() {
-        return (dataList != null) ? dataList.size() : 0;
+
+        return  result.size();
     }
 
     public class MahasiswaViewHolder extends RecyclerView.ViewHolder{
-        private TextView txtNama, txtNpm, txtNoHp;
+        private TextView txtNama, txtTgl, txtKategori;
 
         public MahasiswaViewHolder(View itemView) {
             super(itemView);
-            txtNama = (TextView) itemView.findViewById(R.id.txt_nama_mahasiswa);
+            txtNama = (TextView) itemView.findViewById(R.id.txt_nama_tugas);
+            txtTgl = (TextView) itemView.findViewById(R.id.tgl_tugas);
+            txtKategori = (TextView) itemView.findViewById(R.id.id_kategori);
 
         }
     }

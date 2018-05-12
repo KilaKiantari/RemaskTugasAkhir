@@ -2,6 +2,7 @@ package com.example.asus_desktop.remask;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -13,6 +14,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.asus_desktop.remask.Model.SessionManager;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -21,6 +24,9 @@ public class MainActivity extends AppCompatActivity
     NavigationView navigationView;
     FragmentManager fragmentManager;
     Fragment fragment = null;
+    private SessionManager sessionManager;
+    private ProgressDialog progressDialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,8 +125,8 @@ public class MainActivity extends AppCompatActivity
             callFragment(fragment);
         }
         else if (id == R.id.nav_logout) {
-            fragment = new Grafik();
-            callFragment(fragment);
+            sessionManager = new SessionManager(getApplicationContext());
+            sessionManager.setLogin(false);
         }
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

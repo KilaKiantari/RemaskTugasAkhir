@@ -6,19 +6,45 @@
     android:orientation="vertical">
     <android.support.v7.widget.CardView
         android:id="@+id/card_view"
-        android:layout_width="fill_parent"
-        android:layout_height="60dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_margin="5dp"
         card_view:cardCornerRadius="5dp"
-        card_view:contentPadding="10dp"
+        card_view:cardUseCompatPadding="true"
         android:elevation="10dp">
-        <TextView
-            android:id="@+id/txt_nama_mahasiswa"
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:textStyle="bold"/>
+            android:layout_margin="5dp"
+            android:orientation="vertical"
+            android:padding="5dp">
+
+            <!-- TextView Nama Mahasiwa -->
+            <TextView
+                android:id="@+id/txt_nama_tugas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Bahasa"
+                android:textStyle="bold"/>
+
+            <!-- TextView Npm Mahasiswa -->
+
+            <TextView
+                android:id="@+id/tgl_tugas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:text="24-Maret-2018"/>
+
+            <TextView
+                android:id="@+id/id_kategori"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="24-Maret-2018"/>
+
+        </LinearLayout>
+
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent">

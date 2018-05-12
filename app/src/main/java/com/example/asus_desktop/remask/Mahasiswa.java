@@ -10,6 +10,7 @@ public class Mahasiswa {
     private String npm;
     private String nohp;
 
+
     public Mahasiswa(String nama,String npm) {
         this.nama = nama;
         this.npm = npm;
@@ -36,4 +37,6 @@ public class Mahasiswa {
 
         this.npm = npm;
     }
+
+
 }

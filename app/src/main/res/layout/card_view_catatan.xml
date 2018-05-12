@@ -4,46 +4,62 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
+
     <android.support.v7.widget.CardView
         android:id="@+id/card_view"
-        android:layout_width="fill_parent"
-        android:layout_height="60dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_margin="5dp"
-        card_view:cardCornerRadius="20dp"
-        card_view:contentPadding="10dp"
+        card_view:cardCornerRadius="5dp"
+        card_view:cardUseCompatPadding="true"
         android:elevation="10dp">
 
-        <ImageView
-            android:id="@+id/overflow"
-            android:layout_width="20dp"
-            android:layout_height="30dp"
-            android:layout_marginLeft="300dp"
-            android:layout_marginTop="10dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_overflow" />
-
-        <TextView
-            android:id="@+id/txt_nama_mahasiswa"
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:textStyle="bold"/>
+            android:layout_margin="5dp"
+            android:orientation="vertical"
+            android:padding="5dp">
 
-        <TextView
-            android:id="@+id/txt_npm"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:textStyle="bold"/>
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            <!-- TextView Nama Mahasiwa -->
+            <TextView
+                android:id="@+id/txt_nama_tugas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Bahasa"
+                android:textStyle="bold"/>
 
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
-            </LinearLayout>
+            <TextView
+                android:layout_below="@+id/txt_nama_tugas"
+                android:id="@+id/txt_keterangan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="24-Maret-2018"/>
+
+            <TextView
+                android:layout_below="@+id/txt_keterangan"
+                android:id="@+id/tgl_tugas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="24-Maret-2018"/>
+
+            <TextView
+                android:layout_below="@+id/tgl_tugas"
+                android:id="@+id/id_kategori"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="24-Maret-2018"/>
+
+
+            <!-- TextView Npm Mahasiswa -->
+            <ImageView
+                android:id="@+id/overflow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_overflow"
+                android:layout_alignParentRight="true" />
+
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 

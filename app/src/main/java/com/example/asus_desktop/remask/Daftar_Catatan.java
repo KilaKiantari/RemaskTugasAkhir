@@ -11,7 +11,12 @@ import android.view.ViewGroup;
 import android.widget.CalendarView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
+import com.example.asus_desktop.remask.Api.ApiClient;
+import com.example.asus_desktop.remask.Model.ModelDaftarCatatan;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Daftar_Catatan extends Fragment {
 
@@ -26,14 +31,16 @@ public class Daftar_Catatan extends Fragment {
 
     private RecyclerView recyclerView;
     private DaftarAdapter adapter;
-    private ArrayList<Mahasiswa> mahasiswaArrayList;
+    private ModelDaftarCatatan modelDaftarCatatan;
+    ApiClient apiClient;
+    //private ArrayList<Mahasiswa> mahasiswaArrayList;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_custom_calendar, container, false);
-        addData();
+        //addData();
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         calendar = (CalendarView) view.findViewById(R.id.calendar);
 
@@ -50,23 +57,30 @@ public class Daftar_Catatan extends Fragment {
         });
 
 
-        adapter = new DaftarAdapter(getActivity(),mahasiswaArrayList);
+        //adapter = new DaftarAdapter(getActivity(),mahasiswaArrayList);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
         getActivity().setTitle("Kalender");
+
+        ApiClient.services_get_daftar_catatan.getDaftarCatatan(1).enqueue(new Callback<ModelDaftarCatatan>() {
+            @Override
+            public void onResponse(Call<ModelDaftarCatatan> call, Response<ModelDaftarCatatan> response) {
+                modelDaftarCatatan = response.body();
+                adapter = new DaftarAdapter(getActivity(),modelDaftarCatatan.getResults());
+                adapter.notifyDataSetChanged();
+                recyclerView.setAdapter(adapter);
+
+            }
+
+            @Override
+            public void onFailure(Call<ModelDaftarCatatan> call, Throwable t) {
+
+            }
+        });
+
         return view;
-
     }
-
-    void addData(){
-        mahasiswaArrayList = new ArrayList<>();
-        mahasiswaArrayList.add(new Mahasiswa("Tugas Matematika","belum"));
-        mahasiswaArrayList.add(new Mahasiswa("Tugas Kimia","belum"));
-        mahasiswaArrayList.add(new Mahasiswa("Tugas Sejarah","belum"));
-        mahasiswaArrayList.add(new Mahasiswa("Tugas Biologi","belum"));
-    }
-
 
 }
 

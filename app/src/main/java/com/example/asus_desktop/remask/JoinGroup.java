@@ -1,5 +1,6 @@
 package com.example.asus_desktop.remask;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,7 +11,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import java.util.ArrayList;
+import com.example.asus_desktop.remask.Api.ApiClient;
+import com.example.asus_desktop.remask.Model.ModelGroupAll;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by Asus-Desktop on 5/5/2018.
@@ -20,13 +26,15 @@ public class JoinGroup extends AppCompatActivity {
     Toolbar toolbar;
     private RecyclerView recyclerView;
     private JoinGroupAdapter adapter;
-    private ArrayList<Mahasiswa> mahasiswaArrayList;
+    private ModelGroupAll modelGroupAll;
+    ApiClient apiClient;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_joingroup);
-        addData();
+        //addData();
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -39,10 +47,36 @@ public class JoinGroup extends AppCompatActivity {
             }
         });
 
-        adapter = new JoinGroupAdapter(this, mahasiswaArrayList);
+        final ProgressDialog progressDialog = new ProgressDialog(JoinGroup.this);
+        progressDialog.setMessage("Please wait....");
+        progressDialog.show();
+
+
+
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(JoinGroup.this);
         recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
+
+
+        ApiClient.services_get_group_all.getGroupAll(1).enqueue(new Callback<ModelGroupAll>() {
+            @Override
+            public void onResponse(Call<ModelGroupAll> call, Response<ModelGroupAll> response) {
+                modelGroupAll = response.body();
+//                adapter = new JoinGroupAdapter(this,modelGroupAll.getResults());
+                adapter = new JoinGroupAdapter(JoinGroup.this,modelGroupAll.getResults());
+                adapter.notifyDataSetChanged();
+                recyclerView.setAdapter(adapter);
+                progressDialog.dismiss();
+
+            }
+
+            @Override
+            public void onFailure(Call<ModelGroupAll> call, Throwable t) {
+
+            }
+        });
+
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -69,7 +103,7 @@ public class JoinGroup extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-
+/*
     void addData(){
         mahasiswaArrayList = new ArrayList<>();
         mahasiswaArrayList.add(new Mahasiswa("Dimas Maulana", "1414370309"));
@@ -77,5 +111,6 @@ public class JoinGroup extends AppCompatActivity {
         mahasiswaArrayList.add(new Mahasiswa("Ariyandi Nugraha", "1214230345"));
         mahasiswaArrayList.add(new Mahasiswa("Aham Siswana", "1214378098"));
     }
+    */
 
 }

@@ -1,43 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/pop_bg">
 
-    <Button
-        android:id="@+id/btn_pendidikan"
+    <LinearLayout
+        android:layout_centerInParent="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_button"
-        android:text="Pendidikan"
-        android:textColor="#FFF"
-        tools:layout_editor_absoluteX="224dp"
-        tools:layout_editor_absoluteY="334dp" />
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/btn_organisasi"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_button"
-        android:text="Organisasi"
-        android:textColor="#FFF"
-        tools:layout_editor_absoluteX="224dp"
-        tools:layout_editor_absoluteY="422dp" />
+        <Button
+            android:layout_margin="15dp"
+            android:id="@+id/btn_pendidikan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_button"
+            android:text="Pendidikan"
+            android:textColor="#FFF"
+            tools:layout_editor_absoluteX="224dp"
+            tools:layout_editor_absoluteY="334dp" />
 
-    <Button
-        android:id="@+id/btn_lain"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_button"
-        android:text="Lain - lain"
-        android:textColor="#FFF"
-        tools:layout_editor_absoluteX="105dp"
-        tools:layout_editor_absoluteY="141dp" />
+        <Button
+            android:layout_margin="15dp"
+            android:id="@+id/btn_organisasi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_button"
+            android:text="Organisasi"
+            android:textColor="#FFF"
+            tools:layout_editor_absoluteX="224dp"
+            tools:layout_editor_absoluteY="422dp" />
+
+        <Button
+            android:layout_margin="15dp"
+            android:id="@+id/btn_lain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_button"
+            android:text="Lain - lain"
+            android:textColor="#FFF"
+            tools:layout_editor_absoluteX="105dp"
+            tools:layout_editor_absoluteY="141dp" />
+    </LinearLayout>
 
 
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>
 
 
 

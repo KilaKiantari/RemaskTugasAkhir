@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.asus_desktop.remask.Model.Result;
+
 import java.util.ArrayList;
 
 /**
@@ -21,38 +23,45 @@ import java.util.ArrayList;
 public class JoinGroupAdapter extends RecyclerView.Adapter<JoinGroupAdapter.MahasiswaViewHolder> {
 
 
-    private ArrayList<Mahasiswa> dataList;
+    private ArrayList<Result> result;
     private Context mContext;
 
-    public class MahasiswaViewHolder extends RecyclerView.ViewHolder{
-        private TextView txtNama, txtNpm, txtNoHp;
-        public ImageView overflow;
-
-        public MahasiswaViewHolder(View itemView) {
-            super(itemView);
-            txtNama = (TextView) itemView.findViewById(R.id.txt_nama_mahasiswa);
-            txtNpm = (TextView) itemView.findViewById(R.id.txt_npm);
-            overflow = (ImageView) itemView.findViewById(R.id.overflow);
-
-        }
-    }
-
-    public JoinGroupAdapter(Context mContext,ArrayList<Mahasiswa> dataList) {
+    public JoinGroupAdapter(Context mContext,ArrayList<Result> results)
+    {
         this.mContext = mContext;
-        this.dataList = dataList;
-
+        this.result = results;
     }
 
-    @Override
+
+
     public MahasiswaViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View view = layoutInflater.inflate(R.layout.card_view_joingroup, parent, false);
         return new MahasiswaViewHolder(view);
     }
 
-    @Override
+    public class MahasiswaViewHolder extends RecyclerView.ViewHolder{
+        private TextView txtNamaGroup, txtNamaGuru,txtNamaMatpel,txtSekolah;
+        public ImageView overflow;
+
+        public MahasiswaViewHolder(View itemView) {
+            super(itemView);
+            txtNamaGroup = (TextView) itemView.findViewById(R.id.txt_nama_grup);
+            txtNamaGuru = (TextView) itemView.findViewById(R.id.txt_nama_guru);
+            txtNamaMatpel = (TextView) itemView.findViewById(R.id.txt_nama_matpel);
+            txtSekolah= (TextView) itemView.findViewById(R.id.txt_nama_sekolah);
+            overflow = (ImageView) itemView.findViewById(R.id.overflow);
+
+        }
+    }
+
+
+
     public void onBindViewHolder(final MahasiswaViewHolder holder, int position) {
-        holder.txtNama.setText(dataList.get(position).getNama());
+        holder.txtNamaGroup.setText(result.get(position).getNamagroup());
+        holder.txtNamaGuru.setText(result.get(position).getNamaGuru());
+        holder.txtNamaMatpel.setText(result.get(position).getNamaMatpel());
+        holder.txtSekolah.setText(result.get(position).getSekolah());
         holder.overflow.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -69,7 +78,7 @@ public class JoinGroupAdapter extends RecyclerView.Adapter<JoinGroupAdapter.Maha
         PopupMenu popup = new PopupMenu(mContext, view);
         MenuInflater inflater = popup.getMenuInflater();
         inflater.inflate(R.menu.menu_group, popup.getMenu());
-        popup.setOnMenuItemClickListener(new JoinGroupAdapter.MyMenuItemClickListener());
+        popup.setOnMenuItemClickListener(new MyMenuItemClickListener());
         popup.show();
 
     }
@@ -96,7 +105,7 @@ public class JoinGroupAdapter extends RecyclerView.Adapter<JoinGroupAdapter.Maha
 
     @Override
     public int getItemCount() {
-        return (dataList != null) ? dataList.size() : 0;
+        return result.size();
     }
 
 

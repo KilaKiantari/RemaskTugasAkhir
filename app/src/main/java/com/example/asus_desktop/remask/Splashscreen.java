@@ -2,6 +2,7 @@ package com.example.asus_desktop.remask;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 /**
@@ -10,11 +11,15 @@ import android.os.Bundle;
 
 public class Splashscreen extends Activity {
 
+
+    private SharedPreferences sharedPreferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splashscreen);
 
+        sharedPreferences = getSharedPreferences("Remask", MODE_PRIVATE);
         Thread timer = new Thread() {
             public void run() {
                 try {
@@ -25,6 +30,11 @@ public class Splashscreen extends Activity {
                     e.printStackTrace();
 
                 } finally {
+
+                    if (sharedPreferences.getString("username","").isEmpty()){
+                        Intent main = new Intent(Splashscreen.this, MainActivity.class);
+                        startActivity(main);
+                    }
 
                     //activity yang akan dijalankan setelah splash screen selesai
                     Intent main = new Intent(Splashscreen.this, Login.class);
