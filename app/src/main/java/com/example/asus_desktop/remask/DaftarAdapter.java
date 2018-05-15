@@ -61,7 +61,18 @@ public class DaftarAdapter extends RecyclerView.Adapter<DaftarAdapter.MahasiswaV
         holder.txtNamaTugas.setText(result.get(position).getNamaTugas());
         holder.txtKeterangan.setText(result.get(position).getKeterangan());
         holder.txtTgl.setText(result.get(position).getTanggalTugas());
-        holder.txtKategori.setText(result.get(position).getKategori());
+
+        switch (result.get(position).getKategori()){
+            case "1":
+                holder.txtKategori.setText("lain-lain");
+                break;
+            case "2":
+                holder.txtKategori.setText("organisasi");
+                break;
+            case "3":
+                holder.txtKategori.setText("pendidikan");
+                break;
+        }
         holder.overflow.setOnClickListener(new View.OnClickListener() {
 
             @Override

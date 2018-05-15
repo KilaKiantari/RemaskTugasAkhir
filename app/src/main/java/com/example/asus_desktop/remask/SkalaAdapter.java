@@ -39,6 +39,18 @@ public class SkalaAdapter extends RecyclerView.Adapter<SkalaAdapter.MahasiswaVie
         holder.txtTgl.setText(result.get(position).getTanggalTugas());
         holder.txtKategori.setText(result.get(position).getKategori());
 
+        switch (result.get(position).getKategori()){
+            case "1":
+                holder.txtKategori.setText("lain-lain");
+                break;
+            case "2":
+                holder.txtKategori.setText("organisasi");
+                break;
+            case "3":
+                holder.txtKategori.setText("pendidikan");
+                break;
+        }
+
     }
 
     @Override

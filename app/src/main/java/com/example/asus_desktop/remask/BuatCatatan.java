@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -20,7 +22,6 @@ import android.widget.Toast;
 
 import com.example.asus_desktop.remask.Api.ApiClient;
 import com.example.asus_desktop.remask.Model.ModelCreateTugas;
-import com.example.asus_desktop.remask.Model.ModelLoginUser;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -51,8 +52,6 @@ public class BuatCatatan extends AppCompatActivity {
         setContentView(R.layout.buat_catatan);
         sharedPreferences = getSharedPreferences("Remask", MODE_PRIVATE);
         edit =sharedPreferences.edit();
-        edit.clear();
-        edit.apply();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -79,6 +78,9 @@ public class BuatCatatan extends AppCompatActivity {
         toolbar.setTitleTextColor(Color.parseColor("#FFFFFF"));
 
 
+        Log.d("date",sharedPreferences.getString("date",""));
+
+
 
     }
 
@@ -99,6 +101,7 @@ public class BuatCatatan extends AppCompatActivity {
         return true;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -109,30 +112,42 @@ public class BuatCatatan extends AppCompatActivity {
                 startActivity(ab);
                 return true;
             case R.id.action_save:
-                ApiClient.services_post.login(mTitleText.getText().toString(),mDescriptionText.getText().toString() ).enqueue(new Callback<ModelCreateTugas>() {
+                String date = sharedPreferences.getString("date","")+" "+String.valueOf(pickerTime.getHour())+":"+String.valueOf(pickerTime.getMinute())+":00";
+
+
+                Log.d("id","1");
+                Log.d("title",mTitleText.getText().toString());
+                Log.d("organisasi","org");
+                Log.d("desc",mDescriptionText.getText().toString());
+                Log.d("date",date);
+
+
+                ApiClient.services_post.create(
+                        "1",
+                        mTitleText.getText().toString(),
+                        "2",
+                        mDescriptionText.getText().toString(),
+                        date,
+                        "0").enqueue(new Callback<String>() {
                     @Override
-                    public void onResponse(Call<ModelCreateTugas> call, Response<ModelCreateTugas> response) {
+                    public void onResponse(Call<String> call, Response<String> response) {
+                        Log.d("status",response.body().toString());
+                        Toast.makeText(BuatCatatan.this, "Daftar Catatan telah ditambahkan", Toast.LENGTH_SHORT).show();
 
-                        edit.putString("nama_tugas", modelCreateTugas.getResults().getNamaTugas());
-                        edit.putString("siswa_id", String.valueOf(modelCreateTugas.getResults().getSiswaId()));
-                        edit.commit();
-
-                        Log.d("username", modelCreateTugas.getResults().getUsername());
-                        Log.d("siswa_id", String.valueOf(modelCreateTugas.getResults().getSiswaId()));
-
-                        Intent openMainScreen = new Intent(this, BuatCatatan.class);
-                        openMainScreen.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(openMainScreen);
                         //return true;
                     }
 
                     @Override
-                    public void onFailure(Call<ModelCreateTugas> call, Throwable t) {
+                    public void onFailure(Call<String> call, Throwable t) {
 
                     }
 
 
         });
+
+                Intent intent = new Intent(BuatCatatan.this, MainActivity.class);
+                startActivity(intent);
+                finish();
 
             default:
                 return super.onOptionsItemSelected(item);

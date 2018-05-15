@@ -84,10 +84,6 @@ public class MainActivity extends AppCompatActivity
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch(item.getItemId()) {
-            case R.id.action_new:
-                Intent openCreateNote = new Intent(MainActivity.this, PopActivity.class);
-                startActivity(openCreateNote);
-                return true;
             case R.id.action_settings:
                 Intent ab = new Intent(MainActivity.this, MainActivity.class);
                 ab.putExtra("Extra","Tools");

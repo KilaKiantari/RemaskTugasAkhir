@@ -61,6 +61,18 @@ public class ApiClient {
                 @Field("username") String username,
                 @Field("password") String password
         );
+
+
+        @FormUrlEncoded
+        @POST("daftartugassiswa/create")
+        Call<String> create(
+                @Field("siswa_id") String siswa_id,
+                @Field("nama_tugas") String nama_tugas,
+                @Field("kategori") String kategori,
+                @Field("keterangan") String keterangan,
+                @Field("tanggal_tugas") String tanggal_tugas,
+                @Field("tanggal_selesai") String tanggal_selesai
+        );
     }
     public interface GetServicesProfil{
         @GET("profilsiswa/{id}")
@@ -90,7 +102,9 @@ public class ApiClient {
                 @Field("nama_tugas") String nama_tugas,
                 @Field("kategori") String kategori,
                 @Field("keterangan") String keterangan,
-                @Field("tanggal_tugas") String tanggal_tugas
+                @Field("tanggal_tugas") String tanggal_tugas,
+                @Field("tanggal_selesai") String tanggal_selesai
+
         );
     }
 }
