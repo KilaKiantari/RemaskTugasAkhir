@@ -28,11 +28,10 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
- * Created by Asus-Desktop on 4/12/2018.
+ * Created by Asus-Desktop on 5/15/2018.
  */
 
-
-public class BuatCatatan extends AppCompatActivity {
+public class BuatCatatanLain extends AppCompatActivity {
     Toolbar toolbar;
     SQLiteDatabase db;
     //DbHelper mDbHelper;
@@ -71,10 +70,10 @@ public class BuatCatatan extends AppCompatActivity {
 
 
         ArrayAdapter adapter = ArrayAdapter.createFromResource(
-                this, R.array.organisasi_type, android.R.layout.simple_spinner_item);
+                this, R.array.lain_lain_type, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSpinner.setAdapter(adapter);
-        BuatCatatan.this.setTitle("Buat Catatan");
+        BuatCatatanLain.this.setTitle("Buat Catatan");
         toolbar.setTitleTextColor(Color.parseColor("#FFFFFF"));
 
 
@@ -107,7 +106,7 @@ public class BuatCatatan extends AppCompatActivity {
 
         switch(item.getItemId()) {
             case R.id.action_settings:
-                Intent ab = new Intent(BuatCatatan.this, MainActivity.class);
+                Intent ab = new Intent(BuatCatatanLain.this, MainActivity.class);
                 ab.putExtra("Extra","Tools");
                 startActivity(ab);
                 return true;
@@ -117,7 +116,7 @@ public class BuatCatatan extends AppCompatActivity {
 
                 Log.d("id","1");
                 Log.d("title",mTitleText.getText().toString());
-                Log.d("organisasi","org");
+                Log.d("lain lain","org");
                 Log.d("desc",mDescriptionText.getText().toString());
                 Log.d("date",date);
 
@@ -125,17 +124,17 @@ public class BuatCatatan extends AppCompatActivity {
                 ApiClient.services_post.create(
                         "1",
                         mTitleText.getText().toString(),
-                        "2",
+                        "1",
                         mDescriptionText.getText().toString(),
                         date,
                         "0").enqueue(new Callback<String>() {
                     @Override
                     public void onResponse(Call<String> call, Response<String> response) {
                         Log.d("status",response.body().toString());
-                        Toast.makeText(BuatCatatan.this, "Daftar Catatan telah ditambahkan", Toast.LENGTH_SHORT).show();
 
                         //return true;
                     }
+
 
                     @Override
                     public void onFailure(Call<String> call, Throwable t) {
@@ -143,9 +142,9 @@ public class BuatCatatan extends AppCompatActivity {
                     }
 
 
-        });
+                });
 
-                Intent intent = new Intent(BuatCatatan.this, MainActivity.class);
+                Intent intent = new Intent(BuatCatatanLain.this, MainActivity.class);
                 startActivity(intent);
                 finish();
 

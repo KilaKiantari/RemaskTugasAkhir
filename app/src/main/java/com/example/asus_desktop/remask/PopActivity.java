@@ -48,7 +48,7 @@ public class PopActivity extends Activity {
         btn_lain.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View view) {
-                                            Intent openCreateNote = new Intent(PopActivity.this, BuatCatatan.class);
+                                            Intent openCreateNote = new Intent(PopActivity.this, BuatCatatanLain.class);
                                             startActivity(openCreateNote);
                                         }
                                     });

@@ -3,6 +3,7 @@ package com.example.asus_desktop.remask.Api;
 import com.example.asus_desktop.remask.Model.ModelCreateTugas;
 import com.example.asus_desktop.remask.Model.ModelDaftarCatatan;
 import com.example.asus_desktop.remask.Model.ModelGroupAll;
+import com.example.asus_desktop.remask.Model.ModelGroupJoined;
 import com.example.asus_desktop.remask.Model.ModelLoginUser;
 import com.example.asus_desktop.remask.Model.ModelSkalaPrioritas;
 import com.example.asus_desktop.remask.Model.UserHistoriSiswa;
@@ -22,7 +23,8 @@ import retrofit2.http.Path;
  */
 
 public class ApiClient {
-    public static final String BASE_URL = "http://192.168.1.9/Remask/belakang/api/";
+    //public static final String BASE_URL = "http://192.168.1.7/Remask/belakang/api/";
+    public static final String BASE_URL = "http://kila.jagopesan.com/Remask/belakang/api/";
 
     public static PostServices services_post = new Retrofit.Builder()
             .baseUrl(BASE_URL)
@@ -51,6 +53,10 @@ public class ApiClient {
     public static GetServicesDaftarCatatan services_get_daftar_catatan = new Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create()).build().create(ApiClient.GetServicesDaftarCatatan.class);
+
+    public static GetServicesGroupJoined services_get_group_joined = new Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create()).build().create(ApiClient.GetServicesGroupJoined.class);
 
 
 
@@ -94,6 +100,11 @@ public class ApiClient {
     public interface GetServicesDaftarCatatan{
         @GET("daftartugaspendidikansiswa/{id}")
         Call<ModelDaftarCatatan> getDaftarCatatan(@Path("id") int id);
+    }
+
+    public interface GetServicesGroupJoined{
+        @GET("siswagrup/joined/{id}")
+        Call<ModelGroupJoined> getGroupJoined(@Path("id") int id);
     }
     public interface PostServicesCatatan{
         @FormUrlEncoded

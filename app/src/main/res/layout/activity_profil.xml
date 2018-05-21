@@ -11,8 +11,6 @@
         android:layout_height="match_parent"
         android:id="@+id/layout">
 
-
-
         <RelativeLayout
             android:id="@+id/profile_layout"
             android:layout_width="match_parent"
@@ -84,6 +82,12 @@
                     tools:layout_editor_absoluteX="4dp"
                     tools:layout_editor_absoluteY="180dp" />
 
+                <View
+                    android:layout_width="match_parent"
+                    android:visibility="visible"
+                    android:layout_height="2dp"
+                    android:background="#a40404"/>
+
                 <TextView
                     android:id="@+id/sekolah"
                     android:layout_width="match_parent"
@@ -98,6 +102,12 @@
                     android:textStyle="bold"
                     tools:layout_editor_absoluteX="4dp"
                     tools:layout_editor_absoluteY="120dp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:visibility="visible"
+                    android:layout_height="2dp"
+                    android:background="#a40404"/>
 
                 <TextView
                     android:id="@+id/username"
@@ -114,6 +124,12 @@
                     android:textSize="24dp"
                     android:textStyle="bold" />
 
+                <View
+                    android:layout_width="match_parent"
+                    android:visibility="visible"
+                    android:layout_height="2dp"
+                    android:background="#a40404"/>
+
                 <TextView
                     android:id="@+id/email"
                     android:layout_width="match_parent"
@@ -123,11 +139,17 @@
                     android:drawableLeft="@drawable/ic_email_black_24dp"
                     android:drawablePadding="20dp"
                     android:drawableStart="@drawable/ic_email_black_24dp"
-                    android:text="kilakiantari@gmail.com"
+                    android:text="aaa"
                     android:textSize="24dp"
                     android:textStyle="bold"
                     tools:layout_editor_absoluteX="4dp"
                     tools:layout_editor_absoluteY="60dp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:visibility="visible"
+                    android:layout_height="2dp"
+                    android:background="#a40404"/>
             </LinearLayout>
 
         </RelativeLayout>

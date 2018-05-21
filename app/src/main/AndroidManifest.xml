@@ -29,6 +29,8 @@
         </activity>
         <activity android:name=".JoinGroup"></activity>
         <activity android:name=".Buat_Catatan_Pendidikan"></activity>
+        <activity android:name=".BuatCatatanLain"></activity>
+
     </application>
 
 </manifest>

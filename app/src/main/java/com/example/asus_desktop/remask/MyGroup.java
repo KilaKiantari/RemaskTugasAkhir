@@ -13,24 +13,27 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.asus_desktop.remask.Api.ApiClient;
-import com.example.asus_desktop.remask.Model.UserHistoriSiswa;
+import com.example.asus_desktop.remask.Model.ModelGroupJoined;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ * Created by Asus-Desktop on 5/16/2018.
+ */
 
-public class HistoriTugas extends Fragment {
+public class MyGroup extends Fragment {
 
-    public HistoriTugas() {
+    public MyGroup() {
     }
 
-    private static final String TAG = HistoriTugas.class.getSimpleName();
+    private static final String TAG = MyGroup.class.getSimpleName();
 
     private RecyclerView recyclerView;
-    private MahasiswaAdapter adapter;
+    private MyGroupAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
-    private UserHistoriSiswa userHistoriSiswa;
+    private ModelGroupJoined modelGroupJoined;
     private TextView txtNama, txtTgl, txTglSelesai;
     ApiClient apiClient;
 
@@ -50,7 +53,7 @@ public class HistoriTugas extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
-        getActivity().setTitle("Histori Tugas");
+        getActivity().setTitle("Group Saya");
 
         final ProgressDialog progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("Please wait....");
@@ -59,17 +62,17 @@ public class HistoriTugas extends Fragment {
 
 //        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("Remask", Context.MODE_PRIVATE);
 //        Log.d("id_tugas", String.valueOf(sharedPreferences.getInt("id_tugas", 0)));
-        ApiClient.services_get_hitori.getHistori(1).enqueue(new Callback<UserHistoriSiswa>() {
+        ApiClient.services_get_group_joined.getGroupJoined(1).enqueue(new Callback<ModelGroupJoined>() {
 
-                //progressDialog.setMessage("Please wait...");
-                //progressDialog.show();
+            //progressDialog.setMessage("Please wait...");
+            //progressDialog.show();
 
             @Override
-            public void onResponse(Call<UserHistoriSiswa> call, Response<UserHistoriSiswa> response) {
-                userHistoriSiswa = response.body();
+            public void onResponse(Call<ModelGroupJoined> call, Response<ModelGroupJoined> response) {
+                modelGroupJoined = response.body();
 
 
-                adapter = new MahasiswaAdapter(userHistoriSiswa.getResults());
+                adapter = new MyGroupAdapter(getActivity(),modelGroupJoined.getResults());
                 adapter.notifyDataSetChanged();
                 recyclerView.setAdapter(adapter);
 
@@ -78,7 +81,7 @@ public class HistoriTugas extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<UserHistoriSiswa> call, Throwable t) {
+            public void onFailure(Call<ModelGroupJoined> call, Throwable t) {
 
             }
         });
@@ -102,8 +105,4 @@ public class HistoriTugas extends Fragment {
         }
     }
 }
-
-
-
-
 

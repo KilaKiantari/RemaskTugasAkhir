@@ -109,7 +109,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/spinnerNoteType"
-                    android:entries="@array/kategori_type"
+                    android:entries="@array/organisasi_type"
                     android:layout_below="@+id/description"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true"

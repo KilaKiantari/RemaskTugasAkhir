@@ -2,10 +2,12 @@ package com.example.asus_desktop.remask;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,6 +30,7 @@ public class JoinGroup extends AppCompatActivity {
     private JoinGroupAdapter adapter;
     private ModelGroupAll modelGroupAll;
     ApiClient apiClient;
+    SearchView searchView;
 
 
     @Override
@@ -50,6 +53,13 @@ public class JoinGroup extends AppCompatActivity {
         final ProgressDialog progressDialog = new ProgressDialog(JoinGroup.this);
         progressDialog.setMessage("Please wait....");
         progressDialog.show();
+        JoinGroup.this.setTitle("Daftar Group");
+        toolbar.setTitleTextColor(Color.parseColor("#FFFFFF"));
+
+       // searchView = (SearchView) findViewById(R.id.searchView1);
+        //searchView.setQueryHint("Search for sources, people, topics...");
+        //searchView.setOnClickListener(JoinGroup.this);
+        //searchView.setFocusable(true);
 
 
 

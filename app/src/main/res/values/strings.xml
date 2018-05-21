@@ -19,10 +19,16 @@
     <string name="fri">FRI</string>
     <string name="sat">SAT</string>
     <string name="last_date">30</string>
-    <string-array name="kategori_type">
+    <string-array name="organisasi_type">
     <item>Organisasi</item>
+    </string-array>
+    <string-array name="lain_lain_type">
         <item>Lain Lain</item>
     </string-array>
+    <string-array name="pendidikan_type">
+        <item>Pendidikan</item>
+    </string-array>
+
 
     <string-array name="set_alarm">
         <item>7 hari sebelum</item>

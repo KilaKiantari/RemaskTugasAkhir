@@ -64,7 +64,7 @@ public class Buat_Catatan_Pendidikan extends AppCompatActivity {
 
 
         ArrayAdapter adapter = ArrayAdapter.createFromResource(
-                this, R.array.kategori_type, android.R.layout.simple_spinner_item);
+                this, R.array.pendidikan_type, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSpinner.setAdapter(adapter);
         Buat_Catatan_Pendidikan.this.setTitle("Buat Catatan Pendidikan");
