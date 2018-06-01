@@ -17,7 +17,14 @@ public class PopActivity extends Activity {
 
     Button btn_pendidikan;
     Button btn_organisasi;
+
     Button btn_lain;
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        finish();
+    }
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

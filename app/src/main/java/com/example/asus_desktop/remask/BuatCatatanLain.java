@@ -135,12 +135,9 @@ public class BuatCatatanLain extends AppCompatActivity {
                         //return true;
                     }
 
-
                     @Override
                     public void onFailure(Call<String> call, Throwable t) {
-
                     }
-
 
                 });
 

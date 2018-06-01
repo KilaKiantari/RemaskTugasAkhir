@@ -12,14 +12,16 @@
         android:layout_gravity="center"
         card_view:cardCornerRadius="5dp"
         card_view:cardUseCompatPadding="true"
-        android:elevation="10dp">
+        android:elevation="10dp"
+        >
 
         <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:orientation="vertical"
-            android:padding="5dp">
+            android:padding="5dp"
+            >
 
             <!-- TextView Nama Mahasiwa -->
             <TextView
@@ -27,28 +29,32 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Bahasa"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:textColor="#000"/>
 
             <TextView
                 android:layout_below="@+id/txt_nama_tugas"
                 android:id="@+id/txt_keterangan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="24-Maret-2018"/>
+                android:text="24-Maret-2018"
+                android:textColor="#000"/>
 
             <TextView
                 android:layout_below="@+id/txt_keterangan"
                 android:id="@+id/tgl_tugas"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="24-Maret-2018"/>
+                android:text="24-Maret-2018"
+                android:textColor="#000"/>
 
             <TextView
                 android:layout_below="@+id/tgl_tugas"
                 android:id="@+id/id_kategori"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="24-Maret-2018"/>
+                android:text="24-Maret-2018"
+                android:textColor="#000"/>
 
 
             <!-- TextView Npm Mahasiswa -->

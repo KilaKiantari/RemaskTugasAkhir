@@ -1,8 +1,10 @@
 package com.example.asus_desktop.remask;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -25,7 +27,7 @@ public class MainActivity extends AppCompatActivity
     NavigationView navigationView;
     FragmentManager fragmentManager;
     Fragment fragment = null;
-    private SessionManager sessionManager;
+    private SessionManager session;
     private ProgressDialog progressDialog;
     CollapsingToolbarLayout collapsingToolbar;
 
@@ -71,7 +73,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onBackPressed() {
+   /* public void onBackPressed() {
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
@@ -79,7 +81,21 @@ public class MainActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }
+    */
 
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setTitle("Really Exit?")
+                .setMessage("Are you sure you want to exit?")
+                .setNegativeButton(android.R.string.no, null)
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        finish();
+                        MainActivity.super.onBackPressed();
+                    }
+                }).create().show();
+    }
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.activity_main_calendar, menu);
@@ -131,8 +147,9 @@ public class MainActivity extends AppCompatActivity
             fragment = new Tools();
             callFragment(fragment);}
         else if (id == R.id.nav_logout) {
-            sessionManager = new SessionManager(getApplicationContext());
-            sessionManager.setLogin(false);
+            session = new SessionManager(getApplicationContext());
+            session.logoutUser();
+            finish();
         }
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

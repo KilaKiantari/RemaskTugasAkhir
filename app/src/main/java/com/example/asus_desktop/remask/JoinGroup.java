@@ -2,6 +2,7 @@ package com.example.asus_desktop.remask;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.asus_desktop.remask.Api.ApiClient;
 import com.example.asus_desktop.remask.Model.ModelGroupAll;
@@ -31,7 +33,9 @@ public class JoinGroup extends AppCompatActivity {
     private ModelGroupAll modelGroupAll;
     ApiClient apiClient;
     SearchView searchView;
-
+    private String namagroup;
+    private String guru_id;
+    private String siswa_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +43,11 @@ public class JoinGroup extends AppCompatActivity {
         setContentView(R.layout.activity_joingroup);
         //addData();
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+
+        SharedPreferences sharedPreferences = JoinGroup.this.getSharedPreferences("Remask", MODE_PRIVATE);
+        siswa_id = sharedPreferences.getString("siswa_id","");
+        //Toast.makeText(JoinGroup.this, ""+siswa_id, Toast.LENGTH_SHORT).show();
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -69,21 +78,27 @@ public class JoinGroup extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
 
-        ApiClient.services_get_group_all.getGroupAll(1).enqueue(new Callback<ModelGroupAll>() {
+        ApiClient.services_get_group_all.getGroupAll(3).enqueue(new Callback<ModelGroupAll>() {
             @Override
             public void onResponse(Call<ModelGroupAll> call, Response<ModelGroupAll> response) {
-                modelGroupAll = response.body();
+                if(response.isSuccessful()) {
+                    modelGroupAll = response.body();
 //                adapter = new JoinGroupAdapter(this,modelGroupAll.getResults());
-                adapter = new JoinGroupAdapter(JoinGroup.this,modelGroupAll.getResults());
-                adapter.notifyDataSetChanged();
-                recyclerView.setAdapter(adapter);
-                progressDialog.dismiss();
+                    adapter = new JoinGroupAdapter(JoinGroup.this, modelGroupAll.getResults());
+                    adapter.notifyDataSetChanged();
+                    recyclerView.setAdapter(adapter);
+                    //Log.d("A",response.body());
+                    //Toast.makeText(JoinGroup.this, "" + namagroup, Toast.LENGTH_SHORT).show();
+                    progressDialog.dismiss();
+                }else{
+                    Toast.makeText(JoinGroup.this, "KESALAHAN" , Toast.LENGTH_SHORT).show();
+                }
 
             }
 
             @Override
             public void onFailure(Call<ModelGroupAll> call, Throwable t) {
-
+                Toast.makeText(JoinGroup.this, "" +t, Toast.LENGTH_SHORT).show();
             }
         });
 

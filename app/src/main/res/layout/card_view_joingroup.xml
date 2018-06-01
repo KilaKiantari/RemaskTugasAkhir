@@ -27,28 +27,32 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Bahasa"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:textColor="#000"/>
 
             <TextView
                 android:layout_below="@+id/txt_nama_grup"
                 android:id="@+id/txt_nama_guru"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="24-Maret-2018"/>
+                android:text="24-Maret-2018"
+                android:textColor="#000"/>
 
             <TextView
                 android:layout_below="@+id/txt_nama_guru"
                 android:id="@+id/txt_nama_matpel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="24-Maret-2018"/>
+                android:text="24-Maret-2018"
+                android:textColor="#000"/>
 
             <TextView
                 android:layout_below="@+id/txt_nama_matpel"
                 android:id="@+id/txt_nama_sekolah"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="24-Maret-2018"/>
+                android:text="24-Maret-2018"
+                android:textColor="#000"/>
 
 
             <!-- TextView Npm Mahasiswa -->

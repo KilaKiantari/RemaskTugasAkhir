@@ -18,7 +18,9 @@ import android.widget.Toast;
 
 import com.example.asus_desktop.remask.Api.ApiClient;
 import com.example.asus_desktop.remask.Model.ModelDaftarCatatan;
+import com.example.asus_desktop.remask.Model.Result;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -46,6 +48,7 @@ public class Daftar_Catatan extends Fragment {
     private String date;
     private Calendar calendar;
     private FloatingActionButton fab;
+    private Date currentTime = Calendar.getInstance().getTime();
     //private ArrayList<Mahasiswa> mahasiswaArrayList;
 
 
@@ -58,32 +61,39 @@ public class Daftar_Catatan extends Fragment {
         calendarView = (CalendarView) view.findViewById(R.id.calendar);
         fab = (FloatingActionButton) view.findViewById(R.id.fab);
 
-
         sharedPreferences = getActivity().getSharedPreferences("Remask", Context.MODE_PRIVATE);
         edit =sharedPreferences.edit();
 
-        Date currentTime = Calendar.getInstance().getTime();
 
-        date = String.valueOf(1900+currentTime.getYear())+"-"+String.valueOf(currentTime.getMonth())+"-"+String.valueOf(currentTime.getDate());
-        edit.putString("date", date);
-        edit.commit();
-        Log.d("date_awal",date);
 
+
+        setCurrentNote();
+//        refreshRecycler();
 
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             public void onSelectedDayChange(CalendarView view,
                                             int year, int month, int dayOfMonth) {
+                month = month+1;
+                String sMonth,sDay;
+                if (String.valueOf(month).length()==1){
+                    sMonth = "0"+String.valueOf(month);
+                }
+                else {
+                    sMonth = String.valueOf(month);
+                }
+                if (String.valueOf(dayOfMonth).length()==1){
+                    sDay = "0"+String.valueOf(dayOfMonth);
+                }
+                else {
+                    sDay = String.valueOf(dayOfMonth);
+                }
                 Toast.makeText(getActivity().getApplicationContext(),
                         "Year: " + year + "\n" +
                                 "Month: " + month + "\n" +
                                 "Day of Month: " + dayOfMonth,
                         Toast.LENGTH_LONG).show();
-                date = String.valueOf(year)+"-"+String.valueOf(month)+"-"+String.valueOf(dayOfMonth);
-                edit.putString("date", date);
-                edit.commit();
 
-                Log.d("date_akhir",date);
-                Log.d("date_shared",sharedPreferences.getString("date",""));
+                fillRecycler(String.valueOf(year),sMonth,sDay);
 
             }
         });
@@ -105,13 +115,41 @@ public class Daftar_Catatan extends Fragment {
             }
         });
 
+
+
+        return view;
+    }
+
+
+    private void setCurrentNote() {
+
+        final String month,day;
+        int m = currentTime.getMonth()+1;
+        int d = currentTime.getDate();
+
+        if (String.valueOf(m).length()==1){
+            month = "0"+String.valueOf(m);
+        }
+        else {
+            month = String.valueOf(m);
+        }
+        if (String.valueOf(d).length()==1){
+            day = "0"+String.valueOf(d);
+        }
+        else {
+            day = String.valueOf(d);
+        }
+
+        date = String.valueOf(1900+currentTime.getYear())+"-"+month+"-"+day;
+        edit.putString("date", date);
+        edit.commit();
+        Log.d("date_awal",date);
+
         ApiClient.services_get_daftar_catatan.getDaftarCatatan(1).enqueue(new Callback<ModelDaftarCatatan>() {
             @Override
             public void onResponse(Call<ModelDaftarCatatan> call, Response<ModelDaftarCatatan> response) {
                 modelDaftarCatatan = response.body();
-                adapter = new DaftarAdapter(getActivity(),modelDaftarCatatan.getResults());
-                adapter.notifyDataSetChanged();
-                recyclerView.setAdapter(adapter);
+                fillRecycler(String.valueOf(1900+currentTime.getYear()),month,day);
 
             }
 
@@ -120,9 +158,59 @@ public class Daftar_Catatan extends Fragment {
 
             }
         });
-
-        return view;
     }
+
+    private void fillRecycler(String year,String sMonth, String sDay) {
+        date = String.valueOf(year)+"-"+sMonth+"-"+sDay;
+        edit.putString("date", date);
+        edit.commit();
+
+        Log.d("date_akhir",date);
+
+        Log.d("date_shared",sharedPreferences.getString("date",""));
+
+        ArrayList<Result> filterResult = new ArrayList<>();
+        for(int i= 0;i<modelDaftarCatatan.getResults().size();i++){
+            Log.d("maxString",modelDaftarCatatan.getResults().get(i).getTanggalTugas());
+            Log.d("subString",modelDaftarCatatan.getResults().get(i).getTanggalTugas().substring(0,10));
+            if (modelDaftarCatatan.getResults().get(i).getTanggalTugas().substring(0,10).equals(date)){
+
+                Log.d("modelDaftarCatatan",modelDaftarCatatan.getResults().get(i).getTanggalTugas().substring(0,10));
+                Log.d("date",date);
+                filterResult.add(modelDaftarCatatan.getResults().get(i));
+                Log.d("filterResult",filterResult.get(0).getTanggalTugas());
+            }
+        }
+        adapter = new DaftarAdapter(getActivity(),filterResult);
+        adapter.notifyDataSetChanged();
+        recyclerView.setAdapter(adapter);
+    }
+
+    private void refreshRecycler() {
+
+        ApiClient.services_get_daftar_catatan.getDaftarCatatan(1).enqueue(new Callback<ModelDaftarCatatan>() {
+            @Override
+            public void onResponse(Call<ModelDaftarCatatan> call, Response<ModelDaftarCatatan> response) {
+                modelDaftarCatatan = response.body();
+//                adapter = new DaftarAdapter(getActivity(),modelDaftarCatatan.getResults());
+//                adapter.notifyDataSetChanged();
+//                recyclerView.setAdapter(adapter);
+
+            }
+
+            @Override
+            public void onFailure(Call<ModelDaftarCatatan> call, Throwable t) {
+
+            }
+        });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        refreshRecycler();
+    }
+
 
 }
 

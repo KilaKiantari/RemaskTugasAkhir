@@ -118,23 +118,26 @@ public class Login extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<ModelLoginUser> call, Response<ModelLoginUser> response) {
                     modelLogin = response.body();
-                    if (modelLogin != null) {
-                        sessionManager.setUid(modelLogin.getResult().getId());
-                        sessionManager.setLogin(true);
-                        sessionManager.setUsername(modelLogin.getResult().getUsername());
+                  //  if (modelLogin != null) {
+                      //  sessionManager.setUid(modelLogin.getResult().getId());
+                     //   sessionManager.setLogin(true);
+                      //  sessionManager.setUsername(modelLogin.getResult().getUsername());
 
                         edit.putString("username", modelLogin.getResult().getUsername());
                         edit.putString("siswa_id", String.valueOf(modelLogin.getResult().getSiswaId()));
                         edit.commit();
 
                         Log.d("username", modelLogin.getResult().getUsername());
-                        Log.d("siswa_id", String.valueOf(modelLogin.getResult().getSiswaId()));
+                        Log.d("siswa_id", modelLogin.getResult().getSiswaId());
+
+                            String siswa_id = sharedPreferences.getString("siswa_id","");
+                             Toast.makeText(Login.this, "siswa id = " + siswa_id, Toast.LENGTH_SHORT).show();
 
                         Intent intent = new Intent(Login.this, MainActivity.class);
                         startActivity(intent);
-                    }else {
+                  //  }else {
                         Toast.makeText(Login.this, "Akun belum terdaftar", Toast.LENGTH_SHORT).show();
-                    }
+                  //  }
 
                     progressDialog.dismiss();
 
@@ -147,14 +150,16 @@ public class Login extends AppCompatActivity {
 
             });
 
-            txtViewSingUp.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(Login.this, Register.class);
-                    startActivity(intent);
-                    finish();
+
                 }
             });
+
+        txtViewSingUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Login.this, Register.class);
+                startActivity(intent);
+                finish();
         }
     });
 

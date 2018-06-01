@@ -68,13 +68,13 @@ public class Result {
     private Object passwordResetToken;
     @SerializedName("guru_id")
     @Expose
-    private Integer guruId;
+    private String guruId;
     @SerializedName("orangtua_id")
     @Expose
     private Object orangtuaId;
     @SerializedName("siswa_id")
     @Expose
-    private Object siswaId;
+    private String siswaId;
     @SerializedName("email")
     @Expose
     private String email;
@@ -201,11 +201,11 @@ public class Result {
         this.passwordResetToken = passwordResetToken;
     }
 
-    public Integer getGuruId() {
+    public String getGuruId() {
         return guruId;
     }
 
-    public void setGuruId(Integer guruId) {
+    public void setGuruId(String guruId) {
         this.guruId = guruId;
     }
 
@@ -217,11 +217,11 @@ public class Result {
         this.orangtuaId = orangtuaId;
     }
 
-    public Object getSiswaId() {
+    public String getSiswaId() {
         return siswaId;
     }
 
-    public void setSiswaId(Object siswaId) {
+    public void setSiswaId(String siswaId) {
         this.siswaId = siswaId;
     }
 

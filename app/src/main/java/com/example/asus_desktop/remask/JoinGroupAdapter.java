@@ -1,6 +1,7 @@
 package com.example.asus_desktop.remask;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,9 +13,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.asus_desktop.remask.Api.ApiClient;
+import com.example.asus_desktop.remask.Model.ModelActionJoin;
+import com.example.asus_desktop.remask.Model.ModelGroupAll;
 import com.example.asus_desktop.remask.Model.Result;
 
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * Created by Asus-Desktop on 5/5/2018.
@@ -25,6 +35,12 @@ public class JoinGroupAdapter extends RecyclerView.Adapter<JoinGroupAdapter.Maha
 
     private ArrayList<Result> result;
     private Context mContext;
+    private String id_group;
+    private String namagroup;
+    private String guru_id;
+    private String siswa_id;
+    ModelGroupAll modelGroupAll;
+
 
     public JoinGroupAdapter(Context mContext,ArrayList<Result> results)
     {
@@ -38,7 +54,10 @@ public class JoinGroupAdapter extends RecyclerView.Adapter<JoinGroupAdapter.Maha
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View view = layoutInflater.inflate(R.layout.card_view_joingroup, parent, false);
         return new MahasiswaViewHolder(view);
+
     }
+
+
 
     public class MahasiswaViewHolder extends RecyclerView.ViewHolder{
         private TextView txtNamaGroup, txtNamaGuru,txtNamaMatpel,txtSekolah;
@@ -52,12 +71,16 @@ public class JoinGroupAdapter extends RecyclerView.Adapter<JoinGroupAdapter.Maha
             txtSekolah= (TextView) itemView.findViewById(R.id.txt_nama_sekolah);
             overflow = (ImageView) itemView.findViewById(R.id.overflow);
 
+          
         }
     }
 
 
 
-    public void onBindViewHolder(final MahasiswaViewHolder holder, int position) {
+    public void onBindViewHolder(final MahasiswaViewHolder holder, final int position) {
+        SharedPreferences sharedPreferences = mContext.getSharedPreferences("Remask", MODE_PRIVATE);
+        siswa_id = sharedPreferences.getString("siswa_id","");
+
         holder.txtNamaGroup.setText(result.get(position).getNamagroup());
         holder.txtNamaGuru.setText(result.get(position).getNamaGuru());
         holder.txtNamaMatpel.setText(result.get(position).getNamaMatpel());
@@ -66,6 +89,8 @@ public class JoinGroupAdapter extends RecyclerView.Adapter<JoinGroupAdapter.Maha
 
             @Override
             public void onClick(View v) {
+                namagroup = result.get(position).getNamagroup();
+                guru_id = result.get(position).getGuruId();
                 showPopupMenu(holder.overflow);
 
             }
@@ -95,7 +120,39 @@ public class JoinGroupAdapter extends RecyclerView.Adapter<JoinGroupAdapter.Maha
         public boolean onMenuItemClick(MenuItem menuItem) {
             switch (menuItem.getItemId()) {
                 case R.id.action_join:
-                    Toast.makeText(mContext, "Join", Toast.LENGTH_SHORT).show();
+                    ApiClient.services_post.join(
+                            namagroup,
+                            siswa_id ,
+                            guru_id) .enqueue(new Callback<ModelActionJoin>() {
+                        @Override
+                        public void onResponse(Call<ModelActionJoin> call, Response<ModelActionJoin> response) {
+                            if(response.isSuccessful()) {
+                             //   siswa_id = response.body().getSiswaId();
+                              //  namagroup = response.body().getNamagroup();
+                              //  guru_id = response.body().getGuruId();
+                                 Toast.makeText(mContext, ""+response.body().getStatus(),Toast.LENGTH_SHORT).show();
+                               // Toast.makeText(mContext, "" + siswa_id, Toast.LENGTH_SHORT).show();
+                                // id_guru = response.body().getIdGuru();
+                            }else{
+                                Toast.makeText(mContext, "SALAH", Toast.LENGTH_SHORT).show();
+                            }
+//
+                           // Toast.makeText(mContext, ""+namagroup, Toast.LENGTH_SHORT).show();
+
+
+                           // progressDialog.dismiss();
+
+                        }
+
+                        @Override
+                        public void onFailure(Call<ModelActionJoin> call, Throwable t) {
+                            Toast.makeText(mContext, "" +t, Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    Toast.makeText(mContext, ""+namagroup,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, ""+guru_id,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "Join",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, ""+siswa_id,Toast.LENGTH_SHORT).show();
                     return true;
                 default:
             }return false;

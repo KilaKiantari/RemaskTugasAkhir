@@ -1,5 +1,6 @@
 package com.example.asus_desktop.remask.Api;
 
+import com.example.asus_desktop.remask.Model.ModelActionJoin;
 import com.example.asus_desktop.remask.Model.ModelCreateTugas;
 import com.example.asus_desktop.remask.Model.ModelDaftarCatatan;
 import com.example.asus_desktop.remask.Model.ModelGroupAll;
@@ -78,6 +79,16 @@ public class ApiClient {
                 @Field("keterangan") String keterangan,
                 @Field("tanggal_tugas") String tanggal_tugas,
                 @Field("tanggal_selesai") String tanggal_selesai
+
+        );
+
+        @FormUrlEncoded
+        @POST("siswagrup/joinedoverflow")
+        Call<ModelActionJoin> join(
+                @Field("namagroup") String namagroup,
+                @Field("siswa_id") String siswa_id,
+                @Field("guru_id") String guru_id
+
         );
     }
     public interface GetServicesProfil{
@@ -93,13 +104,26 @@ public class ApiClient {
         @GET("skalaprioritas/{id}")
         Call<ModelSkalaPrioritas> getSkala(@Path("id") int id);
     }
+  /*  public interface GetServicesGroupAll{
+        @GET("siswagrup/index")
+        Call<ModelGroupAll> getGroupAll();
+    }
+    */
+
     public interface GetServicesGroupAll{
-        @GET("siswagrup/{id}")
+        @GET("siswagrup/index/{id}")
         Call<ModelGroupAll> getGroupAll(@Path("id") int id);
     }
     public interface GetServicesDaftarCatatan{
-        @GET("daftartugaspendidikansiswa/{id}")
+        @GET("daftartugassiswa/index/{id}")
         Call<ModelDaftarCatatan> getDaftarCatatan(@Path("id") int id);
+
+//        @GET("daftartugaspendidikansiswa/index?id={id}_{tanggal_tugas}")
+//        Call<ModelDaftarCatatan> getDaftarCatatan(
+//                @Path("id") int id,
+//                @Path("tanggal_tugas") String tanggal_tugas
+//        );
+
     }
 
     public interface GetServicesGroupJoined{

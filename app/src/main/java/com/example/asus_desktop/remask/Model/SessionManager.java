@@ -6,7 +6,10 @@ package com.example.asus_desktop.remask.Model;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+
+import com.example.asus_desktop.remask.Login;
 
 public class SessionManager {
     private static String TAG = SessionManager.class.getSimpleName();
@@ -74,6 +77,18 @@ public class SessionManager {
         editor.putString(KEY_IS_checkinID, id);
         editor.commit();
     }*/
+
+    public void logoutUser(){
+        // Clearing all data from Shared Preferences
+        editor.clear();
+        editor.commit();
+
+        Intent i = new Intent(_context, Login.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        _context.startActivity(i);
+    }
+
 
     public void setSessionTimeout(long timeout){
         editor.putLong(KEY_IS_SESSION_TIMEOUT, timeout);

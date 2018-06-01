@@ -28,7 +28,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Bahasa"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:textColor="#000"/>
 
 
         <!-- TextView Npm Mahasiswa -->
@@ -37,21 +38,23 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_marginLeft="300dp"
-                android:layout_marginTop="15dp" />
+                android:layout_marginTop="15dp"
+                android:textColor="#000"/>
 
             <TextView
                 android:id="@+id/tgl_tugas"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="-25dp"
-                android:text="24-Maret-2018"/>
+                android:text="24-Maret-2018"
+                android:textColor="#000"/>
 
             <TextView
             android:id="@+id/tgl_tugas_selesai"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-            android:text="24-Maret-2018"/>
+            android:text="24-Maret-2018" android:textColor="#000"/>
 
         </LinearLayout>
 
