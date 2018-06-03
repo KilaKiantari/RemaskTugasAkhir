@@ -104,6 +104,8 @@ public class Result {
     @Expose
     private String sekolah;
 
+    private boolean isSelected;
+
     public String getNamagroup() {
         return namagroup;
     }
@@ -337,5 +339,11 @@ public class Result {
         this.groupId = groupId;
     }
 
+    public boolean isSelected() {
+        return isSelected;
+    }
 
+    public void setSelected(boolean isSelected) {
+        this.isSelected = isSelected;
+    }
 }

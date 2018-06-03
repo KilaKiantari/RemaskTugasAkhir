@@ -13,27 +13,27 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.asus_desktop.remask.Api.ApiClient;
-import com.example.asus_desktop.remask.Model.ModelGroupJoined;
+import com.example.asus_desktop.remask.Model.UserHistoriSiswa;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
- * Created by Asus-Desktop on 5/16/2018.
+ * Created by Asus-Desktop on 6/1/2018.
  */
 
-public class MyGroup extends Fragment {
+public class HistoriTugasSudah extends Fragment {
 
-    public MyGroup() {
+    public HistoriTugasSudah() {
     }
 
-    private static final String TAG = MyGroup.class.getSimpleName();
+    private static final String TAG = HistoriTugasSudah.class.getSimpleName();
 
     private RecyclerView recyclerView;
-    private MyGroupAdapter adapter;
+    private HistoriSudahAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
-    private ModelGroupJoined modelGroupJoined;
+    private UserHistoriSiswa userHistoriSiswa;
     private TextView txtNama, txtTgl, txTglSelesai;
     ApiClient apiClient;
 
@@ -41,7 +41,7 @@ public class MyGroup extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_mygroup, container, false);
+        View view = inflater.inflate(R.layout.activity_histori_sudah, container, false);
         //addData();
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
 
@@ -53,7 +53,7 @@ public class MyGroup extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
-        getActivity().setTitle("Group Saya");
+        getActivity().setTitle("Histori Tugas");
 
         final ProgressDialog progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("Please wait....");
@@ -62,26 +62,23 @@ public class MyGroup extends Fragment {
 
 //        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("Remask", Context.MODE_PRIVATE);
 //        Log.d("id_tugas", String.valueOf(sharedPreferences.getInt("id_tugas", 0)));
-        ApiClient.services_get_group_joined.getGroupJoined(1).enqueue(new Callback<ModelGroupJoined>() {
+        ApiClient.services_get_hitori_sudah.getHistoriSudah(1).enqueue(new Callback<UserHistoriSiswa>() {
 
             //progressDialog.setMessage("Please wait...");
             //progressDialog.show();
 
             @Override
-            public void onResponse(Call<ModelGroupJoined> call, Response<ModelGroupJoined> response) {
-                modelGroupJoined = response.body();
-
-
-                adapter = new MyGroupAdapter(getActivity(),modelGroupJoined.getResults());
+            public void onResponse(Call<UserHistoriSiswa> call, Response<UserHistoriSiswa> response) {
+                userHistoriSiswa = response.body();
+                adapter = new HistoriSudahAdapter(userHistoriSiswa.getResults());
                 adapter.notifyDataSetChanged();
                 recyclerView.setAdapter(adapter);
-
                 progressDialog.dismiss();
 
             }
 
             @Override
-            public void onFailure(Call<ModelGroupJoined> call, Throwable t) {
+            public void onFailure(Call<UserHistoriSiswa> call, Throwable t) {
 
             }
         });
@@ -105,4 +102,3 @@ public class MyGroup extends Fragment {
         }
     }
 }
-

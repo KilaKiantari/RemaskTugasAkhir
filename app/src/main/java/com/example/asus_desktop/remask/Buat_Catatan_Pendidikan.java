@@ -1,29 +1,31 @@
 package com.example.asus_desktop.remask;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+import com.example.asus_desktop.remask.Api.ApiClient;
+import com.example.asus_desktop.remask.Model.ModelCreateTugas;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by Asus-Desktop on 5/5/2018.
@@ -38,12 +40,21 @@ public class Buat_Catatan_Pendidikan extends AppCompatActivity {
     Spinner mSpinner;
     TimePicker pickerTime;
     TextView time;
-    CheckBox checkBoxAlarm;
+    TextView txtkat;
+    ModelCreateTugas modelCreateTugas;
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor edit;
+    private String siswa_id;
+    private String group_id;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.buat_catatan);
+        setContentView(R.layout.activity_buat_catatan_pendidikan);
+
+        SharedPreferences sharedPreferences = Buat_Catatan_Pendidikan.this.getSharedPreferences("Remask", MODE_PRIVATE);
+        siswa_id = sharedPreferences.getString("siswa_id","");
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -59,22 +70,21 @@ public class Buat_Catatan_Pendidikan extends AppCompatActivity {
         mDescriptionText = (EditText) findViewById(R.id.description);
         mSpinner = (Spinner) findViewById(R.id.spinnerNoteType);
         pickerTime = (TimePicker) findViewById(R.id.timePicker);
-        checkBoxAlarm = (CheckBox) findViewById(R.id.checkBox);
+        txtkat = (TextView) findViewById(R.id.txtkat);
 
 
 
         ArrayAdapter adapter = ArrayAdapter.createFromResource(
-                this, R.array.pendidikan_type, android.R.layout.simple_spinner_item);
+                this, R.array.nama_group, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSpinner.setAdapter(adapter);
-        Buat_Catatan_Pendidikan.this.setTitle("Buat Catatan Pendidikan");
+        Buat_Catatan_Pendidikan.this.setTitle("Buat Catatan");
         toolbar.setTitleTextColor(Color.parseColor("#FFFFFF"));
 
-        /*FragmentManager manager = getFragmentManager();
-        FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(R.id.frame_container, Tools.newInstance()); // newInstance() is a static factory method.
-        transaction.commit();
-        */
+
+        Log.d("date",sharedPreferences.getString("date",""));
+
+
 
     }
 
@@ -95,6 +105,7 @@ public class Buat_Catatan_Pendidikan extends AppCompatActivity {
         return true;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -105,49 +116,34 @@ public class Buat_Catatan_Pendidikan extends AppCompatActivity {
                 startActivity(ab);
                 return true;
             case R.id.action_save:
-                String title = mTitleText.getText().toString();
-                String detail = mDescriptionText.getText().toString();
-                String type =  mSpinner.getSelectedItem().toString();
-                ContentValues cv = new ContentValues();
-               /*cv.put(mDbHelper.TITLE, title);
-                cv.put(mDbHelper.DETAIL, detail);
-                cv.put(mDbHelper.TYPE, type);
-                cv.put(mDbHelper.TIME, getString(R.string.Not_Set));
-                */
+                String date = sharedPreferences.getString("date","")+" "+String.valueOf(pickerTime.getHour())+":"+String.valueOf(pickerTime.getMinute())+":00";
+                ApiClient.services_post.creatependidikan(
+                        group_id,
+                        siswa_id,
+                        mTitleText.getText().toString(),
+                        "3",
+                        mDescriptionText.getText().toString(),
+                        date,
+                        "0").enqueue(new Callback<String>() {
+                    @Override
+                    public void onResponse(Call<String> call, Response<String> response) {
+                        Log.d("status",response.body().toString());
+                        Toast.makeText(Buat_Catatan_Pendidikan.this, "Daftar Catatan telah ditambahkan", Toast.LENGTH_SHORT).show();
 
-                if (checkBoxAlarm.isChecked()){
-                    Calendar calender = Calendar.getInstance();
-                    calender.clear();
-                    calender.set(Calendar.HOUR, pickerTime.getCurrentHour());
-                    calender.set(Calendar.MINUTE, pickerTime.getCurrentMinute());
-                    calender.set(Calendar.SECOND, 00);
+                        //return true;
+                    }
 
-                    SimpleDateFormat formatter = new SimpleDateFormat(getString(R.string.hour_minutes));
-                    String timeString = formatter.format(new Date(calender.getTimeInMillis()));
-                    SimpleDateFormat dateformatter = new SimpleDateFormat(getString(R.string.dateformate));
-                    String dateString = dateformatter.format(new Date(calender.getTimeInMillis()));
+                    @Override
+                    public void onFailure(Call<String> call, Throwable t) {
 
-                    AlarmManager alarmMgr = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-                    Intent intent = new Intent(this, AlarmReceiver.class);
-
-                    String alertTitle = mTitleText.getText().toString();
-                    intent.putExtra(getString(R.string.alert_title), alertTitle);
-
-                    PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
-
-                    alarmMgr.set(AlarmManager.RTC_WAKEUP, calender.getTimeInMillis(), pendingIntent);
-                    // cv.put(mDbHelper.TIME, timeString);
-                    //cv.put(mDbHelper.DATE, dateString);
-                }
-
-                //db.insert(mDbHelper.TABLE_NAME, null, cv);
-
-                Intent openMainScreen = new Intent(this, MainActivity.class);
-                openMainScreen.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(openMainScreen);
-                return true;
+                    }
 
 
+                });
+
+                Intent intent = new Intent(Buat_Catatan_Pendidikan.this, MainActivity.class);
+                startActivity(intent);
+                finish();
 
             default:
                 return super.onOptionsItemSelected(item);

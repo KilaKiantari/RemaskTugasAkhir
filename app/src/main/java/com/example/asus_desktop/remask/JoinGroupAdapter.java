@@ -130,7 +130,7 @@ public class JoinGroupAdapter extends RecyclerView.Adapter<JoinGroupAdapter.Maha
                              //   siswa_id = response.body().getSiswaId();
                               //  namagroup = response.body().getNamagroup();
                               //  guru_id = response.body().getGuruId();
-                                 Toast.makeText(mContext, ""+response.body().getStatus(),Toast.LENGTH_SHORT).show();
+                                 Toast.makeText(mContext, "Anda berhasil Join Group "+namagroup,Toast.LENGTH_SHORT).show();
                                // Toast.makeText(mContext, "" + siswa_id, Toast.LENGTH_SHORT).show();
                                 // id_guru = response.body().getIdGuru();
                             }else{
@@ -149,10 +149,10 @@ public class JoinGroupAdapter extends RecyclerView.Adapter<JoinGroupAdapter.Maha
                             Toast.makeText(mContext, "" +t, Toast.LENGTH_SHORT).show();
                         }
                     });
-                    Toast.makeText(mContext, ""+namagroup,Toast.LENGTH_SHORT).show();
-                    Toast.makeText(mContext, ""+guru_id,Toast.LENGTH_SHORT).show();
-                    Toast.makeText(mContext, "Join",Toast.LENGTH_SHORT).show();
-                    Toast.makeText(mContext, ""+siswa_id,Toast.LENGTH_SHORT).show();
+                  //  Toast.makeText(mContext, ""+namagroup,Toast.LENGTH_SHORT).show();
+                 //   Toast.makeText(mContext, ""+guru_id,Toast.LENGTH_SHORT).show();
+                  //  Toast.makeText(mContext, "Join",Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(mContext, ""+siswa_id,Toast.LENGTH_SHORT).show();
                     return true;
                 default:
             }return false;

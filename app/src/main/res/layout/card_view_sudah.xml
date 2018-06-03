@@ -22,39 +22,33 @@
             android:orientation="vertical"
             android:padding="5dp">
 
-        <!-- TextView Nama Mahasiwa -->
-        <TextView
-            android:id="@+id/txt_nama_tugas"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Bahasa"
-            android:textStyle="bold"
-            android:textColor="#000"/>
-
-
-        <!-- TextView Npm Mahasiswa -->
-            <CheckBox
-                android:id="@+id/id_checkBox"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_marginLeft="300dp"
-                android:layout_marginTop="15dp"
+            <!-- TextView Nama Mahasiwa -->
+            <TextView
+                android:id="@+id/txt_nama_tugas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Bahasa"
+                android:textStyle="bold"
                 android:textColor="#000"/>
+
+
+            <!-- TextView Npm Mahasiswa -->
+
 
             <TextView
                 android:id="@+id/tgl_tugas"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="-25dp"
+                android:layout_marginTop="25dp"
                 android:text="24-Maret-2018"
                 android:textColor="#000"/>
 
             <TextView
-            android:id="@+id/tgl_tugas_selesai"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+                android:id="@+id/tgl_tugas_selesai"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-            android:text="24-Maret-2018" android:textColor="#000"/>
+                android:text="24-Maret-2018" android:textColor="#000"/>
 
         </LinearLayout>
 

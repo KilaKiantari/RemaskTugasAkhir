@@ -1,11 +1,11 @@
 package com.example.asus_desktop.remask;
 
-import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -46,6 +46,7 @@ public class Daftar_Catatan extends Fragment {
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor edit;
     private String date;
+    private String siswa_id;
     private Calendar calendar;
     private FloatingActionButton fab;
     private Date currentTime = Calendar.getInstance().getTime();
@@ -63,7 +64,7 @@ public class Daftar_Catatan extends Fragment {
 
         sharedPreferences = getActivity().getSharedPreferences("Remask", Context.MODE_PRIVATE);
         edit =sharedPreferences.edit();
-
+        siswa_id = sharedPreferences.getString("siswa_id","");
 
 
 
@@ -145,7 +146,7 @@ public class Daftar_Catatan extends Fragment {
         edit.commit();
         Log.d("date_awal",date);
 
-        ApiClient.services_get_daftar_catatan.getDaftarCatatan(1).enqueue(new Callback<ModelDaftarCatatan>() {
+        ApiClient.services_get_daftar_catatan.getDaftarCatatan(siswa_id).enqueue(new Callback<ModelDaftarCatatan>() {
             @Override
             public void onResponse(Call<ModelDaftarCatatan> call, Response<ModelDaftarCatatan> response) {
                 modelDaftarCatatan = response.body();
@@ -174,11 +175,11 @@ public class Daftar_Catatan extends Fragment {
             Log.d("maxString",modelDaftarCatatan.getResults().get(i).getTanggalTugas());
             Log.d("subString",modelDaftarCatatan.getResults().get(i).getTanggalTugas().substring(0,10));
             if (modelDaftarCatatan.getResults().get(i).getTanggalTugas().substring(0,10).equals(date)){
-
                 Log.d("modelDaftarCatatan",modelDaftarCatatan.getResults().get(i).getTanggalTugas().substring(0,10));
                 Log.d("date",date);
                 filterResult.add(modelDaftarCatatan.getResults().get(i));
                 Log.d("filterResult",filterResult.get(0).getTanggalTugas());
+
             }
         }
         adapter = new DaftarAdapter(getActivity(),filterResult);
@@ -188,7 +189,7 @@ public class Daftar_Catatan extends Fragment {
 
     private void refreshRecycler() {
 
-        ApiClient.services_get_daftar_catatan.getDaftarCatatan(1).enqueue(new Callback<ModelDaftarCatatan>() {
+        ApiClient.services_get_daftar_catatan.getDaftarCatatan(siswa_id).enqueue(new Callback<ModelDaftarCatatan>() {
             @Override
             public void onResponse(Call<ModelDaftarCatatan> call, Response<ModelDaftarCatatan> response) {
                 modelDaftarCatatan = response.body();

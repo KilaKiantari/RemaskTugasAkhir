@@ -1,8 +1,9 @@
 package com.example.asus_desktop.remask;
 
 import android.app.AlertDialog;
-import android.app.Fragment;
-import android.app.FragmentManager;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+//import android.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -127,7 +128,7 @@ public class MainActivity extends AppCompatActivity
             fragment = new Daftar_Catatan();
             callFragment(fragment);
         }else if(id==R.id.nav_histori){
-            fragment = new HistoriTugas();
+            fragment = new HistoriBaru();
             callFragment(fragment);
         } else if (id == R.id.nav_skala) {
             fragment = new Skala_Prioritas();
@@ -159,7 +160,7 @@ public class MainActivity extends AppCompatActivity
 
     // untuk mengganti isi kontainer menu yang dipiih
     private void callFragment(Fragment fragment) {
-        fragmentManager = getFragmentManager();
+        fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.frame_container, fragment)
                 .commit();

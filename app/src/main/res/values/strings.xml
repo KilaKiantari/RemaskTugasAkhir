@@ -28,6 +28,9 @@
     <string-array name="pendidikan_type">
         <item>Pendidikan</item>
     </string-array>
+    <string-array name="nama_group">
+        <item>Amburadul</item>
+    </string-array>
 
 
     <string-array name="set_alarm">

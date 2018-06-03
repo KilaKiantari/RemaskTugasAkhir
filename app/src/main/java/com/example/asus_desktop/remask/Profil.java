@@ -1,10 +1,10 @@
 package com.example.asus_desktop.remask;
 
 
-import android.app.Fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,12 +15,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.example.asus_desktop.remask.Api.ApiClient;
 import com.example.asus_desktop.remask.Model.UserProfilSiswa;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 
 public class Profil extends Fragment {
@@ -49,7 +44,7 @@ public class Profil extends Fragment {
         getActivity().setTitle("Profil Saya");
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("Remask", Context.MODE_PRIVATE);
         Log.d("id_siswa", String.valueOf(sharedPreferences.getInt("id_siswa", 0)));
-        ApiClient.services_get_profil.getProfile(1).enqueue(new Callback<UserProfilSiswa>() {
+      /*  ApiClient.services_get_profil.getProfile().enqueue(new Callback<UserProfilSiswa>() {
             @Override
             public void onResponse(Call<UserProfilSiswa> call, Response<UserProfilSiswa> response) {
                 modelUserProfile = response.body();
@@ -69,6 +64,7 @@ public class Profil extends Fragment {
 
 
         });
+        */
 
         return view;
     }

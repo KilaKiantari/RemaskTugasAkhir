@@ -43,6 +43,10 @@ public class ApiClient {
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create()).build().create(ApiClient.GetServicesHistori.class);
 
+    public static GetServicesHistoriSudah services_get_hitori_sudah = new Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create()).build().create(ApiClient.GetServicesHistoriSudah.class);
+
     public static GetServicesSkala services_get_skala = new Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create()).build().create(ApiClient.GetServicesSkala.class);
@@ -83,6 +87,32 @@ public class ApiClient {
         );
 
         @FormUrlEncoded
+        @POST("daftartugassiswa/update")
+        Call<String> updatetugas(
+                @Path("id_tugas") String id_tugas,
+                @Field("siswa_id") String siswa_id,
+                @Field("nama_tugas") String nama_tugas,
+                @Field("kategori") String kategori,
+                @Field("keterangan") String keterangan,
+                @Field("tanggal_tugas") String tanggal_tugas,
+                @Field("tanggal_selesai") String tanggal_selesai
+
+        );
+
+        @FormUrlEncoded
+        @POST("daftartugaspendidikansiswa/create")
+        Call<String> creatependidikan(
+                @Field("group_id") String group_id,
+                @Field("siswa_id") String siswa_id,
+                @Field("nama_tugas") String nama_tugas,
+                @Field("kategori") String kategori,
+                @Field("keterangan") String keterangan,
+                @Field("tanggal_tugas") String tanggal_tugas,
+                @Field("tanggal_selesai") String tanggal_selesai
+
+        );
+
+        @FormUrlEncoded
         @POST("siswagrup/joinedoverflow")
         Call<ModelActionJoin> join(
                 @Field("namagroup") String namagroup,
@@ -90,15 +120,29 @@ public class ApiClient {
                 @Field("guru_id") String guru_id
 
         );
+
+        @FormUrlEncoded
+        @POST("historisiswa/checklist/{id_tugas}")
+        Call<ModelActionJoin> checklist(
+                @Path("id_tugas") String id_tugas,
+                @Field("status_tugas") String status_tugas,
+                @Field("tanggal_selesai") String tanggal_selesai
+                );
     }
     public interface GetServicesProfil{
         @GET("profilsiswa/{id}")
-        Call<UserProfilSiswa> getProfile(@Path("id") int id);
+        Call<UserProfilSiswa> getProfile(@Path("id") String id);
     }
     public interface GetServicesHistori{
-        @GET("historisiswa/{id}")
-        Call<UserHistoriSiswa> getHistori(@Path("id") int id);
+        @GET("historisiswa/index/{id}")
+        Call<UserHistoriSiswa> getHistori(@Path("id") String id);
     }
+
+    public interface GetServicesHistoriSudah{
+        @GET("historisiswa/indexsudah/{id}")
+        Call<UserHistoriSiswa> getHistoriSudah(@Path("id") int id);
+    }
+
 
     public interface GetServicesSkala{
         @GET("skalaprioritas/{id}")
@@ -116,7 +160,7 @@ public class ApiClient {
     }
     public interface GetServicesDaftarCatatan{
         @GET("daftartugassiswa/index/{id}")
-        Call<ModelDaftarCatatan> getDaftarCatatan(@Path("id") int id);
+        Call<ModelDaftarCatatan> getDaftarCatatan(@Path("id") String id);
 
 //        @GET("daftartugaspendidikansiswa/index?id={id}_{tanggal_tugas}")
 //        Call<ModelDaftarCatatan> getDaftarCatatan(
@@ -130,6 +174,7 @@ public class ApiClient {
         @GET("siswagrup/joined/{id}")
         Call<ModelGroupJoined> getGroupJoined(@Path("id") int id);
     }
+
     public interface PostServicesCatatan{
         @FormUrlEncoded
         @POST("daftartugassiswa/create")

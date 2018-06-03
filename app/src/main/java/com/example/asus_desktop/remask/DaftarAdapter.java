@@ -5,6 +5,7 @@ package com.example.asus_desktop.remask;
  */
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -20,6 +21,7 @@ import com.example.asus_desktop.remask.Model.Result;
 
 import java.util.ArrayList;
 
+import static android.content.Context.MODE_PRIVATE;
 
 
 public class DaftarAdapter extends RecyclerView.Adapter<DaftarAdapter.MahasiswaViewHolder> {
@@ -33,6 +35,9 @@ public class DaftarAdapter extends RecyclerView.Adapter<DaftarAdapter.MahasiswaV
 
     private ArrayList<Result> result;
     private Context mContext;
+    private String nama_tugas;
+    private String id_tugas;
+    private String siswa_id;
 
 
     public class MahasiswaViewHolder extends RecyclerView.ViewHolder{
@@ -57,7 +62,10 @@ public class DaftarAdapter extends RecyclerView.Adapter<DaftarAdapter.MahasiswaV
     }
 
 
-    public void onBindViewHolder(final MahasiswaViewHolder holder, int position) {
+    public void onBindViewHolder(final MahasiswaViewHolder holder, final int position) {
+        SharedPreferences sharedPreferences = mContext.getSharedPreferences("Remask", MODE_PRIVATE);
+        siswa_id = sharedPreferences.getString("siswa_id","");
+
         holder.txtNamaTugas.setText(result.get(position).getNamaTugas());
         holder.txtKeterangan.setText(result.get(position).getKeterangan());
         holder.txtTgl.setText(result.get(position).getTanggalTugas());
@@ -78,6 +86,8 @@ public class DaftarAdapter extends RecyclerView.Adapter<DaftarAdapter.MahasiswaV
             @Override
             public void onClick(View v) {
                 showPopupMenu(holder.overflow);
+                nama_tugas = result.get(position).getNamaTugas();
+                id_tugas = result.get(position).getIdTugas();
                 
             }
         });
@@ -106,7 +116,39 @@ public class DaftarAdapter extends RecyclerView.Adapter<DaftarAdapter.MahasiswaV
         public boolean onMenuItemClick(MenuItem menuItem) {
             switch (menuItem.getItemId()) {
                 case R.id.action_edit:
-                    Toast.makeText(mContext, "Edit", Toast.LENGTH_SHORT).show();
+//                   ApiClient.services_post.updatetugas(
+//                            id_tugas,
+//                            siswa_id,
+//                            txt
+//                            guru_id) .enqueue(new Callback<ModelActionJoin>() {
+//                        @Override
+//                        public void onResponse(Call<ModelActionJoin> call, Response<ModelActionJoin> response) {
+//                            if(response.isSuccessful()) {
+//                                //   siswa_id = response.body().getSiswaId();
+//                                //  namagroup = response.body().getNamagroup();
+//                                //  guru_id = response.body().getGuruId();
+//                                Toast.makeText(mContext, "Anda berhasil Join Group "+namagroup,Toast.LENGTH_SHORT).show();
+//                                // Toast.makeText(mContext, "" + siswa_id, Toast.LENGTH_SHORT).show();
+//                                // id_guru = response.body().getIdGuru();
+//                            }else{
+//                                Toast.makeText(mContext, "SALAH", Toast.LENGTH_SHORT).show();
+//                            }
+////
+//                            // Toast.makeText(mContext, ""+namagroup, Toast.LENGTH_SHORT).show();
+//
+//
+//                            // progressDialog.dismiss();
+//
+//                        }
+//
+//                        @Override
+//                        public void onFailure(Call<ModelActionJoin> call, Throwable t) {
+//                            Toast.makeText(mContext, "" +t, Toast.LENGTH_SHORT).show();
+//                        }
+//                    });
+//                    Toast.makeText(mContext, ""+id_tugas, Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(mContext, ""+nama_tugas, Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(mContext, "Edit", Toast.LENGTH_SHORT).show();
                     return true;
                 case R.id.action_delete:
                     Toast.makeText(mContext, "Delete", Toast.LENGTH_SHORT).show();
