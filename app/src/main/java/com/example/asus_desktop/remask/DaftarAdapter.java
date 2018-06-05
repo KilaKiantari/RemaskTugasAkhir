@@ -88,7 +88,7 @@ public class DaftarAdapter extends RecyclerView.Adapter<DaftarAdapter.MahasiswaV
                 showPopupMenu(holder.overflow);
                 nama_tugas = result.get(position).getNamaTugas();
                 id_tugas = result.get(position).getIdTugas();
-                
+
             }
         });
     }
@@ -160,7 +160,7 @@ public class DaftarAdapter extends RecyclerView.Adapter<DaftarAdapter.MahasiswaV
     }
     @Override
     public int getItemCount() {
-        
+
         return result.size();
     }
 

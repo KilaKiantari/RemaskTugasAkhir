@@ -13,7 +13,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -22,6 +22,10 @@ import android.widget.Toast;
 
 import com.example.asus_desktop.remask.Api.ApiClient;
 import com.example.asus_desktop.remask.Model.ModelCreateTugas;
+import com.example.asus_desktop.remask.Model.ModelGroupJoined;
+import com.example.asus_desktop.remask.Model.Result;
+
+import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -46,6 +50,11 @@ public class Buat_Catatan_Pendidikan extends AppCompatActivity {
     private SharedPreferences.Editor edit;
     private String siswa_id;
     private String group_id;
+    String selectedGroup;
+    String namagroup;
+    ArrayList<String> id_group;
+    private ArrayList<Result> result;
+
 
 
     @Override
@@ -54,7 +63,7 @@ public class Buat_Catatan_Pendidikan extends AppCompatActivity {
         setContentView(R.layout.activity_buat_catatan_pendidikan);
 
         SharedPreferences sharedPreferences = Buat_Catatan_Pendidikan.this.getSharedPreferences("Remask", MODE_PRIVATE);
-        siswa_id = sharedPreferences.getString("siswa_id","");
+        siswa_id = sharedPreferences.getString("siswa_id", "");
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -68,27 +77,52 @@ public class Buat_Catatan_Pendidikan extends AppCompatActivity {
 
         mTitleText = (EditText) findViewById(R.id.txttitle);
         mDescriptionText = (EditText) findViewById(R.id.description);
-        mSpinner = (Spinner) findViewById(R.id.spinnerNoteType);
+        mSpinner = (Spinner) findViewById(R.id.spinnerGroup);
         pickerTime = (TimePicker) findViewById(R.id.timePicker);
         txtkat = (TextView) findViewById(R.id.txtkat);
+        id_group = new ArrayList<>();
 
 
+        mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view,final int i, long l) {
+               // selectedGroup = id_group.get(i);
+                group_id = result.get(i).getGroupId();
+              //  namagroup = result.getNamagroup();
 
-        ArrayAdapter adapter = ArrayAdapter.createFromResource(
-                this, R.array.nama_group, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mSpinner.setAdapter(adapter);
+                ApiClient.services_get_group_joined.getGroupJoined(1).enqueue(new Callback<ModelGroupJoined>() {
+                    @Override
+                    public void onResponse(Call<ModelGroupJoined> call, Response<ModelGroupJoined> response) {
+                        if(response.isSuccessful()){
+
+                            Toast.makeText(Buat_Catatan_Pendidikan.this, ""+namagroup, Toast.LENGTH_SHORT).show();
+
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ModelGroupJoined> call, Throwable t) {
+
+
+                    }
+                });
+
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
         Buat_Catatan_Pendidikan.this.setTitle("Buat Catatan");
         toolbar.setTitleTextColor(Color.parseColor("#FFFFFF"));
 
 
-        Log.d("date",sharedPreferences.getString("date",""));
-
-
-
+        Log.d("date", sharedPreferences.getString("date", ""));
     }
 
-    @Override
+
+
     public void onBackPressed() {
         Intent setIntent = new Intent(this, MainActivity.class);
         startActivity(setIntent);
@@ -97,6 +131,8 @@ public class Buat_Catatan_Pendidikan extends AppCompatActivity {
     void showToast(CharSequence msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -107,6 +143,8 @@ public class Buat_Catatan_Pendidikan extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
+
+
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch(item.getItemId()) {
@@ -149,4 +187,6 @@ public class Buat_Catatan_Pendidikan extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+
 }

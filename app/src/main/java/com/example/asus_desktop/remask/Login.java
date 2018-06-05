@@ -131,7 +131,7 @@ public class Login extends AppCompatActivity {
                         Log.d("siswa_id", modelLogin.getResult().getSiswaId());
 
                             String siswa_id = sharedPreferences.getString("siswa_id","");
-                             Toast.makeText(Login.this, "siswa id = " + siswa_id, Toast.LENGTH_SHORT).show();
+                             Toast.makeText(Login.this, "siswa id = " +siswa_id, Toast.LENGTH_SHORT).show();
 
                         Intent intent = new Intent(Login.this, MainActivity.class);
                         startActivity(intent);

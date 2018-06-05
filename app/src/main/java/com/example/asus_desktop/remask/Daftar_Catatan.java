@@ -64,7 +64,6 @@ public class Daftar_Catatan extends Fragment {
 
         sharedPreferences = getActivity().getSharedPreferences("Remask", Context.MODE_PRIVATE);
         edit =sharedPreferences.edit();
-        siswa_id = sharedPreferences.getString("siswa_id","");
 
 
 
@@ -146,11 +145,16 @@ public class Daftar_Catatan extends Fragment {
         edit.commit();
         Log.d("date_awal",date);
 
+        siswa_id = sharedPreferences.getString("siswa_id","");
+        Toast.makeText(getActivity(), ""+siswa_id, Toast.LENGTH_SHORT).show();
+
+
         ApiClient.services_get_daftar_catatan.getDaftarCatatan(siswa_id).enqueue(new Callback<ModelDaftarCatatan>() {
             @Override
             public void onResponse(Call<ModelDaftarCatatan> call, Response<ModelDaftarCatatan> response) {
                 modelDaftarCatatan = response.body();
                 fillRecycler(String.valueOf(1900+currentTime.getYear()),month,day);
+
 
             }
 
@@ -188,6 +192,9 @@ public class Daftar_Catatan extends Fragment {
     }
 
     private void refreshRecycler() {
+
+        siswa_id = sharedPreferences.getString("siswa_id","");
+        Toast.makeText(getActivity(), ""+siswa_id, Toast.LENGTH_SHORT).show();
 
         ApiClient.services_get_daftar_catatan.getDaftarCatatan(siswa_id).enqueue(new Callback<ModelDaftarCatatan>() {
             @Override
