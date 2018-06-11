@@ -30,7 +30,8 @@
         <activity android:name=".JoinGroup"></activity>
         <activity android:name=".Buat_Catatan_Pendidikan"></activity>
         <activity android:name=".BuatCatatanLain"></activity>
-
+        <activity android:name=".CustomDialog"></activity>
+        <activity android:name=".MainActivityProgress"></activity>
     </application>
 
 </manifest>

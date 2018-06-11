@@ -1,5 +1,8 @@
 package com.example.asus_desktop.remask;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
@@ -15,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -40,10 +44,17 @@ public class BuatCatatan extends AppCompatActivity {
     EditText mDescriptionText;
     Spinner mSpinner;
     TimePicker pickerTime;
+    EditText editAlert;
     TextView time;
     ModelCreateTugas modelCreateTugas;
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor edit;
+    private Integer id_tugas;
+    private String status;
+    private Context context = this;
+    CustomDialog customDialog;
+    LinearLayout ll_set_time;
+
 
 
     @Override
@@ -52,6 +63,9 @@ public class BuatCatatan extends AppCompatActivity {
         setContentView(R.layout.buat_catatan);
         sharedPreferences = getSharedPreferences("Remask", MODE_PRIVATE);
         edit =sharedPreferences.edit();
+
+
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -67,6 +81,8 @@ public class BuatCatatan extends AppCompatActivity {
         mDescriptionText = (EditText) findViewById(R.id.description);
         mSpinner = (Spinner) findViewById(R.id.spinnerNoteType);
         pickerTime = (TimePicker) findViewById(R.id.timePicker);
+        ll_set_time = (LinearLayout) findViewById(R.id.ll_set_time);
+
 
 
 
@@ -80,6 +96,14 @@ public class BuatCatatan extends AppCompatActivity {
 
         Log.d("date",sharedPreferences.getString("date",""));
 
+
+        ll_set_time.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+            }
+        });
 
 
     }
@@ -101,53 +125,115 @@ public class BuatCatatan extends AppCompatActivity {
         return true;
     }
 
+
+
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        switch(item.getItemId()) {
+        switch (item.getItemId()) {
             case R.id.action_settings:
                 Intent ab = new Intent(BuatCatatan.this, MainActivity.class);
-                ab.putExtra("Extra","Tools");
+                ab.putExtra("Extra", "Tools");
                 startActivity(ab);
                 return true;
             case R.id.action_save:
-                String date = sharedPreferences.getString("date","")+" "+String.valueOf(pickerTime.getHour())+":"+String.valueOf(pickerTime.getMinute())+":00";
+                new AlertDialog.Builder(this)
+                        .setTitle("Penting !")
+                        .setMessage("Apakah anda ingin menambah keterangan progress?")
+                        .setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        String date = sharedPreferences.getString("date", "") + " " + String.valueOf(pickerTime.getHour()) + ":" + String.valueOf(pickerTime.getMinute()) + ":00";
+                                        Log.d("id", "1");
+                                        Log.d("title", mTitleText.getText().toString());
+                                        Log.d("organisasi", "org");
+                                        Log.d("desc", mDescriptionText.getText().toString());
+                                        Log.d("date", date);
 
 
-                Log.d("id","1");
-                Log.d("title",mTitleText.getText().toString());
-                Log.d("organisasi","org");
-                Log.d("desc",mDescriptionText.getText().toString());
-                Log.d("date",date);
+                                        ApiClient.services_post.create(
+                                                "1",
+                                                mTitleText.getText().toString(),
+                                                "2",
+                                                mDescriptionText.getText().toString(),
+                                                date,
+                                                "0").enqueue(new Callback<ModelCreateTugas>() {
+                                            @Override
+                                            public void onResponse(Call<ModelCreateTugas> call, Response<ModelCreateTugas> response) {
+                                                if (response.isSuccessful()) {
+
+                                                   id_tugas = response.body().getIdTugas();
+                                                    status = response.body().getStatus();
+                                                    Toast.makeText(BuatCatatan.this, "" + id_tugas, Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(BuatCatatan.this, "" + status, Toast.LENGTH_SHORT).show();
+                                                } else {
+
+                                                    Toast.makeText(BuatCatatan.this, "Terjadi Kesalahan", Toast.LENGTH_SHORT).show();
+                                                    //return true;
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onFailure(Call<ModelCreateTugas> call, Throwable t) {
+
+                                            }
+                                        });
+
+                                        Intent intent = new Intent(BuatCatatan.this, MainActivity.class);
+                                        startActivity(intent);
+                                    }
+
+                        })
 
 
-                ApiClient.services_post.create(
-                        "1",
-                        mTitleText.getText().toString(),
-                        "2",
-                        mDescriptionText.getText().toString(),
-                        date,
-                        "0").enqueue(new Callback<String>() {
-                    @Override
-                    public void onResponse(Call<String> call, Response<String> response) {
-                        Log.d("status",response.body().toString());
-                        Toast.makeText(BuatCatatan.this, "Daftar Catatan telah ditambahkan", Toast.LENGTH_SHORT).show();
+                        .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface arg0, int arg1) {
+                                String date = sharedPreferences.getString("date", "") + " " + String.valueOf(pickerTime.getHour()) + ":" + String.valueOf(pickerTime.getMinute()) + ":00";
 
-                        //return true;
-                    }
+                                Log.d("id", "1");
+                                Log.d("title", mTitleText.getText().toString());
+                                Log.d("organisasi", "org");
+                                Log.d("desc", mDescriptionText.getText().toString());
+                                Log.d("date", date);
 
-                    @Override
-                    public void onFailure(Call<String> call, Throwable t) {
+                                ApiClient.services_post.create(
+                                        "1",
+                                        mTitleText.getText().toString(),
+                                        "2",
+                                        mDescriptionText.getText().toString(),
+                                        date,
+                                        "0").enqueue(new Callback<ModelCreateTugas>() {
+                                    @Override
+                                    public void onResponse(Call<ModelCreateTugas> call, Response<ModelCreateTugas> response) {
+                                        if (response.isSuccessful()) {
+                                            id_tugas = response.body().getIdTugas();
+                                            Log.d("status", response.body().toString());
+                                            Toast.makeText(BuatCatatan.this, ""+id_tugas, Toast.LENGTH_SHORT).show();
 
-                    }
+                                            Intent intent = new Intent(BuatCatatan.this, CustomDialog.class);
+                                            intent.putExtra("id_tugas", id_tugas);
+                                            startActivity(intent);
+                                        } else {
+
+                                            Toast.makeText(BuatCatatan.this, "Terjadi Kesalahan", Toast.LENGTH_SHORT).show();
+                                            //return true;
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<ModelCreateTugas> call, Throwable t) {
+
+                                    }
+                                });
 
 
-        });
+                            }
 
-                Intent intent = new Intent(BuatCatatan.this, MainActivity.class);
-                startActivity(intent);
-                finish();
+                        }).create().show();
+
+
 
             default:
                 return super.onOptionsItemSelected(item);

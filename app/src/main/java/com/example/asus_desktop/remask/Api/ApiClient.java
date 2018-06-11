@@ -6,6 +6,8 @@ import com.example.asus_desktop.remask.Model.ModelDaftarCatatan;
 import com.example.asus_desktop.remask.Model.ModelGroupAll;
 import com.example.asus_desktop.remask.Model.ModelGroupJoined;
 import com.example.asus_desktop.remask.Model.ModelLoginUser;
+import com.example.asus_desktop.remask.Model.ModelProgress;
+import com.example.asus_desktop.remask.Model.ModelProgressHistori;
 import com.example.asus_desktop.remask.Model.ModelSkalaPrioritas;
 import com.example.asus_desktop.remask.Model.UserHistoriSiswa;
 import com.example.asus_desktop.remask.Model.UserProfilSiswa;
@@ -18,6 +20,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * Created by Asus-Desktop on 5/6/2018.
@@ -48,6 +51,10 @@ public class ApiClient {
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create()).build().create(ApiClient.GetServicesHistoriSudah.class);
 
+    public static GetServicesProgress services_get_progress = new Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create()).build().create(ApiClient.GetServicesProgress.class);
+
     public static GetServicesSkala services_get_skala = new Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create()).build().create(ApiClient.GetServicesSkala.class);
@@ -65,8 +72,7 @@ public class ApiClient {
             .addConverterFactory(GsonConverterFactory.create()).build().create(ApiClient.GetServicesGroupJoined.class);
 
 
-
-    public interface PostServices{
+    public interface PostServices {
         @FormUrlEncoded
         @POST("login/login")
         Call<ModelLoginUser> login(
@@ -77,7 +83,7 @@ public class ApiClient {
 
         @FormUrlEncoded
         @POST("daftartugassiswa/create")
-        Call<String> create(
+        Call<ModelCreateTugas> create(
                 @Field("siswa_id") String siswa_id,
                 @Field("nama_tugas") String nama_tugas,
                 @Field("kategori") String kategori,
@@ -86,6 +92,28 @@ public class ApiClient {
                 @Field("tanggal_selesai") String tanggal_selesai
 
         );
+
+
+        @FormUrlEncoded
+        @POST("daftartugassiswa/createprogress")
+        Call<ModelProgress> createprogress(
+                @Field("nama_progress") String namaprogress,
+                @Field("siswa_id") String siswa_id,
+                @Field("tgl_selesai") String tgl_selesai,
+                @Query("id") String id
+
+        );
+
+        @FormUrlEncoded
+        @POST("daftartugassiswa/createprogress")
+        Call<ModelProgress> createprogresstambah(
+                @Field("nama_progress") String namaprogress,
+                @Field("siswa_id") String siswa_id,
+                @Field("tgl_selesai") String tgl_selesai,
+                @Query("id") String id
+
+        );
+
 
         @FormUrlEncoded
         @POST("daftartugassiswa/update")
@@ -128,24 +156,30 @@ public class ApiClient {
                 @Path("id_tugas") String id_tugas,
                 @Field("status_tugas") String status_tugas,
                 @Field("tanggal_selesai") String tanggal_selesai
-                );
+        );
     }
-    public interface GetServicesProfil{
+
+    public interface GetServicesProfil {
         @GET("profilsiswa/{id}")
         Call<UserProfilSiswa> getProfile(@Path("id") String id);
     }
-    public interface GetServicesHistori{
+
+    public interface GetServicesHistori {
         @GET("historisiswa/index/{id}")
         Call<UserHistoriSiswa> getHistori(@Path("id") String id);
     }
 
-    public interface GetServicesHistoriSudah{
+    public interface GetServicesHistoriSudah {
         @GET("historisiswa/indexsudah/{id}")
         Call<UserHistoriSiswa> getHistoriSudah(@Path("id") int id);
     }
 
+    public interface GetServicesProgress {
+        @GET("daftartugassiswa/indexprogress/{tugas_id}")
+        Call<ModelProgressHistori> getProgress(@Path("tugas_id") String tugas_id);
+    }
 
-    public interface GetServicesSkala{
+    public interface GetServicesSkala {
         @GET("skalaprioritas/{id}")
         Call<ModelSkalaPrioritas> getSkala(@Path("id") int id);
     }
@@ -155,13 +189,15 @@ public class ApiClient {
     }
     */
 
-    public interface GetServicesGroupAll{
+    public interface GetServicesGroupAll {
         @GET("siswagrup/index/{id}")
         Call<ModelGroupAll> getGroupAll(@Path("id") int id);
     }
-    public interface GetServicesDaftarCatatan{
+
+    public interface GetServicesDaftarCatatan {
         @GET("daftartugassiswa/index/{id}")
-        Call<ModelDaftarCatatan> getDaftarCatatan(@Path("id") String id);
+        Call<ModelDaftarCatatan> getDaftarCatatan(@Path("id") int id);
+
 
 //        @GET("daftartugaspendidikansiswa/index?id={id}_{tanggal_tugas}")
 //        Call<ModelDaftarCatatan> getDaftarCatatan(
@@ -171,12 +207,12 @@ public class ApiClient {
 
     }
 
-    public interface GetServicesGroupJoined{
+    public interface GetServicesGroupJoined {
         @GET("siswagrup/joined/{id}")
         Call<ModelGroupJoined> getGroupJoined(@Path("id") int id);
     }
 
-    public interface PostServicesCatatan{
+    public interface PostServicesCatatan {
         @FormUrlEncoded
         @POST("daftartugassiswa/create")
         Call<ModelCreateTugas> create(
@@ -189,3 +225,4 @@ public class ApiClient {
         );
     }
 }
+

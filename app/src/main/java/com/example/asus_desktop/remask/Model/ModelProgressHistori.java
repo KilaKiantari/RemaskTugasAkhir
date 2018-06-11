@@ -3,18 +3,19 @@ package com.example.asus_desktop.remask.Model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+
 /**
- * Created by Asus-Desktop on 5/12/2018.
+ * Created by Asus-Desktop on 6/7/2018.
  */
 
-public class ModelCreateTugas {
+public class ModelProgressHistori {
     @SerializedName("status")
     @Expose
     private String status;
-
-    @SerializedName("id_tugas")
+    @SerializedName("results")
     @Expose
-    private Integer idTugas;
+    private ArrayList<Result> results;
 
     public String getStatus() {
         return status;
@@ -24,13 +25,11 @@ public class ModelCreateTugas {
         this.status = status;
     }
 
-    public Integer getIdTugas() {
-        return idTugas;
+    public ArrayList<Result> getResults() {
+        return results;
     }
 
-    public void setIdTugas(Integer idTugas) {
-        this.idTugas = idTugas;
+    public void setResults(ArrayList<Result> results) {
+        this.results = results;
     }
-
-
 }

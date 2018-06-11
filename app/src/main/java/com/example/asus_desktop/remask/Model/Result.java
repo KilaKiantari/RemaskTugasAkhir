@@ -103,6 +103,9 @@ public class Result {
     @SerializedName("sekolah")
     @Expose
     private String sekolah;
+    @SerializedName("nama_progress")
+    @Expose
+    private String nama_progress;
 
     private boolean isSelected;
 
@@ -130,11 +133,14 @@ public class Result {
         this.namaMatpel = namaMatpel;
     }
 
-    public void setSekolah(String sekolah) {
-        this.sekolah = sekolah;
+    public void setNamaProgress(String nama_progress) {
+        this.nama_progress = nama_progress;
     }
 
 
+    public String getNamaProgress() {
+        return nama_progress;
+    }
     public String getNamaLengkap() {
         return namaLengkap;
     }

@@ -47,6 +47,8 @@ public class HistoriTugas extends Fragment {
     private String id_tugas;
     private String status_tugas;
     private String tanggal_selesai;
+    private String tugas_id;
+    private String nama_progress;
     private String nama_tugas;
     private TextView txtNama, txtTgl, txTglSelesai;
     ApiClient apiClient;
@@ -65,8 +67,6 @@ public class HistoriTugas extends Fragment {
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("Remask", MODE_PRIVATE);
         siswa_id = sharedPreferences.getString("siswa_id","");
-
-
 
 
 
@@ -92,8 +92,6 @@ public class HistoriTugas extends Fragment {
             @Override
             public void onResponse(Call<UserHistoriSiswa> call, Response<UserHistoriSiswa> response) {
                 userHistoriSiswa = response.body();
-
-
                 adapter = new MahasiswaAdapter(getActivity(),userHistoriSiswa.getResults());
                 adapter.notifyDataSetChanged();
                 recyclerView.setAdapter(adapter);
@@ -119,7 +117,6 @@ public class HistoriTugas extends Fragment {
                 String data = "";
                // userHistoriSiswa = response.body();
                 List<Result> result = (((MahasiswaAdapter) adapter).getStudentist());
-
                 for (int i = 0; i < result.size(); i++) {
                     Result singleStudent = result.get(i);
                     if (singleStudent.isSelected() == true) {
@@ -167,18 +164,11 @@ public class HistoriTugas extends Fragment {
                             }
                         });
 
-
-
                     }
-
                 }
-
-
             }
 
         });
-
-
 
 
         return view;

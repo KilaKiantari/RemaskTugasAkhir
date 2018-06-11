@@ -127,16 +127,16 @@ public class BuatCatatanLain extends AppCompatActivity {
                         "1",
                         mDescriptionText.getText().toString(),
                         date,
-                        "0").enqueue(new Callback<String>() {
+                        "0").enqueue(new Callback<ModelCreateTugas>() {
                     @Override
-                    public void onResponse(Call<String> call, Response<String> response) {
+                    public void onResponse(Call<ModelCreateTugas> call, Response<ModelCreateTugas> response) {
                         Log.d("status",response.body().toString());
 
                         //return true;
                     }
 
                     @Override
-                    public void onFailure(Call<String> call, Throwable t) {
+                    public void onFailure(Call<ModelCreateTugas> call, Throwable t) {
                     }
 
                 });
