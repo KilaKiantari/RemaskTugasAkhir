@@ -31,7 +31,13 @@
         <activity android:name=".Buat_Catatan_Pendidikan"></activity>
         <activity android:name=".BuatCatatanLain"></activity>
         <activity android:name=".CustomDialog"></activity>
-        <activity android:name=".MainActivityProgress"></activity>
+        <activity android:name=".Progress.MainActivityProgress"></activity>
+        <receiver android:name=".Alarm.AlarmReceiver"
+            android:enabled="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

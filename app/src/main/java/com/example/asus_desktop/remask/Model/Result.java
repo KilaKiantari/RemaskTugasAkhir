@@ -37,6 +37,10 @@ public class Result {
     @Expose
     private String groupId;
 
+    @SerializedName("id_group")
+    @Expose
+    private String idGroup;
+
     @SerializedName("nama_lengkap")
     @Expose
     private String namaLengkap;
@@ -103,11 +107,75 @@ public class Result {
     @SerializedName("sekolah")
     @Expose
     private String sekolah;
+    @SerializedName("id_progress")
+    @Expose
+    private String idProgress;
     @SerializedName("nama_progress")
     @Expose
-    private String nama_progress;
-
+    private String namaProgress;
+    @SerializedName("tgl_selesai")
+    @Expose
+    private String tglSelesai;
+    @SerializedName("status_progress")
+    @Expose
+    private String statusProgress;
+    @SerializedName("tugas_id")
+    @Expose
+    private Integer tugasId;
     private boolean isSelected;
+
+    public String getIdProgress() {
+        return idProgress;
+    }
+
+    public String getIdGroup() {
+        return idGroup;
+    }
+
+    public void setIdGroup(String idGroup) {
+        this.idGroup = idGroup;
+    }
+
+    public void setIdProgress(String idProgress) {
+        this.idProgress = idProgress;
+    }
+
+    public String getNamaProgress() {
+        return namaProgress;
+    }
+
+    public void setNamaProgress(String namaProgress) {
+        this.namaProgress = namaProgress;
+    }
+
+    public String getTglSelesai() {
+        return tglSelesai;
+    }
+
+    public void setTglSelesai(String tglSelesai) {
+        this.tglSelesai = tglSelesai;
+    }
+
+    public String getStatusProgress() {
+        return statusProgress;
+    }
+
+    public void setStatusProgress(String statusProgress) {
+        this.statusProgress = statusProgress;
+    }
+
+    public Integer getTugasId() {
+        return tugasId;
+    }
+
+    public void setTugasId(Integer tugasId) {
+        this.tugasId = tugasId;
+    }
+
+
+
+
+
 
     public String getNamagroup() {
         return namagroup;
@@ -133,14 +201,6 @@ public class Result {
         this.namaMatpel = namaMatpel;
     }
 
-    public void setNamaProgress(String nama_progress) {
-        this.nama_progress = nama_progress;
-    }
-
-
-    public String getNamaProgress() {
-        return nama_progress;
-    }
     public String getNamaLengkap() {
         return namaLengkap;
     }

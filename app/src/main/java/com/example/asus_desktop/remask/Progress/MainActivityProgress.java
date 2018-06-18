@@ -1,6 +1,7 @@
-package com.example.asus_desktop.remask;
+package com.example.asus_desktop.remask.Progress;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -8,7 +9,10 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.Toast;
+
+import com.example.asus_desktop.remask.R;
 
 /**
  * Created by Asus-Desktop on 6/7/2018.
@@ -35,14 +39,22 @@ public class MainActivityProgress extends AppCompatActivity implements TabLayout
         setContentView(R.layout.activity_mainprogress);
         //Adding toolbar to the activity
           Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarprogress);
-          setSupportActionBar(toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_black_24dp));
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        MainActivityProgress.this.setTitle("Proses Tugas");
+        toolbar.setTitleTextColor(Color.parseColor("#FFFFFF"));
 
         //Initializing the tablayout
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
 
         //Adding the tabs using addTab() method
         tabLayout.addTab(tabLayout.newTab().setText("Tugas Belum"));
-       // tabLayout.addTab(tabLayout.newTab().setText("Tugas Sudah"));
+        tabLayout.addTab(tabLayout.newTab().setText("Tugas Sudah"));
         //  tabLayout.addTab(tabLayout.newTab().setText("Tab3"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
@@ -75,11 +87,6 @@ public class MainActivityProgress extends AppCompatActivity implements TabLayout
         }else{
 
         }
-
-
-
-
-
 
     }
 

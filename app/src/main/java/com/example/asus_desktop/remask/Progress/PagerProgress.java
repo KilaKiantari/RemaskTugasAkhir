@@ -1,4 +1,4 @@
-package com.example.asus_desktop.remask;
+package com.example.asus_desktop.remask.Progress;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -28,9 +28,9 @@ public class PagerProgress extends FragmentStatePagerAdapter {
             case 0:
                     ProgressTugas belum = new ProgressTugas();
                 return belum;
-//            case 1:
-//                ProgressTugasSudah sudah = new ProgressTugasSudah();
-//                return sudah;
+            case 1:
+                ProgressTugasSudah sudah = new ProgressTugasSudah();
+                return sudah;
             default:
                 return null;
         }

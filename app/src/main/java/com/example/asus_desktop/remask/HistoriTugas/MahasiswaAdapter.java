@@ -1,4 +1,4 @@
-package com.example.asus_desktop.remask;
+package com.example.asus_desktop.remask.HistoriTugas;
 
 /**
  * Created by Asus-Desktop on 4/12/2018.
@@ -19,6 +19,8 @@ import android.widget.TextView;
 
 import com.example.asus_desktop.remask.Model.ModelActionJoin;
 import com.example.asus_desktop.remask.Model.Result;
+import com.example.asus_desktop.remask.Progress.MainActivityProgress;
+import com.example.asus_desktop.remask.R;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package com.example.asus_desktop.remask;
+/*package com.example.asus_desktop.remask;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -27,4 +27,4 @@ public class Alert extends Activity {
     }
 
 
-}
+}*/

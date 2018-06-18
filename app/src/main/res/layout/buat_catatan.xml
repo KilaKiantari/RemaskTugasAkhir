@@ -105,11 +105,13 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true" />
 
-                <Spinner
+                <TextView
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:text="Organisasi"
+                    android:layout_marginLeft="20dp"
+                    android:textColor="#000"
                     android:id="@+id/spinnerNoteType"
-                    android:entries="@array/organisasi_type"
                     android:layout_below="@+id/description"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true"

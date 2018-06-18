@@ -1,4 +1,4 @@
-package com.example.asus_desktop.remask;
+/*package com.example.asus_desktop.remask;
 
 
 import android.content.BroadcastReceiver;
@@ -8,7 +8,7 @@ import android.widget.Toast;
 
 /**
  * Created by Dominic on 13/04/2015.
- */
+
 public class AlarmReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -21,4 +21,5 @@ public class AlarmReceiver extends BroadcastReceiver {
         context.startActivity(x);
     }
 }
+*/
 

@@ -1,4 +1,4 @@
-package com.example.asus_desktop.remask;
+package com.example.asus_desktop.remask.HistoriTugas;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -22,6 +22,8 @@ import com.example.asus_desktop.remask.Api.ApiClient;
 import com.example.asus_desktop.remask.Model.ModelActionJoin;
 import com.example.asus_desktop.remask.Model.Result;
 import com.example.asus_desktop.remask.Model.UserHistoriSiswa;
+import com.example.asus_desktop.remask.R;
+import com.example.asus_desktop.remask.Tools;
 
 import java.util.List;
 

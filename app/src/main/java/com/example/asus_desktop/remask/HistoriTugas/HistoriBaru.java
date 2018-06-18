@@ -1,4 +1,4 @@
-package com.example.asus_desktop.remask;
+package com.example.asus_desktop.remask.HistoriTugas;
 
 /**
  * Created by Asus-Desktop on 6/1/2018.
@@ -11,6 +11,8 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.asus_desktop.remask.R;
 
 //Implementing the interface OnTabSelectedListener to our MainActivity
 //This interface would help in swiping views

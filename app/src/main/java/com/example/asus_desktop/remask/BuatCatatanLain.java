@@ -13,9 +13,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -37,7 +35,7 @@ public class BuatCatatanLain extends AppCompatActivity {
     //DbHelper mDbHelper;
     EditText mTitleText;
     EditText mDescriptionText;
-    Spinner mSpinner;
+    TextView mSpinner;
     TimePicker pickerTime;
     TextView time;
     ModelCreateTugas modelCreateTugas;
@@ -64,21 +62,14 @@ public class BuatCatatanLain extends AppCompatActivity {
 
         mTitleText = (EditText) findViewById(R.id.txttitle);
         mDescriptionText = (EditText) findViewById(R.id.description);
-        mSpinner = (Spinner) findViewById(R.id.spinnerNoteType);
+        mSpinner = (TextView) findViewById(R.id.spinnerNoteType);
         pickerTime = (TimePicker) findViewById(R.id.timePicker);
 
-
-
-        ArrayAdapter adapter = ArrayAdapter.createFromResource(
-                this, R.array.lain_lain_type, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mSpinner.setAdapter(adapter);
         BuatCatatanLain.this.setTitle("Buat Catatan");
         toolbar.setTitleTextColor(Color.parseColor("#FFFFFF"));
 
 
         Log.d("date",sharedPreferences.getString("date",""));
-
 
 
     }

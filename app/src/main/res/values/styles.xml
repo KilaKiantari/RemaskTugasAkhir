@@ -60,4 +60,9 @@
         <item name="thumbTint">@color/switch_color</item>
         <item name="trackTint">@color/track_color</item>
     </style>
+
+    <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/colorPrimary</item>
+        <item name="colorControlNormal">#ffffff</item>
+    </style>
 </resources>

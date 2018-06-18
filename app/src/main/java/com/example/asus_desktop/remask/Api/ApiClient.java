@@ -55,6 +55,10 @@ public class ApiClient {
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create()).build().create(ApiClient.GetServicesProgress.class);
 
+    public static GetServicesProgressudah services_get_progressudah = new Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create()).build().create(ApiClient.GetServicesProgressudah.class);
+
     public static GetServicesSkala services_get_skala = new Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create()).build().create(ApiClient.GetServicesSkala.class);
@@ -70,6 +74,11 @@ public class ApiClient {
     public static GetServicesGroupJoined services_get_group_joined = new Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create()).build().create(ApiClient.GetServicesGroupJoined.class);
+
+
+    public static GetServicesGroupJoinedSpinner services_get_group_joined_spinner = new Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create()).build().create(ApiClient.GetServicesGroupJoinedSpinner.class);
 
 
     public interface PostServices {
@@ -157,6 +166,15 @@ public class ApiClient {
                 @Field("status_tugas") String status_tugas,
                 @Field("tanggal_selesai") String tanggal_selesai
         );
+
+        @FormUrlEncoded
+        @POST("progress/checklistprogress/{id_progress}")
+        Call<ModelActionJoin> checklistprogress(
+                @Path("id_progress") String id_progress,
+                @Field("status_progress") String status_progress,
+                @Field("tgl_selesai") String tgl_selesai
+        );
+
     }
 
     public interface GetServicesProfil {
@@ -176,7 +194,12 @@ public class ApiClient {
 
     public interface GetServicesProgress {
         @GET("daftartugassiswa/indexprogress/{tugas_id}")
-        Call<ModelProgressHistori> getProgress(@Path("tugas_id") String tugas_id);
+        Call<ModelProgressHistori> getProgress(@Path("tugas_id") int tugas_id);
+    }
+
+    public interface GetServicesProgressudah {
+        @GET("daftartugassiswa/indexprogressudah/{tugas_id}")
+        Call<ModelProgressHistori> getProgressudah(@Path("tugas_id") int tugas_id);
     }
 
     public interface GetServicesSkala {
@@ -211,6 +234,12 @@ public class ApiClient {
         @GET("siswagrup/joined/{id}")
         Call<ModelGroupJoined> getGroupJoined(@Path("id") int id);
     }
+
+    public interface GetServicesGroupJoinedSpinner {
+        @GET("siswagrup/spinnergrup/{id}")
+        Call<ModelGroupJoined> getGroupJoinedSpinner(@Path("id") int id);
+    }
+
 
     public interface PostServicesCatatan {
         @FormUrlEncoded

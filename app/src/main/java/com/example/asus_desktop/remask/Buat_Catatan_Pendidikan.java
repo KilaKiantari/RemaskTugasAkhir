@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -26,6 +27,7 @@ import com.example.asus_desktop.remask.Model.ModelGroupJoined;
 import com.example.asus_desktop.remask.Model.Result;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -52,8 +54,9 @@ public class Buat_Catatan_Pendidikan extends AppCompatActivity {
     private String group_id;
     String selectedGroup;
     String namagroup;
-    ArrayList<String> id_group;
     private ArrayList<Result> result;
+    ModelGroupJoined modelGroupJoined;
+    ArrayList<String> id_group;
 
 
 
@@ -62,66 +65,88 @@ public class Buat_Catatan_Pendidikan extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buat_catatan_pendidikan);
 
-        SharedPreferences sharedPreferences = Buat_Catatan_Pendidikan.this.getSharedPreferences("Remask", MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences("Remask", MODE_PRIVATE);
+        edit = sharedPreferences.edit();
         siswa_id = sharedPreferences.getString("siswa_id", "");
+        //  sharedPreferences = getSharedPreferences("Remask", MODE_PRIVATE);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Buat_Catatan_Pendidikan.this.setTitle("Buat Catatan Pendidikan");
+        toolbar.setTitleTextColor(Color.parseColor("#FFFFFF"));
+
         toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_black_24dp));
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 finish();
             }
         });
+        Log.d("date", sharedPreferences.getString("date", ""));
 
         mTitleText = (EditText) findViewById(R.id.txttitle);
         mDescriptionText = (EditText) findViewById(R.id.description);
         mSpinner = (Spinner) findViewById(R.id.spinnerGroup);
-        pickerTime = (TimePicker) findViewById(R.id.timePicker);
-        txtkat = (TextView) findViewById(R.id.txtkat);
-        id_group = new ArrayList<>();
 
+        pickerTime = (TimePicker) findViewById(R.id.timePickerpen);
+        txtkat = (TextView) findViewById(R.id.txtkat);
+
+
+
+         initSpinnerGroup();
 
         mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view,final int i, long l) {
-               // selectedGroup = id_group.get(i);
-                group_id = result.get(i).getGroupId();
-              //  namagroup = result.getNamagroup();
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedName = parent.getItemAtPosition(position).toString();
+                selectedGroup = id_group.get(position);
 
-                ApiClient.services_get_group_joined.getGroupJoined(1).enqueue(new Callback<ModelGroupJoined>() {
-                    @Override
-                    public void onResponse(Call<ModelGroupJoined> call, Response<ModelGroupJoined> response) {
-                        if(response.isSuccessful()){
-
-                            Toast.makeText(Buat_Catatan_Pendidikan.this, ""+namagroup, Toast.LENGTH_SHORT).show();
-
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<ModelGroupJoined> call, Throwable t) {
-
-
-                    }
-                });
+//                requestDetailDosen(selectedName);
+                Toast.makeText(Buat_Catatan_Pendidikan.this, "Kamu memilih group " + selectedName, Toast.LENGTH_SHORT).show();
+                Toast.makeText(Buat_Catatan_Pendidikan.this, "id = " + selectedGroup, Toast.LENGTH_SHORT).show();
 
             }
+
             @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
+            public void onNothingSelected(AdapterView<?> parent) {
 
             }
         });
 
-        Buat_Catatan_Pendidikan.this.setTitle("Buat Catatan");
-        toolbar.setTitleTextColor(Color.parseColor("#FFFFFF"));
-
-
-        Log.d("date", sharedPreferences.getString("date", ""));
     }
 
+    private void initSpinnerGroup(){
 
+        ApiClient.services_get_group_joined_spinner.getGroupJoinedSpinner(1).enqueue(new Callback<ModelGroupJoined>() {
+            @Override
+            public void onResponse(Call<ModelGroupJoined> call, Response<ModelGroupJoined> response) {
+                if (response.isSuccessful()) {
+                    List<Result> groupJoined = response.body().getResults();
+                    List<String> listspinner = new ArrayList<String>();
+                    for (int i = 0; i < groupJoined.size(); i++) {
+                        listspinner.add(groupJoined.get(i).getNamagroup());
+                        id_group.add(groupJoined.get(i).getIdGroup());
+
+
+                    }
+
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(Buat_Catatan_Pendidikan.this, android.R.layout.simple_spinner_item, listspinner);
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    mSpinner.setAdapter(adapter);
+                } else {
+                    Toast.makeText(Buat_Catatan_Pendidikan.this, "Gagal mengambil group", Toast.LENGTH_SHORT).show();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ModelGroupJoined> call, Throwable t) {
+
+
+            }
+        });
+
+    }
 
     public void onBackPressed() {
         Intent setIntent = new Intent(this, MainActivity.class);
@@ -141,10 +166,11 @@ public class Buat_Catatan_Pendidikan extends AppCompatActivity {
         return true;
     }
 
+
+
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
-
-
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch(item.getItemId()) {
@@ -154,17 +180,24 @@ public class Buat_Catatan_Pendidikan extends AppCompatActivity {
                 startActivity(ab);
                 return true;
             case R.id.action_save:
-                String date = sharedPreferences.getString("date","")+" "+String.valueOf(pickerTime.getHour())+":"+String.valueOf(pickerTime.getMinute())+":00";
-                ApiClient.services_post.creatependidikan(
-                        group_id,
-                        siswa_id,
+                String date = sharedPreferences.getString("date", "") + " " + String.valueOf(pickerTime.getHour()) + ":" + String.valueOf(pickerTime.getMinute()) + ":00";
+
+                Log.d("id","1");
+                Log.d("title",mTitleText.getText().toString());
+                Log.d("lain lain","org");
+                Log.d("desc",mDescriptionText.getText().toString());
+                Log.d("date",date);
+
+
+                ApiClient.services_post.create(
+                        "1",
                         mTitleText.getText().toString(),
                         "3",
                         mDescriptionText.getText().toString(),
                         date,
-                        "0").enqueue(new Callback<String>() {
+                        "0").enqueue(new Callback<ModelCreateTugas>() {
                     @Override
-                    public void onResponse(Call<String> call, Response<String> response) {
+                    public void onResponse(Call<ModelCreateTugas> call, Response<ModelCreateTugas> response) {
                         Log.d("status",response.body().toString());
                         Toast.makeText(Buat_Catatan_Pendidikan.this, "Daftar Catatan telah ditambahkan", Toast.LENGTH_SHORT).show();
 
@@ -172,7 +205,7 @@ public class Buat_Catatan_Pendidikan extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onFailure(Call<String> call, Throwable t) {
+                    public void onFailure(Call<ModelCreateTugas> call, Throwable t) {
 
                     }
 
