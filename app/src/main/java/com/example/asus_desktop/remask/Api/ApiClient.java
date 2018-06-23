@@ -8,9 +8,13 @@ import com.example.asus_desktop.remask.Model.ModelGroupJoined;
 import com.example.asus_desktop.remask.Model.ModelLoginUser;
 import com.example.asus_desktop.remask.Model.ModelProgress;
 import com.example.asus_desktop.remask.Model.ModelProgressHistori;
+import com.example.asus_desktop.remask.Model.ModelRegister;
+import com.example.asus_desktop.remask.Model.ModelRegisterNext;
 import com.example.asus_desktop.remask.Model.ModelSkalaPrioritas;
 import com.example.asus_desktop.remask.Model.UserHistoriSiswa;
 import com.example.asus_desktop.remask.Model.UserProfilSiswa;
+
+import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -63,6 +67,11 @@ public class ApiClient {
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create()).build().create(ApiClient.GetServicesSkala.class);
 
+    public static GetServicesSkalaBaru services_get_skala_baru = new Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create()).build().create(ApiClient.GetServicesSkalaBaru.class);
+
+
     public static GetServicesGroupAll services_get_group_all = new Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create()).build().create(ApiClient.GetServicesGroupAll.class);
@@ -87,6 +96,23 @@ public class ApiClient {
         Call<ModelLoginUser> login(
                 @Field("username") String username,
                 @Field("password") String password
+        );
+
+        @FormUrlEncoded
+        @POST("signupsiswa/signup")
+        Call<ModelRegister> register(
+                @Field("nama_lengkap") String nama_lengkap,
+                @Field("sekolah") String sekolah
+
+        );
+        @FormUrlEncoded
+        @POST("signupsiswa/signupnext")
+        Call<ModelRegisterNext> registernext(
+                @Field("username") String username,
+                @Field("email") String email,
+                @Field("password") String password,
+                @Query("id") String id
+
         );
 
 
@@ -139,8 +165,8 @@ public class ApiClient {
 
         @FormUrlEncoded
         @POST("daftartugaspendidikansiswa/create")
-        Call<String> creatependidikan(
-                @Field("group_id") String group_id,
+        Call<ModelCreateTugas> creatependidikan(
+                @Field("group_id") ArrayList<String> group_id,
                 @Field("siswa_id") String siswa_id,
                 @Field("nama_tugas") String nama_tugas,
                 @Field("kategori") String kategori,
@@ -203,8 +229,13 @@ public class ApiClient {
     }
 
     public interface GetServicesSkala {
-        @GET("skalaprioritas/{id}")
+        @GET("skalaprioritas/index/{id}")
         Call<ModelSkalaPrioritas> getSkala(@Path("id") int id);
+    }
+
+    public interface GetServicesSkalaBaru {
+        @GET("skalaprioritas/indexbaru/{id}")
+        Call<ModelSkalaPrioritas> getSkalaBaru(@Path("id") int id);
     }
   /*  public interface GetServicesGroupAll{
         @GET("siswagrup/index")

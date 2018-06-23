@@ -52,11 +52,11 @@ public class Buat_Catatan_Pendidikan extends AppCompatActivity {
     private SharedPreferences.Editor edit;
     private String siswa_id;
     private String group_id;
-    String selectedGroup;
+  //  String selectedGroup;
     String namagroup;
     private ArrayList<Result> result;
     ModelGroupJoined modelGroupJoined;
-    ArrayList<String> id_group;
+    ArrayList<String> id_group = null;
 
 
 
@@ -68,6 +68,8 @@ public class Buat_Catatan_Pendidikan extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("Remask", MODE_PRIVATE);
         edit = sharedPreferences.edit();
         siswa_id = sharedPreferences.getString("siswa_id", "");
+
+        id_group = new ArrayList<>();
         //  sharedPreferences = getSharedPreferences("Remask", MODE_PRIVATE);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -99,7 +101,7 @@ public class Buat_Catatan_Pendidikan extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedName = parent.getItemAtPosition(position).toString();
-                selectedGroup = id_group.get(position);
+                String selectedGroup = id_group.get(position);
 
 //                requestDetailDosen(selectedName);
                 Toast.makeText(Buat_Catatan_Pendidikan.this, "Kamu memilih group " + selectedName, Toast.LENGTH_SHORT).show();
@@ -122,7 +124,7 @@ public class Buat_Catatan_Pendidikan extends AppCompatActivity {
             public void onResponse(Call<ModelGroupJoined> call, Response<ModelGroupJoined> response) {
                 if (response.isSuccessful()) {
                     List<Result> groupJoined = response.body().getResults();
-                    List<String> listspinner = new ArrayList<String>();
+                    List<String> listspinner = new ArrayList<>();
                     for (int i = 0; i < groupJoined.size(); i++) {
                         listspinner.add(groupJoined.get(i).getNamagroup());
                         id_group.add(groupJoined.get(i).getIdGroup());
@@ -189,7 +191,8 @@ public class Buat_Catatan_Pendidikan extends AppCompatActivity {
                 Log.d("date",date);
 
 
-                ApiClient.services_post.create(
+                ApiClient.services_post.creatependidikan(
+                        id_group,
                         "1",
                         mTitleText.getText().toString(),
                         "3",

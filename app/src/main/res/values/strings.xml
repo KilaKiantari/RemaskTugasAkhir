@@ -31,6 +31,10 @@
     <string-array name="nama_group">
         <item>Amburadul</item>
     </string-array>
+    <string-array name="sort_types">
+        <item>Kategori</item>
+        <item>Tanggal</item>
+    </string-array>
 
 
     <string-array name="set_alarm">
