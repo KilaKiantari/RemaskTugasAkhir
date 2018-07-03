@@ -1,15 +1,14 @@
 package com.example.asus_desktop.remask;
 
 import android.app.AlertDialog;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-//import android.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -18,8 +17,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.asus_desktop.remask.Grafik.GrafikMain;
 import com.example.asus_desktop.remask.HistoriTugas.HistoriBaru;
 import com.example.asus_desktop.remask.Model.SessionManager;
+
+//import android.app.FragmentManager;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -135,7 +137,7 @@ public class MainActivity extends AppCompatActivity
             fragment = new Skala_Prioritas();
             callFragment(fragment);
         } else if (id == R.id.nav_grafik) {
-            fragment = new Grafik();
+            fragment = new GrafikMain();
             callFragment(fragment);
         } else if (id == R.id.nav_profil) {
             fragment = new Profil();

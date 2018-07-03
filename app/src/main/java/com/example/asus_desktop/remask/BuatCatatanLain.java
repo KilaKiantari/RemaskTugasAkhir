@@ -46,7 +46,7 @@ public class BuatCatatanLain extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.buat_catatan);
+        setContentView(R.layout.activity_buat_catatan_lain);
         sharedPreferences = getSharedPreferences("Remask", MODE_PRIVATE);
         edit =sharedPreferences.edit();
 

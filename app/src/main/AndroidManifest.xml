@@ -27,10 +27,13 @@
         <activity android:name=".PopActivity"
             android:theme="@style/AppTheme.PopMe">
         </activity>
+        <activity android:name=".Grafik.Grafik"></activity>
         <activity android:name=".JoinGroup"></activity>
         <activity android:name=".Buat_Catatan_Pendidikan"></activity>
         <activity android:name=".BuatCatatanLain"></activity>
-        <activity android:name=".CustomDialog"></activity>
+        <activity android:name=".CustomDialog"
+            android:theme="@style/AppTheme.CustomDialog">
+        </activity>
         <activity android:name=".Progress.MainActivityProgress"></activity>
         <receiver android:name=".Alarm.AlarmReceiver"
             android:enabled="false">

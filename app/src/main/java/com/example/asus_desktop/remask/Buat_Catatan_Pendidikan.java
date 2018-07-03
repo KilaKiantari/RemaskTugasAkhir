@@ -101,11 +101,11 @@ public class Buat_Catatan_Pendidikan extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedName = parent.getItemAtPosition(position).toString();
-                String selectedGroup = id_group.get(position);
+//                String selectedGroup = id_group.get(position);
 
 //                requestDetailDosen(selectedName);
-                Toast.makeText(Buat_Catatan_Pendidikan.this, "Kamu memilih group " + selectedName, Toast.LENGTH_SHORT).show();
-                Toast.makeText(Buat_Catatan_Pendidikan.this, "id = " + selectedGroup, Toast.LENGTH_SHORT).show();
+               // Toast.makeText(Buat_Catatan_Pendidikan.this, "Kamu memilih group " + selectedName, Toast.LENGTH_SHORT).show();
+             //   Toast.makeText(Buat_Catatan_Pendidikan.this, "id = " + selectedGroup, Toast.LENGTH_SHORT).show();
 
             }
 
@@ -119,7 +119,7 @@ public class Buat_Catatan_Pendidikan extends AppCompatActivity {
 
     private void initSpinnerGroup(){
 
-        ApiClient.services_get_group_joined_spinner.getGroupJoinedSpinner(1).enqueue(new Callback<ModelGroupJoined>() {
+        ApiClient.services_get_group_joined_spinner.getGroupJoinedSpinner(siswa_id).enqueue(new Callback<ModelGroupJoined>() {
             @Override
             public void onResponse(Call<ModelGroupJoined> call, Response<ModelGroupJoined> response) {
                 if (response.isSuccessful()) {

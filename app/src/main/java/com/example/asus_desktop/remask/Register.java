@@ -114,33 +114,6 @@ public class Register extends AppCompatActivity{
 
 
                     });
-    /*           ApiClient.services_post.registernext(
-                        username.getText().toString(),
-                        input_email.getText().toString(),
-                        input_password.getText().toString(),
-                        "")
-                      .enqueue(new Callback<String>() {
-                    @Override
-                    public void onResponse(Call<String> call, Response<String> response) {
-                        response.body();
-                        Toast.makeText(Register.this, "Akun anda berhasil ditambahkan", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(Register.this, Login.class);
-                        startActivity(intent);
-                        finish();
-                        progressDialog.dismiss();
-                        //return true;
-                    }
-                          public void onFailure(Call<String> call, Throwable t) {
-
-                              Toast.makeText(Register.this, "Akun anda gagal registrasi", Toast.LENGTH_SHORT).show();
-                              progressDialog.dismiss();
-                          }
-
-
-                      });
-
-
-*/
 
 
                 }

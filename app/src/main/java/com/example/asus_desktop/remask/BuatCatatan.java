@@ -60,6 +60,7 @@ public class BuatCatatan extends AppCompatActivity {
     ModelCreateTugas modelCreateTugas;
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor edit;
+    private String siswa_id;
     private Integer id_tugas;
     private String status;
     private Context context = this;
@@ -79,6 +80,7 @@ public class BuatCatatan extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.buat_catatan);
         sharedPreferences = getSharedPreferences("Remask", MODE_PRIVATE);
+        siswa_id = sharedPreferences.getString("siswa_id","");
         edit = sharedPreferences.edit();
 
 
@@ -141,8 +143,32 @@ public class BuatCatatan extends AppCompatActivity {
                     showTimePickerDialog(localData.get_hour(), localData.get_min());
             }
         });
+        //edit
+//        String date = sharedPreferences.getString("date", "") + " " + String.valueOf(pickerTime.getHour()) + ":" + String.valueOf(pickerTime.getMinute()) + ":00";
+//        ApiClient.services_post.updatetugas(
+//              "1",
+//              siswa_id,
+//                mTitleText.getText().toString(),
+//                "2",
+//                mDescriptionText.getText().toString(),
+//                date,
+//                "0"
+//      ).enqueue(new Callback<String>() {
+//            @Override
+//            public void onResponse(Call<String> call, Response<String> response) {
+//
+//
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<String> call, Throwable t) {
+//
+//            }
+//        });
 
     }
+
 
     private void showTimePickerDialog(int h, int m) {
 
@@ -199,10 +225,6 @@ public class BuatCatatan extends AppCompatActivity {
         }
     }
 
-
-
-
-
     @Override
     public void onBackPressed() {
         Intent setIntent = new Intent(this, MainActivity.class);
@@ -239,7 +261,7 @@ public class BuatCatatan extends AppCompatActivity {
                         .setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {
-                                        String date = sharedPreferences.getString("date", "") + " " + String.valueOf(pickerTime.getHour()) + ":" + String.valueOf(pickerTime.getMinute()) + ":00";
+                                        String date = sharedPreferences.getString("date", "") + " " + String.valueOf(localData.get_hour()) + ":" + String.valueOf(localData.get_min()) + ":00";
                                         Log.d("id", "1");
                                         Log.d("title", mTitleText.getText().toString());
                                         Log.d("organisasi", "org");

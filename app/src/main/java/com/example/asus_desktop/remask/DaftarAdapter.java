@@ -5,6 +5,7 @@ package com.example.asus_desktop.remask;
  */
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
@@ -35,12 +36,17 @@ public class DaftarAdapter extends RecyclerView.Adapter<DaftarAdapter.MahasiswaV
 
     private ArrayList<Result> result;
     private Context mContext;
-    private String nama_tugas;
     private String id_tugas;
     private String siswa_id;
+    private String kat;
+    private TextView txtNamaTugas, txtTgl, txtKeterangan, txtKategori;
+    private String nama_tugas;
+    private String keterangan;
+    private String tgl;
 
 
-    public class MahasiswaViewHolder extends RecyclerView.ViewHolder{
+
+    public class MahasiswaViewHolder extends RecyclerView.ViewHolder {
         private TextView txtNamaTugas, txtTgl, txtKeterangan, txtKategori;
         public ImageView overflow;
 
@@ -53,6 +59,7 @@ public class DaftarAdapter extends RecyclerView.Adapter<DaftarAdapter.MahasiswaV
             overflow = (ImageView) itemView.findViewById(R.id.overflow);
 
         }
+
     }
 
     public DaftarAdapter(Context mContext,ArrayList<Result> results) {
@@ -64,13 +71,15 @@ public class DaftarAdapter extends RecyclerView.Adapter<DaftarAdapter.MahasiswaV
 
     public void onBindViewHolder(final MahasiswaViewHolder holder, final int position) {
         SharedPreferences sharedPreferences = mContext.getSharedPreferences("Remask", MODE_PRIVATE);
-        siswa_id = sharedPreferences.getString("siswa_id","");
+        siswa_id = sharedPreferences.getString("siswa_id", "");
 
         holder.txtNamaTugas.setText(result.get(position).getNamaTugas());
         holder.txtKeterangan.setText(result.get(position).getKeterangan());
         holder.txtTgl.setText(result.get(position).getTanggalTugas());
 
-        switch (result.get(position).getKategori()){
+
+
+        switch (result.get(position).getKategori()) {
             case "1":
                 holder.txtKategori.setText("lain-lain");
                 break;
@@ -81,6 +90,8 @@ public class DaftarAdapter extends RecyclerView.Adapter<DaftarAdapter.MahasiswaV
                 holder.txtKategori.setText("pendidikan");
                 break;
         }
+
+
         holder.overflow.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -88,10 +99,13 @@ public class DaftarAdapter extends RecyclerView.Adapter<DaftarAdapter.MahasiswaV
                 showPopupMenu(holder.overflow);
                 nama_tugas = result.get(position).getNamaTugas();
                 id_tugas = result.get(position).getIdTugas();
-
+                kat = result.get(position).getKategori();
+                keterangan = result.get(position).getKeterangan();
+                tgl = result.get(position).getTanggalTugas();
             }
         });
     }
+
 
     private void showPopupMenu(View view) {
 
@@ -116,48 +130,31 @@ public class DaftarAdapter extends RecyclerView.Adapter<DaftarAdapter.MahasiswaV
         public boolean onMenuItemClick(MenuItem menuItem) {
             switch (menuItem.getItemId()) {
                 case R.id.action_edit:
-//                   ApiClient.services_post.updatetugas(
-//                            id_tugas,
-//                            siswa_id,
-//                            txt
-//                            guru_id) .enqueue(new Callback<ModelActionJoin>() {
-//                        @Override
-//                        public void onResponse(Call<ModelActionJoin> call, Response<ModelActionJoin> response) {
-//                            if(response.isSuccessful()) {
-//                                //   siswa_id = response.body().getSiswaId();
-//                                //  namagroup = response.body().getNamagroup();
-//                                //  guru_id = response.body().getGuruId();
-//                                Toast.makeText(mContext, "Anda berhasil Join Group "+namagroup,Toast.LENGTH_SHORT).show();
-//                                // Toast.makeText(mContext, "" + siswa_id, Toast.LENGTH_SHORT).show();
-//                                // id_guru = response.body().getIdGuru();
-//                            }else{
-//                                Toast.makeText(mContext, "SALAH", Toast.LENGTH_SHORT).show();
-//                            }
-////
-//                            // Toast.makeText(mContext, ""+namagroup, Toast.LENGTH_SHORT).show();
-//
-//
-//                            // progressDialog.dismiss();
-//
-//                        }
-//
-//                        @Override
-//                        public void onFailure(Call<ModelActionJoin> call, Throwable t) {
-//                            Toast.makeText(mContext, "" +t, Toast.LENGTH_SHORT).show();
-//                        }
-//                    });
-//                    Toast.makeText(mContext, ""+id_tugas, Toast.LENGTH_SHORT).show();
-//                    Toast.makeText(mContext, ""+nama_tugas, Toast.LENGTH_SHORT).show();
-//                    Toast.makeText(mContext, "Edit", Toast.LENGTH_SHORT).show();
+                    if (kat.equals("3")) {
+                        Intent i = new Intent(mContext, Buat_Catatan_Pendidikan.class);
+                        mContext.startActivity(i);
+                    } else if (kat.equals("2")) {
+                        Intent i = new Intent(mContext, BuatCatatan.class);
+                        i.putExtra("nama_tugas",nama_tugas);
+                        i.putExtra("keterangan",keterangan);
+                        i.putExtra("tgl",tgl);
+                        mContext.startActivity(i);
+                    } else if (kat.equals("1")) {
+                        Intent i = new Intent(mContext, BuatCatatanLain.class);
+                        mContext.startActivity(i);
+                    }
+                    Toast.makeText(mContext, "" + kat, Toast.LENGTH_SHORT).show();
                     return true;
                 case R.id.action_delete:
                     Toast.makeText(mContext, "Delete", Toast.LENGTH_SHORT).show();
                     return true;
                 default:
-            }return false;
+            } return false;
 
         }
     }
+
+
     @Override
     public int getItemCount() {
 

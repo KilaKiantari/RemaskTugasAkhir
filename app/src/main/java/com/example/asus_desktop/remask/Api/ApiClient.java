@@ -76,6 +76,10 @@ public class ApiClient {
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create()).build().create(ApiClient.GetServicesGroupAll.class);
 
+    public static GetSearchGroup services_get_search_group = new Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create()).build().create(ApiClient.GetSearchGroup.class);
+
     public static GetServicesDaftarCatatan services_get_daftar_catatan = new Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create()).build().create(ApiClient.GetServicesDaftarCatatan.class);
@@ -128,16 +132,6 @@ public class ApiClient {
 
         );
 
-
-        @FormUrlEncoded
-        @POST("daftartugassiswa/createprogress")
-        Call<ModelProgress> createprogress(
-                @Field("nama_progress") String namaprogress,
-                @Field("siswa_id") String siswa_id,
-                @Field("tgl_selesai") String tgl_selesai,
-                @Query("id") String id
-
-        );
 
         @FormUrlEncoded
         @POST("daftartugassiswa/createprogress")
@@ -201,6 +195,12 @@ public class ApiClient {
                 @Field("tgl_selesai") String tgl_selesai
         );
 
+//        @FormUrlEncoded
+//        @POST("gurugroup/cari/{id}")
+//        Call<ModelGroupAll> getSearchGroup(
+//                @Field("id") String id
+//        );
+
     }
 
     public interface GetServicesProfil {
@@ -245,13 +245,17 @@ public class ApiClient {
 
     public interface GetServicesGroupAll {
         @GET("siswagrup/index/{id}")
-        Call<ModelGroupAll> getGroupAll(@Path("id") int id);
+        Call<ModelGroupAll> getGroupAll(@Path("id") String id);
     }
 
     public interface GetServicesDaftarCatatan {
         @GET("daftartugassiswa/index/{id}")
         Call<ModelDaftarCatatan> getDaftarCatatan(@Path("id") int id);
-
+    }
+    public interface GetSearchGroup {
+        @GET("gurugroup/cari")
+        Call<ModelGroupAll> getSearchGroup(@Query("id") String id);
+    }
 
 //        @GET("daftartugaspendidikansiswa/index?id={id}_{tanggal_tugas}")
 //        Call<ModelDaftarCatatan> getDaftarCatatan(
@@ -259,7 +263,7 @@ public class ApiClient {
 //                @Path("tanggal_tugas") String tanggal_tugas
 //        );
 
-    }
+
 
     public interface GetServicesGroupJoined {
         @GET("siswagrup/joined/{id}")
@@ -268,7 +272,7 @@ public class ApiClient {
 
     public interface GetServicesGroupJoinedSpinner {
         @GET("siswagrup/spinnergrup/{id}")
-        Call<ModelGroupJoined> getGroupJoinedSpinner(@Path("id") int id);
+        Call<ModelGroupJoined> getGroupJoinedSpinner(@Path("id") String id);
     }
 
 

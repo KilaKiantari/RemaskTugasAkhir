@@ -22,6 +22,12 @@
         <item name="android:windowCloseOnTouchOutside">true</item>
     </style>
 
+    <style name="AppTheme.CustomDialog">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowCloseOnTouchOutside">true</item>
+    </style>
+
+
 
     <style name="settings_item_layout">
         <item name="android:orientation">vertical</item>
