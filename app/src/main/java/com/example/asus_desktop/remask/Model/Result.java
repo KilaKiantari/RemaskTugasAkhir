@@ -124,6 +124,19 @@ public class Result {
     private Integer tugasId;
     private boolean isSelected;
 
+    @SerializedName("COUNT(*)")
+    @Expose
+    private String cOUNT;
+
+    public String getCOUNT  () {
+        return cOUNT;
+    }
+
+    public void setCOUNT(String cOUNT) {
+        this.cOUNT = cOUNT;
+    }
+
+
     public String getIdProgress() {
         return idProgress;
     }
@@ -171,10 +184,6 @@ public class Result {
     public void setTugasId(Integer tugasId) {
         this.tugasId = tugasId;
     }
-
-
-
-
 
 
     public String getNamagroup() {

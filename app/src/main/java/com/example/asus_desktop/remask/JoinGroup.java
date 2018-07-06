@@ -142,7 +142,7 @@ public class JoinGroup extends AppCompatActivity implements SearchView.OnQueryTe
         ApiClient.services_get_search_group.getSearchGroup(newText).enqueue(new Callback<ModelGroupAll>() {
             @Override
             public void onResponse(Call<ModelGroupAll> call, Response<ModelGroupAll> response) {
-                Log.e("Response Search " , "Code : " + response.code());
+                Log.e("Response Grafik " , "Code : " + response.code());
                 if(response.isSuccessful()) {
                     recyclerView.setVisibility(View.VISIBLE);
                     adapter = new JoinGroupAdapter(JoinGroup.this, response.body().getResults());

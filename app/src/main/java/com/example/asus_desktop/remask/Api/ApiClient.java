@@ -3,6 +3,7 @@ package com.example.asus_desktop.remask.Api;
 import com.example.asus_desktop.remask.Model.ModelActionJoin;
 import com.example.asus_desktop.remask.Model.ModelCreateTugas;
 import com.example.asus_desktop.remask.Model.ModelDaftarCatatan;
+import com.example.asus_desktop.remask.Model.ModelGrafikProgress;
 import com.example.asus_desktop.remask.Model.ModelGroupAll;
 import com.example.asus_desktop.remask.Model.ModelGroupJoined;
 import com.example.asus_desktop.remask.Model.ModelLoginUser;
@@ -54,6 +55,15 @@ public class ApiClient {
     public static GetServicesHistoriSudah services_get_hitori_sudah = new Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create()).build().create(ApiClient.GetServicesHistoriSudah.class);
+
+    public static GetGrafikProgress services_get_grafik_progress = new Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create()).build().create(ApiClient.GetGrafikProgress.class);
+
+    public static GetGrafikProgressBelum services_get_grafik_progress_belum = new Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create()).build().create(ApiClient.GetGrafikProgressBelum.class);
+
 
     public static GetServicesProgress services_get_progress = new Retrofit.Builder()
             .baseUrl(BASE_URL)
@@ -263,7 +273,15 @@ public class ApiClient {
 //                @Path("tanggal_tugas") String tanggal_tugas
 //        );
 
+    public interface GetGrafikProgress {
+        @GET("grafik/grafikprogress/{id}")
+        Call<ModelGrafikProgress> getGrafikProgress(@Path("id") int id);
+    }
 
+    public interface GetGrafikProgressBelum {
+        @GET("grafik/grafikprogressbelum/{id}")
+        Call<ModelGrafikProgress> getGrafikProgressBelum(@Path("id") int id);
+    }
 
     public interface GetServicesGroupJoined {
         @GET("siswagrup/joined/{id}")

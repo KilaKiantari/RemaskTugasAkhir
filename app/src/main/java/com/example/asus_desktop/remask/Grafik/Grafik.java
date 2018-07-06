@@ -1,12 +1,17 @@
 package com.example.asus_desktop.remask.Grafik;
 
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
+import com.example.asus_desktop.remask.Api.ApiClient;
+import com.example.asus_desktop.remask.Model.ModelGrafikProgress;
 import com.example.asus_desktop.remask.R;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.Entry;
@@ -19,20 +24,19 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class Grafik extends AppCompatActivity implements OnChartValueSelectedListener {
 
     public Grafik(){}
     private static final String TAG = Grafik.class.getSimpleName();
-    private int jmlprgs = 5;
-    private int belum = 3;
-    private int sudah = 2;
-    private int hasilsudah = (sudah * 10)/jmlprgs;
-    private int hasilbelum = (belum * 10)/jmlprgs;
+    ModelGrafikProgress modelGrafikProgress;
 
-
-
+    ArrayList<Entry> yValues = new ArrayList<Entry>();
+    ArrayList<String> xValues = new ArrayList<String>();
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,49 +52,138 @@ public class Grafik extends AppCompatActivity implements OnChartValueSelectedLis
         Grafik.this.setTitle("Grafik Progress");
         toolbar.setTitleTextColor(Color.parseColor("#FFFFFF"));
 
-        PieChart pieChart = (PieChart) findViewById(R.id.piechart);
+        final PieChart pieChart = (PieChart) findViewById(R.id.piechart);
         pieChart.setUsePercentValues(true);
 
+        final ProgressDialog progressDialog = new ProgressDialog(Grafik.this);
+        progressDialog.setMessage("Please wait....");
+        progressDialog.show();
 
 
-        ArrayList<Entry> yvalues = new ArrayList<Entry>();
-        if(sudah<belum) {
-             pieChart.setDescription("Belum Mengerjakan Seluruhnya");
-            yvalues.add(new Entry( hasilsudah, 0));
-        }
-            yvalues.add(new Entry(hasilbelum, 1));
+        ApiClient.services_get_grafik_progress.getGrafikProgress(97).enqueue(new Callback<ModelGrafikProgress>() {
+            @Override
+            public void onResponse(Call<ModelGrafikProgress> call, Response<ModelGrafikProgress> response) {
+                modelGrafikProgress = response.body();
+                Log.e("Response Search ", "Code : " + response.code());
+                Integer sudah = response.body().getJml();
+                if (response.isSuccessful()) {
+                    Toast.makeText(Grafik.this, "sudah =" + sudah, Toast.LENGTH_SHORT).show();
+
+                    yValues.add(new Entry(sudah, 1));
+                    xValues.add("Sudah");
+                    progressDialog.dismiss();
+
+//                    ArrayList<Entry> yvalues = new ArrayList<Entry>();
+//                    yvalues.add(new Entry(sudah, 1));
+//                    PieDataSet dataSet = new PieDataSet(yvalues, "Election Results");
+//
+//                    ArrayList<String> xVals = new ArrayList<String>();
+//                    xVals.add("Sudah");
+//
+//                    PieData data = new PieData(xVals, dataSet);
+//                    // In Percentage term
+//                    data.setValueFormatter(new PercentFormatter());
+//                    // Default value
+//                    //data.setValueFormatter(new DefaultValueFormatter(0));
+//                    pieChart.setData(data);
+//                    dataSet.setColors(ColorTemplate.VORDIPLOM_COLORS);
+//                    data.setValueTextSize(13f);
+//                    data.setValueTextColor(Color.DKGRAY);
+
+                } else {
+                    Toast.makeText(Grafik.this, "SALAH", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            public void onFailure(Call<ModelGrafikProgress> call, Throwable t) {
+
+                Toast.makeText(Grafik.this, "" + t, Toast.LENGTH_SHORT).show();
+
+            }
+        });
 
 
-        PieDataSet dataSet = new PieDataSet(yvalues, "Election Results");
+        ApiClient.services_get_grafik_progress_belum.getGrafikProgressBelum(97).enqueue(new Callback<ModelGrafikProgress>() {
+            @Override
+            public void onResponse(Call<ModelGrafikProgress> call, Response<ModelGrafikProgress> response) {
+                modelGrafikProgress = response.body();
+                Log.e("Response Search ", "Code : " + response.code());
+                Integer belum = response.body().getJmlblm();
+                if (response.isSuccessful()) {
+                    Toast.makeText(Grafik.this, "belum =" + belum, Toast.LENGTH_SHORT).show();
 
-        ArrayList<String> xVals = new ArrayList<String>();
+                    yValues.add(new Entry(belum, 2));
+                    xValues.add("Belum");
+                    progressDialog.dismiss();
 
-        xVals.add("Sudah");
-        xVals.add("Belum");
-
-
-        PieData data = new PieData(xVals, dataSet);
-        // In Percentage term
-        data.setValueFormatter(new PercentFormatter());
-        // Default value
-        //data.setValueFormatter(new DefaultValueFormatter(0));
-        pieChart.setData(data);
+                } else {
+                    Toast.makeText(Grafik.this, "SALAH", Toast.LENGTH_SHORT).show();
+                }
 
 
-        pieChart.setDrawHoleEnabled(true);
-        pieChart.setTransparentCircleRadius(25f);
-        pieChart.setHoleRadius(25f);
+            }
 
-        dataSet.setColors(ColorTemplate.VORDIPLOM_COLORS);
-        data.setValueTextSize(13f);
-        data.setValueTextColor(Color.DKGRAY);
-      //  pieChart.setOnChartValueSelectedListener(getActivity());
+            public void onFailure(Call<ModelGrafikProgress> call, Throwable t) {
 
-        pieChart.animateXY(1400, 1400);
+                Toast.makeText(Grafik.this, "" + t, Toast.LENGTH_SHORT).show();
 
+            }
+        });
+
+
+        progressDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                Toast.makeText(Grafik.this, "yValues: "+ yValues.size() +", xValues: "+ xValues, Toast.LENGTH_SHORT).show();
+
+                PieDataSet dataSet = new PieDataSet(yValues, "Election Results");
+                PieData data = new PieData(xValues, dataSet);
+                // In Percentage term
+                data.setValueFormatter(new PercentFormatter());
+                // Default value
+                //data.setValueFormatter(new DefaultValueFormatter(0));
+                pieChart.setData(data);
+                dataSet.setColors(ColorTemplate.VORDIPLOM_COLORS);
+                data.setValueTextSize(13f);
+                data.setValueTextColor(Color.DKGRAY);
+
+                pieChart.setDescription("Belum Mengerjakan Seluruhnya");
+
+                pieChart.setDrawHoleEnabled(true);
+                pieChart.setTransparentCircleRadius(25f);
+                pieChart.setHoleRadius(25f);
+
+                pieChart.animateXY(1400, 1400);
+            }
+        });
+
+
+
+
+
+//        ArrayList<Entry> yvalues = new ArrayList<Entry>();
+//
+//        yvalues.add(new Entry(3, 1));
+//        yvalues.add(new Entry(2,2));
+//
+//        PieDataSet dataSet = new PieDataSet(yvalues, "Election Results");
+//
+//        ArrayList<String> xVals = new ArrayList<String>();
+//        xVals.add("Sudah");
+//        xVals.add("Belum");
+//        PieData data = new PieData(xVals, dataSet);
+//        // In Percentage term
+//        data.setValueFormatter(new PercentFormatter());
+//        // Default value
+//        //data.setValueFormatter(new DefaultValueFormatter(0));
+//        pieChart.setData(data);
+//        dataSet.setColors(ColorTemplate.VORDIPLOM_COLORS);
+//        data.setValueTextSize(13f);
+//        data.setValueTextColor(Color.DKGRAY);
 
 
     }
+
 
     public void onValueSelected(Entry e, int dataSetIndex, Highlight h) {
 
