@@ -127,6 +127,39 @@ public class Result {
     @SerializedName("COUNT(*)")
     @Expose
     private String cOUNT;
+    @SerializedName("selisihorganisasi")
+    @Expose
+    private Float selisihorganisasi;
+    @SerializedName("selisihpendidikan")
+    @Expose
+    private Float selisihpendidikan;
+    @SerializedName("selisihlain")
+    @Expose
+    private Float selisihlain;
+
+    public Float getSelisihlain() {
+        return selisihlain;
+    }
+
+    public void setSelisihlain(Float selisihlain) {
+        this.selisihlain = selisihlain;
+    }
+
+    public Float getSelisihpendidikan() {
+        return selisihpendidikan;
+    }
+
+    public void setSelisihpendidikan(Float selisihpendidikan) {
+        this.selisihpendidikan = selisihpendidikan;
+    }
+
+    public Float getSelisihorganisasi() {
+        return selisihorganisasi;
+    }
+
+    public void setSelisihorganisasi(Float selisihorganisasi) {
+        this.selisihorganisasi = selisihorganisasi;
+    }
 
     public String getCOUNT  () {
         return cOUNT;

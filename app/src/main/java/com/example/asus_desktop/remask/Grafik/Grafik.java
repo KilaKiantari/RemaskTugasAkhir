@@ -134,7 +134,7 @@ public class Grafik extends AppCompatActivity implements OnChartValueSelectedLis
         progressDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialogInterface) {
-                Toast.makeText(Grafik.this, "yValues: "+ yValues.size() +", xValues: "+ xValues, Toast.LENGTH_SHORT).show();
+             //   Toast.makeText(Grafik.this, "yValues: "+ yValues.size() +", xValues: "+ xValues, Toast.LENGTH_SHORT).show();
 
                 PieDataSet dataSet = new PieDataSet(yValues, "Election Results");
                 PieData data = new PieData(xValues, dataSet);
@@ -157,10 +157,6 @@ public class Grafik extends AppCompatActivity implements OnChartValueSelectedLis
             }
         });
 
-
-
-
-
 //        ArrayList<Entry> yvalues = new ArrayList<Entry>();
 //
 //        yvalues.add(new Entry(3, 1));
@@ -181,7 +177,6 @@ public class Grafik extends AppCompatActivity implements OnChartValueSelectedLis
 //        data.setValueTextSize(13f);
 //        data.setValueTextColor(Color.DKGRAY);
 
-
     }
 
 
@@ -197,9 +192,6 @@ public class Grafik extends AppCompatActivity implements OnChartValueSelectedLis
 
     public void onNothingSelected() {
         Log.i("PieChart", "nothing selected");
-
-
-
 
     }
 }

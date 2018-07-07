@@ -270,7 +270,7 @@ public class BuatCatatan extends AppCompatActivity {
 
 
                                         ApiClient.services_post.create(
-                                                "1",
+                                                siswa_id,
                                                 mTitleText.getText().toString(),
                                                 "2",
                                                 mDescriptionText.getText().toString(),

@@ -3,6 +3,7 @@ package com.example.asus_desktop.remask.Api;
 import com.example.asus_desktop.remask.Model.ModelActionJoin;
 import com.example.asus_desktop.remask.Model.ModelCreateTugas;
 import com.example.asus_desktop.remask.Model.ModelDaftarCatatan;
+import com.example.asus_desktop.remask.Model.ModelGrafikKerajinan;
 import com.example.asus_desktop.remask.Model.ModelGrafikProgress;
 import com.example.asus_desktop.remask.Model.ModelGroupAll;
 import com.example.asus_desktop.remask.Model.ModelGroupJoined;
@@ -64,6 +65,17 @@ public class ApiClient {
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create()).build().create(ApiClient.GetGrafikProgressBelum.class);
 
+    public static GetGrafikKerajinanOrganisasi services_get_grafik_organisasi = new Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create()).build().create(ApiClient.GetGrafikKerajinanOrganisasi.class);
+
+    public static GetGrafikKerajinanPendidikan services_get_grafik_pendidikan = new Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create()).build().create(ApiClient.GetGrafikKerajinanPendidikan.class);
+
+    public static GetGrafikKerajinanLain services_get_grafik_lain = new Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create()).build().create(ApiClient.GetGrafikKerajinanLain.class);
 
     public static GetServicesProgress services_get_progress = new Retrofit.Builder()
             .baseUrl(BASE_URL)
@@ -281,6 +293,21 @@ public class ApiClient {
     public interface GetGrafikProgressBelum {
         @GET("grafik/grafikprogressbelum/{id}")
         Call<ModelGrafikProgress> getGrafikProgressBelum(@Path("id") int id);
+    }
+
+    public interface GetGrafikKerajinanOrganisasi {
+        @GET("grafik/grafikorganisasiselisih/{id}")
+        Call<ModelGrafikKerajinan> getGrafikKerajinanOrganisasi(@Path("id") String id);
+    }
+
+    public interface GetGrafikKerajinanPendidikan {
+        @GET("grafik/grafikpendidikanselisih/{id}")
+        Call<ModelGrafikKerajinan> getGrafikKerajinanPendidikan(@Path("id") String id);
+    }
+
+    public interface GetGrafikKerajinanLain {
+        @GET("grafik/grafiklainselisih/{id}")
+        Call<ModelGrafikKerajinan> getGrafikKerajinanLain(@Path("id") String id);
     }
 
     public interface GetServicesGroupJoined {
