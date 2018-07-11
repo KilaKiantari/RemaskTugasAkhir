@@ -1,11 +1,9 @@
 package com.example.asus_desktop.remask;
 
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +13,14 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.asus_desktop.remask.Api.ApiClient;
 import com.example.asus_desktop.remask.Model.UserProfilSiswa;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static android.content.Context.MODE_PRIVATE;
 
 
 public class Profil extends Fragment {
@@ -28,43 +33,53 @@ public class Profil extends Fragment {
     private Button btnLogin ;
     private TextView NamaSiswa,Status,Sekolah,Email;
     private UserProfilSiswa modelUserProfile;
+    private String siswa_id;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.activity_profil, container, false);
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("Remask", MODE_PRIVATE);
+        siswa_id = sharedPreferences.getString("siswa_id","");
 
-        NamaSiswa = (TextView) view.findViewById(R.id.name);
-        Status = (TextView) view.findViewById(R.id.status);
-        Sekolah = (TextView) view.findViewById(R.id.sekolah);
-        Email = (TextView) view.findViewById(R.id.email);
+
+        NamaSiswa = (TextView) view.findViewById(R.id.tvNamaLengkap);
+        Status = (TextView) view.findViewById(R.id.tvStatus);
+        Sekolah = (TextView) view.findViewById(R.id.tvSekolah);
+        Email = (TextView) view.findViewById(R.id.tvEmail);
 
 
         getActivity().setTitle("Profil Saya");
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("Remask", Context.MODE_PRIVATE);
-        Log.d("id_siswa", String.valueOf(sharedPreferences.getInt("id_siswa", 0)));
-      /*  ApiClient.services_get_profil.getProfile().enqueue(new Callback<UserProfilSiswa>() {
+
+        ApiClient.services_get_profil.getProfile(siswa_id).enqueue(new Callback<UserProfilSiswa>() {
             @Override
             public void onResponse(Call<UserProfilSiswa> call, Response<UserProfilSiswa> response) {
                 modelUserProfile = response.body();
-                NamaSiswa.setText(modelUserProfile.getResults().getNamaLengkap());
-                Status.setText(modelUserProfile.getResults().getNamaOrangtua());
-                Sekolah.setText(modelUserProfile.getResults().getSekolah());
-                Email.setText(modelUserProfile.getResults().getEmail());
-                //Log.d("getSekolah", modelUserProfile.getSekolah());
+                NamaSiswa.setText(modelUserProfile.getNamaLengkap());
+                Status.setText(modelUserProfile.getLevel());
+                Sekolah.setText(modelUserProfile.getSekolah());
+                Email.setText(modelUserProfile.getEmail());
 
-
+                switch (modelUserProfile.getLevel()) {
+                    case "1":
+                      Status.setText("Siswa");
+                        break;
+                    case "2":
+                        Status.setText("Guru");
+                        break;
+                    case "3":
+                        Status.setText("Orangtua");
+                        break;
+                }
             }
-
-
             public void onFailure(Call<UserProfilSiswa> call, Throwable t) {
 
             }
 
 
         });
-        */
+
 
         return view;
     }

@@ -2,6 +2,7 @@ package com.example.asus_desktop.remask.Grafik;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -34,6 +35,7 @@ public class Grafik extends AppCompatActivity implements OnChartValueSelectedLis
     public Grafik(){}
     private static final String TAG = Grafik.class.getSimpleName();
     ModelGrafikProgress modelGrafikProgress;
+    String id_tugas;
 
     ArrayList<Entry> yValues = new ArrayList<Entry>();
     ArrayList<String> xValues = new ArrayList<String>();
@@ -59,8 +61,10 @@ public class Grafik extends AppCompatActivity implements OnChartValueSelectedLis
         progressDialog.setMessage("Please wait....");
         progressDialog.show();
 
+        Intent tugas = getIntent();
+        id_tugas = tugas.getStringExtra("id_tugas");
 
-        ApiClient.services_get_grafik_progress.getGrafikProgress(97).enqueue(new Callback<ModelGrafikProgress>() {
+        ApiClient.services_get_grafik_progress.getGrafikProgress(id_tugas).enqueue(new Callback<ModelGrafikProgress>() {
             @Override
             public void onResponse(Call<ModelGrafikProgress> call, Response<ModelGrafikProgress> response) {
                 modelGrafikProgress = response.body();
@@ -103,7 +107,7 @@ public class Grafik extends AppCompatActivity implements OnChartValueSelectedLis
         });
 
 
-        ApiClient.services_get_grafik_progress_belum.getGrafikProgressBelum(97).enqueue(new Callback<ModelGrafikProgress>() {
+        ApiClient.services_get_grafik_progress_belum.getGrafikProgressBelum(id_tugas).enqueue(new Callback<ModelGrafikProgress>() {
             @Override
             public void onResponse(Call<ModelGrafikProgress> call, Response<ModelGrafikProgress> response) {
                 modelGrafikProgress = response.body();

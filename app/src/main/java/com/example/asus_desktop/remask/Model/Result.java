@@ -121,7 +121,7 @@ public class Result {
     private String statusProgress;
     @SerializedName("tugas_id")
     @Expose
-    private Integer tugasId;
+    private String tugasId;
     private boolean isSelected;
 
     @SerializedName("COUNT(*)")
@@ -136,6 +136,9 @@ public class Result {
     @SerializedName("selisihlain")
     @Expose
     private Float selisihlain;
+
+    public Result(int argb) {
+    }
 
     public Float getSelisihlain() {
         return selisihlain;
@@ -210,11 +213,11 @@ public class Result {
         this.statusProgress = statusProgress;
     }
 
-    public Integer getTugasId() {
+    public String getTugasId() {
         return tugasId;
     }
 
-    public void setTugasId(Integer tugasId) {
+    public void setTugasId(String tugasId) {
         this.tugasId = tugasId;
     }
 

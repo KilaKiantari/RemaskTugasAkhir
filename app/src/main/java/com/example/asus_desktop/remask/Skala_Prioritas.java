@@ -2,6 +2,7 @@ package com.example.asus_desktop.remask;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -22,6 +23,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.content.Context.MODE_PRIVATE;
+
 
 public class Skala_Prioritas extends Fragment {
 
@@ -37,6 +40,7 @@ public class Skala_Prioritas extends Fragment {
     private TextView txtNama, txtTgl, txtNoHp;
     ApiClient apiClient;
     private Spinner mSpinner;
+    String siswa_id;
 
 
 
@@ -58,6 +62,8 @@ public class Skala_Prioritas extends Fragment {
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
         getActivity().setTitle("Skala Prioritas Tugas");
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("Remask", MODE_PRIVATE);
+        siswa_id = sharedPreferences.getString("siswa_id","");
 
 
         ArrayAdapter adapter = ArrayAdapter.createFromResource(
@@ -98,7 +104,7 @@ public class Skala_Prioritas extends Fragment {
         progressDialog.show();
 
 
-        ApiClient.services_get_skala.getSkala(1).enqueue(new Callback<ModelSkalaPrioritas>() {
+        ApiClient.services_get_skala.getSkala(siswa_id).enqueue(new Callback<ModelSkalaPrioritas>() {
             @Override
             public void onResponse(Call<ModelSkalaPrioritas> call, Response<ModelSkalaPrioritas> response) {
                 modelSkalaPrioritasa = response.body();
@@ -125,7 +131,7 @@ public class Skala_Prioritas extends Fragment {
         progressDialog.show();
 
 
-        ApiClient.services_get_skala_baru.getSkalaBaru(1).enqueue(new Callback<ModelSkalaPrioritas>() {
+        ApiClient.services_get_skala_baru.getSkalaBaru(siswa_id).enqueue(new Callback<ModelSkalaPrioritas>() {
             @Override
             public void onResponse(Call<ModelSkalaPrioritas> call, Response<ModelSkalaPrioritas> response) {
                 modelSkalaPrioritasa = response.body();

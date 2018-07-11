@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity
     CollapsingToolbarLayout collapsingToolbar;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

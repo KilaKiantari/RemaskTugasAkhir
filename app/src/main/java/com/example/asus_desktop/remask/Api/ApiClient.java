@@ -237,12 +237,12 @@ public class ApiClient {
 
     public interface GetServicesHistoriSudah {
         @GET("historisiswa/indexsudah/{id}")
-        Call<UserHistoriSiswa> getHistoriSudah(@Path("id") int id);
+        Call<UserHistoriSiswa> getHistoriSudah(@Path("id") String id);
     }
 
     public interface GetServicesProgress {
-        @GET("daftartugassiswa/indexprogress/{tugas_id}")
-        Call<ModelProgressHistori> getProgress(@Path("tugas_id") int tugas_id);
+        @GET("daftartugassiswa/indexprogress/{id}")
+        Call<ModelProgressHistori> getProgress(@Path("id") int id);
     }
 
     public interface GetServicesProgressudah {
@@ -252,12 +252,12 @@ public class ApiClient {
 
     public interface GetServicesSkala {
         @GET("skalaprioritas/index/{id}")
-        Call<ModelSkalaPrioritas> getSkala(@Path("id") int id);
+        Call<ModelSkalaPrioritas> getSkala(@Path("id") String id);
     }
 
     public interface GetServicesSkalaBaru {
         @GET("skalaprioritas/indexbaru/{id}")
-        Call<ModelSkalaPrioritas> getSkalaBaru(@Path("id") int id);
+        Call<ModelSkalaPrioritas> getSkalaBaru(@Path("id") String id);
     }
   /*  public interface GetServicesGroupAll{
         @GET("siswagrup/index")
@@ -287,12 +287,12 @@ public class ApiClient {
 
     public interface GetGrafikProgress {
         @GET("grafik/grafikprogress/{id}")
-        Call<ModelGrafikProgress> getGrafikProgress(@Path("id") int id);
+        Call<ModelGrafikProgress> getGrafikProgress(@Path("id") String id);
     }
 
     public interface GetGrafikProgressBelum {
         @GET("grafik/grafikprogressbelum/{id}")
-        Call<ModelGrafikProgress> getGrafikProgressBelum(@Path("id") int id);
+        Call<ModelGrafikProgress> getGrafikProgressBelum(@Path("id") String id);
     }
 
     public interface GetGrafikKerajinanOrganisasi {
@@ -312,7 +312,7 @@ public class ApiClient {
 
     public interface GetServicesGroupJoined {
         @GET("siswagrup/joined/{id}")
-        Call<ModelGroupJoined> getGroupJoined(@Path("id") int id);
+        Call<ModelGroupJoined> getGroupJoined(@Path("id") String id);
     }
 
     public interface GetServicesGroupJoinedSpinner {

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -53,14 +54,26 @@ public class ProgressTugas extends Fragment {
     private CheckBox checkBox;
     private Button btn_show;
     private ProgressDialog progressDialog;
+    String id_tugas;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_progress, container, false);
         //addData();
+
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         btn_show = (Button) view.findViewById(R.id.btnShow);
+
+
+
+
+//
+//            Toast.makeText(getActivity(), "" + id_tugas, Toast.LENGTH_SHORT).show();
+
+//        }
+
+
 
 
         //adapter = new MahasiswaAdapter(mahasiswaArrayList);
@@ -75,30 +88,58 @@ public class ProgressTugas extends Fragment {
         progressDialog.setMessage("Please wait....");
         progressDialog.show();
 
-      //  Bundle b = getArguments();
-     //   String id_tugas = b.getString("id_tugas");
+//        Bundle args = getArguments();
+//        if(args != null) {
+//            id_tugas = getIntent().getExtras().getString("id_tugas");
+//            tampilProgress();
+//        }
 
-    //    Toast.makeText(getActivity(), ""+id_tugas, Toast.LENGTH_SHORT).show();
+//        Bundle args = new Bundle();
+//        args.putString("id_tugas",id_tugas);
+//        ProgressTugas newFragment = new ProgressTugas();
+//        newFragment.setArguments(args);
+
+//
+
+//        getIntent();
+
+//
+//        Bundle b = getArguments();
+//        if(b != null) {
+//             id_tugas = b.getString("id_tugas");
+//            tampilProgress();
+//        }
+
+            //    Toast.makeText(getActivity(), ""+id_tugas, Toast.LENGTH_SHORT).show();
 
 //        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("Remask", Context.MODE_PRIVATE);
 //        Log.d("id_tugas", String.valueOf(sharedPreferences.getInt("id_tugas", 0)));
-        ApiClient.services_get_progress.getProgress(97).enqueue(new Callback<ModelProgressHistori>() {
+
+        ApiClient.services_get_progress.getProgress(127).enqueue(new Callback<ModelProgressHistori>() {
+
 
             //progressDialog.setMessage("Please wait...");
             //progressDialog.show();
 
             @Override
             public void onResponse(Call<ModelProgressHistori> call, Response<ModelProgressHistori> response) {
-                modelProgressHistori = response.body();
-                adapter = new ProgressAdapter(getActivity(),modelProgressHistori.getResults());
-                adapter.notifyDataSetChanged();
-                recyclerView.setAdapter(adapter);
-                progressDialog.dismiss();
+                Log.e("Response Progress tu", "Code : " + response.code());
+                if (response.isSuccessful()) {
+                    modelProgressHistori = response.body();
+                    adapter = new ProgressAdapter(getActivity(), modelProgressHistori.getResults());
+                    adapter.notifyDataSetChanged();
+                    recyclerView.setAdapter(adapter);
+                    progressDialog.dismiss();
+                } else {
+                    Toast.makeText(getActivity(), "SALAH", Toast.LENGTH_SHORT).show();
+                }
 
             }
 
             @Override
             public void onFailure(Call<ModelProgressHistori> call, Throwable t) {
+
+                Toast.makeText(getActivity(), "" + t, Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -154,6 +195,9 @@ public class ProgressTugas extends Fragment {
         return view;
          }
 
+
+
+
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
@@ -169,10 +213,7 @@ public class ProgressTugas extends Fragment {
         }
     }
 
-    public static ProgressTugas newInstance() {
-        ProgressTugas fragment = new ProgressTugas();
-        return fragment;
-    }
+
 }
 
 

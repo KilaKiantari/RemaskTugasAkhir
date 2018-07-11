@@ -16,6 +16,7 @@ import com.example.asus_desktop.remask.Api.ApiClient;
 import com.example.asus_desktop.remask.Model.ModelGrafikKerajinan;
 import com.example.asus_desktop.remask.Model.Result;
 import com.example.asus_desktop.remask.R;
+import com.github.mikephil.charting.data.LineDataSet;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +46,7 @@ public class GarfikKerajinan extends Fragment {
     int randomint = 100;
 
     ArrayList<ArrayList<Float>> dataListFs = new ArrayList<>();
-
+    LineDataSet Linedataset ;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -80,9 +81,19 @@ public class GarfikKerajinan extends Fragment {
                 Color.parseColor("#F44336"), Color.parseColor("#9C27B0"),
                 Color.parseColor("#2196F3"), Color.parseColor("#009688")
         });
-        lineView.setDrawDotLine(true);
-        lineView.setShowPopup(LineView.SHOW_POPUPS_NONE);
-    }
+       lineView.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               Toast.makeText(getContext(), "coba", Toast.LENGTH_SHORT).show();
+
+           }
+       });
+       // lineView.setDrawDotLine(false);
+        //lineView.setShowPopup(LineView.SHOW_POPUPS_NONE);
+
+
+        }
+
 
     private void randomSet(final LineView lineViewFloat) {
 //        ArrayList<Integer> dataList = new ArrayList<>();
@@ -223,6 +234,7 @@ public class GarfikKerajinan extends Fragment {
         progressDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialogInterface) {
+
                 lineViewFloat.setFloatDataList(dataListFs);
 
             }

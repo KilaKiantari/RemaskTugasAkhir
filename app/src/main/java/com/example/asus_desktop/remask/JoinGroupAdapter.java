@@ -131,6 +131,7 @@ public class JoinGroupAdapter extends RecyclerView.Adapter<JoinGroupAdapter.Maha
                               //  namagroup = response.body().getNamagroup();
                               //  guru_id = response.body().getGuruId();
                                  Toast.makeText(mContext, "Anda berhasil Join Group "+namagroup,Toast.LENGTH_SHORT).show();
+
                                // Toast.makeText(mContext, "" + siswa_id, Toast.LENGTH_SHORT).show();
                                 // id_guru = response.body().getIdGuru();
                             }else{

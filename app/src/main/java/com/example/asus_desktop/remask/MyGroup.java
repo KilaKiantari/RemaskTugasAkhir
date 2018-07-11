@@ -2,6 +2,7 @@ package com.example.asus_desktop.remask;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,6 +19,8 @@ import com.example.asus_desktop.remask.Model.ModelGroupJoined;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * Created by Asus-Desktop on 5/16/2018.
@@ -36,6 +39,7 @@ public class MyGroup extends Fragment {
     private ModelGroupJoined modelGroupJoined;
     private TextView txtNama, txtTgl, txTglSelesai;
     ApiClient apiClient;
+    String siswa_id;
 
 
 
@@ -44,6 +48,8 @@ public class MyGroup extends Fragment {
         View view = inflater.inflate(R.layout.activity_mygroup, container, false);
         //addData();
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("Remask", MODE_PRIVATE);
+        siswa_id = sharedPreferences.getString("siswa_id","");
 
 
 
@@ -62,7 +68,7 @@ public class MyGroup extends Fragment {
 
 //        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("Remask", Context.MODE_PRIVATE);
 //        Log.d("id_tugas", String.valueOf(sharedPreferences.getInt("id_tugas", 0)));
-        ApiClient.services_get_group_joined.getGroupJoined(1).enqueue(new Callback<ModelGroupJoined>() {
+        ApiClient.services_get_group_joined.getGroupJoined(siswa_id).enqueue(new Callback<ModelGroupJoined>() {
 
             //progressDialog.setMessage("Please wait...");
             //progressDialog.show();

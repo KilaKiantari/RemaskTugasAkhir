@@ -84,7 +84,7 @@ public class GrafikProgressAdapter extends RecyclerView.Adapter<GrafikProgressAd
             public void onClick(View view) {
                 Intent i = new Intent(mContext, Grafik.class);
              //   i.putExtra("Extra", "ProgressTugas");
-               // i.putExtra("id_tugas", result.get(position).getIdTugas());
+                i.putExtra("id_tugas", result.get(position).getIdTugas());
                 mContext.startActivity(i);
 
 

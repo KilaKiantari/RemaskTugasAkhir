@@ -63,6 +63,7 @@ public class Daftar_Catatan extends Fragment {
         fab = (FloatingActionButton) view.findViewById(R.id.fab);
 
         sharedPreferences = getActivity().getSharedPreferences("Remask", Context.MODE_PRIVATE);
+        siswa_id = sharedPreferences.getString("siswa_id","");
         edit =sharedPreferences.edit();
 
 
@@ -145,8 +146,8 @@ public class Daftar_Catatan extends Fragment {
         edit.commit();
         Log.d("date_awal",date);
 
-        siswa_id = sharedPreferences.getString("siswa_id","");
-        Toast.makeText(getActivity(), ""+siswa_id, Toast.LENGTH_SHORT).show();
+
+        //Toast.makeText(getActivity(), ""+siswa_id, Toast.LENGTH_SHORT).show();
 
 
         ApiClient.services_get_daftar_catatan.getDaftarCatatan(1).enqueue(new Callback<ModelDaftarCatatan>() {
@@ -193,8 +194,8 @@ public class Daftar_Catatan extends Fragment {
 
     private void refreshRecycler() {
 
-        siswa_id = sharedPreferences.getString("siswa_id","");
-        Toast.makeText(getActivity(), ""+siswa_id, Toast.LENGTH_SHORT).show();
+//        siswa_id = sharedPreferences.getString("siswa_id","");
+//        Toast.makeText(getActivity(), ""+siswa_id, Toast.LENGTH_SHORT).show();
 
         ApiClient.services_get_daftar_catatan.getDaftarCatatan(1).enqueue(new Callback<ModelDaftarCatatan>() {
             @Override

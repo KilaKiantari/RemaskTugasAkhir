@@ -64,7 +64,7 @@ public class ProgressAdapter extends RecyclerView.Adapter<ProgressAdapter.Mahasi
             super(itemView);
             tittle = (TextView) itemView.findViewById(R.id.title);
             chk_item = (CheckBox) itemView.findViewById(R.id.chk_item);
-            coba = (TextView) itemView.findViewById(R.id.coba);
+          //  coba = (TextView) itemView.findViewById(R.id.coba);
 
         }
     }

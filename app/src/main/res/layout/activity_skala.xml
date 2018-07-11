@@ -10,14 +10,14 @@
         tools:context=".HistoriTugas.HistoriTugas">
 
         <TextView
+            android:id="@+id/txtNoteType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
             android:text="Pilih urut berdasarkan"
-            android:id="@+id/txtNoteType"
-            android:layout_below="@+id/description"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:textAppearance="?android:attr/textAppearanceMedium" />
         <Spinner
             android:id="@+id/spinner"
             android:drawableRight="@drawable/ic_person_black_24dp"

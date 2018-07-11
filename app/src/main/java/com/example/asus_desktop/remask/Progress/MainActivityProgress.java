@@ -53,8 +53,8 @@ public class MainActivityProgress extends AppCompatActivity implements TabLayout
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
 
         //Adding the tabs using addTab() method
-        tabLayout.addTab(tabLayout.newTab().setText("Tugas Belum"));
-        tabLayout.addTab(tabLayout.newTab().setText("Tugas Sudah"));
+        tabLayout.addTab(tabLayout.newTab().setText("Progress Belum"));
+        tabLayout.addTab(tabLayout.newTab().setText("Progress Sudah"));
         //  tabLayout.addTab(tabLayout.newTab().setText("Tab3"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
@@ -70,18 +70,23 @@ public class MainActivityProgress extends AppCompatActivity implements TabLayout
         //Adding onTabSelectedListener to swipe views
         tabLayout.setOnTabSelectedListener(this);
 
-        Intent Extra = getIntent();
+        Intent Extra = this.getIntent();
         if(Extra.hasExtra("Extra")){
             String goTo =  Extra.getStringExtra("Extra");
             if(goTo.equals("ProgressTugas")){
                 id_tugas = Extra.getStringExtra("id_tugas");
                 Toast.makeText(this, ""+id_tugas, Toast.LENGTH_SHORT).show();
+
                 Bundle args = new Bundle();
-                args.putString("id_tugas",id_tugas);
+                args.putString("id_tugas", id_tugas);
                 ProgressTugas newFragment = new ProgressTugas();
                 newFragment.setArguments(args);
-               // fragment = new ProgressTugas();
-               // callFragment(fragment);
+                Extra.putExtras(args);
+
+
+//                fragment = new ProgressTugas();
+//                callFragment(fragment);
+                Toast.makeText(this, ""+id_tugas, Toast.LENGTH_SHORT).show();
 
             }
         }else{

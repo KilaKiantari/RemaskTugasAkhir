@@ -8,6 +8,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -72,7 +73,7 @@ public class MahasiswaAdapter extends RecyclerView.Adapter<MahasiswaAdapter.Maha
             super(itemView);
             txtNama = (TextView) itemView.findViewById(R.id.txt_nama_tugas);
             txtTgl = (TextView) itemView.findViewById(R.id.tgl_tugas);
-            txtTglSelesai = (TextView) itemView.findViewById(R.id.tgl_tugas_selesai);
+      //      txtTglSelesai = (TextView) itemView.findViewById(R.id.tgl_tugas_selesai);
             checkbox = (CheckBox) itemView.findViewById(R.id.id_checkBox);
             cardView = (CardView) itemView.findViewById(R.id.card_view);
 
@@ -87,9 +88,12 @@ public class MahasiswaAdapter extends RecyclerView.Adapter<MahasiswaAdapter.Maha
         holder.txtNama.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                id_tugas = result.get(position).getIdTugas();
                Intent i = new Intent(mContext, MainActivityProgress.class);
                i.putExtra("Extra", "ProgressTugas");
-               i.putExtra("id_tugas", result.get(position).getIdTugas());
+               i.putExtra("id_tugas", id_tugas);
+                Bundle extras = i.getExtras();
+                extras.putString("id_tugas",id_tugas);
                mContext.startActivity(i);
 
 
@@ -101,7 +105,7 @@ public class MahasiswaAdapter extends RecyclerView.Adapter<MahasiswaAdapter.Maha
             }
         });
         holder.txtTgl.setText(result.get(position).getTanggalTugas());
-        holder.txtTglSelesai.setText(result.get(position).getTanggalSelesai());
+    //    holder.txtTglSelesai.setText(result.get(position).getTanggalSelesai());
         holder.checkbox.setChecked(result.get(position).isSelected());
         holder.checkbox.setTag(result.get(position));
         holder.checkbox.setOnClickListener(new View.OnClickListener() {
