@@ -33,13 +33,15 @@ import static android.content.Context.MODE_PRIVATE;
 public class JoinGroupAdapter extends RecyclerView.Adapter<JoinGroupAdapter.MahasiswaViewHolder> {
 
 
-    private ArrayList<Result> result;
+    public ArrayList<Result> result;
     private Context mContext;
     private String id_group;
     private String namagroup;
     private String guru_id;
     private String siswa_id;
     ModelGroupAll modelGroupAll;
+    public Result infoData;
+
 
 
     public JoinGroupAdapter(Context mContext,ArrayList<Result> results)
@@ -77,9 +79,17 @@ public class JoinGroupAdapter extends RecyclerView.Adapter<JoinGroupAdapter.Maha
 
 
 
+
+
     public void onBindViewHolder(final MahasiswaViewHolder holder, final int position) {
         SharedPreferences sharedPreferences = mContext.getSharedPreferences("Remask", MODE_PRIVATE);
         siswa_id = sharedPreferences.getString("siswa_id","");
+
+
+
+   //     final int currentPosition = position;
+
+
 
         holder.txtNamaGroup.setText(result.get(position).getNamagroup());
         holder.txtNamaGuru.setText(result.get(position).getNamaGuru());
@@ -92,6 +102,8 @@ public class JoinGroupAdapter extends RecyclerView.Adapter<JoinGroupAdapter.Maha
                 namagroup = result.get(position).getNamagroup();
                 guru_id = result.get(position).getGuruId();
                 showPopupMenu(holder.overflow);
+                infoData = result.get(position);
+            //    Toast.makeText(mContext, "Hapus", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -117,6 +129,7 @@ public class JoinGroupAdapter extends RecyclerView.Adapter<JoinGroupAdapter.Maha
 
         @Override
 
+
         public boolean onMenuItemClick(MenuItem menuItem) {
             switch (menuItem.getItemId()) {
                 case R.id.action_join:
@@ -131,6 +144,8 @@ public class JoinGroupAdapter extends RecyclerView.Adapter<JoinGroupAdapter.Maha
                               //  namagroup = response.body().getNamagroup();
                               //  guru_id = response.body().getGuruId();
                                  Toast.makeText(mContext, "Anda berhasil Join Group "+namagroup,Toast.LENGTH_SHORT).show();
+                                 removeItem(infoData);
+
 
                                // Toast.makeText(mContext, "" + siswa_id, Toast.LENGTH_SHORT).show();
                                 // id_guru = response.body().getIdGuru();
@@ -160,6 +175,13 @@ public class JoinGroupAdapter extends RecyclerView.Adapter<JoinGroupAdapter.Maha
 
         }
     }
+    private void removeItem(Result infoData) {
+
+        int currPosition = result.indexOf(infoData);
+        result.remove(currPosition);
+        notifyItemRemoved(currPosition);
+    }
+
 
     @Override
     public int getItemCount() {

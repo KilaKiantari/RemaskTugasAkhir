@@ -10,10 +10,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.asus_desktop.remask.Api.ApiClient;
 import com.example.asus_desktop.remask.Model.ModelGrafikKerajinan;
+import com.example.asus_desktop.remask.Model.ModelGrafikKeterangan;
+import com.example.asus_desktop.remask.Model.ModelGrafikKeteranganLain;
+import com.example.asus_desktop.remask.Model.ModelGrafikKeteranganOrganisasi;
 import com.example.asus_desktop.remask.Model.Result;
 import com.example.asus_desktop.remask.R;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -54,6 +58,9 @@ public class GarfikKerajinan extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_line, container, false);
         //  final LineView lineView = (LineView) rootView.findViewById(R.id.line_view);
         final LineView lineViewFloat = (LineView) rootView.findViewById(R.id.line_view_float);
+        final TextView tvSudah = (TextView) rootView.findViewById(R.id.textViewpend2);
+        final TextView tvSudahor = (TextView) rootView.findViewById(R.id.textViewor2);
+        final TextView tvSudahla = (TextView) rootView.findViewById(R.id.textView2);
         sharedPreferences = getActivity().getSharedPreferences("Remask", MODE_PRIVATE);
         siswa_id = sharedPreferences.getString("siswa_id","");
         edit = sharedPreferences.edit();
@@ -65,6 +72,86 @@ public class GarfikKerajinan extends Fragment {
 //                randomSet(lineView, lineViewFloat);
 //            }
 //        });
+
+        ApiClient.services_get_grafik_keterangan_pendidikan.getGrafikket(siswa_id).enqueue(new Callback<ModelGrafikKeterangan>() {
+
+            public void onResponse(Call<ModelGrafikKeterangan> call, Response<ModelGrafikKeterangan> response) {
+                Log.e("Response Grafik Kerajin", "Code : " + response.code());
+                if (response.isSuccessful()) {
+                    // Toast.makeText(getActivity(), "Id siswa grafik = "+siswa_id, Toast.LENGTH_SHORT).show();
+                    Integer sudah = response.body().getJmlpendidikan();
+                    Integer belum = response.body().getJmlblmpendidikan();
+                    if(sudah>belum){
+                        tvSudah.setText("Tingkatkan Kerajinan Anda");
+                    }else if (belum>sudah){
+                        tvSudah.setText("Masih banyak yang harus anda kerjakan");
+                    }
+                } else {
+                    Toast.makeText(getActivity(), "Gagal menampilkan grafik", Toast.LENGTH_SHORT).show();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ModelGrafikKeterangan> call, Throwable t) {
+                Toast.makeText(getActivity(), "" + t, Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        ApiClient.services_get_grafik_keterangan_organisasi.getGrafikketor(siswa_id).enqueue(new Callback<ModelGrafikKeteranganOrganisasi>() {
+
+            public void onResponse(Call<ModelGrafikKeteranganOrganisasi> call, Response<ModelGrafikKeteranganOrganisasi> response) {
+                Log.e("Response Grafik Kerajin", "Code : " + response.code());
+                if (response.isSuccessful()) {
+                    // Toast.makeText(getActivity(), "Id siswa grafik = "+siswa_id, Toast.LENGTH_SHORT).show();
+                    Integer sudah = response.body().getJmlor();
+                    Integer belum = response.body().getJmlblmor();
+                    if(sudah>belum){
+                        tvSudahor.setText("Tingkatkan Kerajinan Anda");
+                    }else if (belum>sudah){
+                        tvSudahor.setText("Masih banyak yang harus anda kerjakan");
+                    }
+                } else {
+                    Toast.makeText(getActivity(), "Gagal menampilkan grafik", Toast.LENGTH_SHORT).show();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ModelGrafikKeteranganOrganisasi> call, Throwable t) {
+                Toast.makeText(getActivity(), "" + t, Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        ApiClient.services_get_grafik_keterangan_lain.getGrafikketla(siswa_id).enqueue(new Callback<ModelGrafikKeteranganLain>() {
+
+            public void onResponse(Call<ModelGrafikKeteranganLain> call, Response<ModelGrafikKeteranganLain> response) {
+                Log.e("Response Grafik Kerajin", "Code : " + response.code());
+                if (response.isSuccessful()) {
+                    // Toast.makeText(getActivity(), "Id siswa grafik = "+siswa_id, Toast.LENGTH_SHORT).show();
+                    Integer sudah = response.body().getJmllain();
+                    Integer belum = response.body().getJmlblmlain();
+                    if(sudah>belum){
+                        tvSudahla.setText("Tingkatkan Kerajinan Anda");
+                    }else if (belum>sudah){
+                        tvSudahla.setText("Masih banyak yang harus anda kerjakan");
+                    }
+                } else {
+                    Toast.makeText(getActivity(), "Gagal menampilkan grafik", Toast.LENGTH_SHORT).show();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ModelGrafikKeteranganLain> call, Throwable t) {
+                Toast.makeText(getActivity(), "" + t, Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+
 
         randomSet(lineViewFloat);
         return rootView;
@@ -79,7 +166,7 @@ public class GarfikKerajinan extends Fragment {
         lineView.setBottomTextList(test);
         lineView.setColorArray(new int[]{
                 Color.parseColor("#F44336"), Color.parseColor("#9C27B0"),
-                Color.parseColor("#2196F3"), Color.parseColor("#009688")
+                Color.parseColor("#2196F3")
         });
        lineView.setOnClickListener(new View.OnClickListener() {
            @Override
@@ -88,8 +175,8 @@ public class GarfikKerajinan extends Fragment {
 
            }
        });
-       // lineView.setDrawDotLine(false);
-        //lineView.setShowPopup(LineView.SHOW_POPUPS_NONE);
+        lineView.setDrawDotLine(true);
+        lineView.setShowPopup(LineView.SHOW_POPUPS_NONE);
 
 
         }
@@ -136,6 +223,7 @@ public class GarfikKerajinan extends Fragment {
         final ProgressDialog progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("Please wait....");
         progressDialog.show();
+
         ApiClient.services_get_grafik_organisasi.getGrafikKerajinanOrganisasi(siswa_id).enqueue(new Callback<ModelGrafikKerajinan>() {
 
             public void onResponse(Call<ModelGrafikKerajinan> call, Response<ModelGrafikKerajinan> response) {
@@ -231,6 +319,7 @@ public class GarfikKerajinan extends Fragment {
         });
 
 
+
         progressDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialogInterface) {
@@ -241,5 +330,7 @@ public class GarfikKerajinan extends Fragment {
 
         });
     }
+
+
 }
 

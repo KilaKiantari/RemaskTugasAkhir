@@ -4,6 +4,9 @@ import com.example.asus_desktop.remask.Model.ModelActionJoin;
 import com.example.asus_desktop.remask.Model.ModelCreateTugas;
 import com.example.asus_desktop.remask.Model.ModelDaftarCatatan;
 import com.example.asus_desktop.remask.Model.ModelGrafikKerajinan;
+import com.example.asus_desktop.remask.Model.ModelGrafikKeterangan;
+import com.example.asus_desktop.remask.Model.ModelGrafikKeteranganLain;
+import com.example.asus_desktop.remask.Model.ModelGrafikKeteranganOrganisasi;
 import com.example.asus_desktop.remask.Model.ModelGrafikProgress;
 import com.example.asus_desktop.remask.Model.ModelGroupAll;
 import com.example.asus_desktop.remask.Model.ModelGroupJoined;
@@ -114,6 +117,19 @@ public class ApiClient {
     public static GetServicesGroupJoinedSpinner services_get_group_joined_spinner = new Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create()).build().create(ApiClient.GetServicesGroupJoinedSpinner.class);
+
+    public static GetGrafikKeterangan services_get_grafik_keterangan_pendidikan = new Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create()).build().create(ApiClient.GetGrafikKeterangan.class);
+
+    public static GetGrafikKeteranganOr services_get_grafik_keterangan_organisasi = new Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create()).build().create(ApiClient.GetGrafikKeteranganOr.class);
+
+    public static GetGrafikKeteranganLain services_get_grafik_keterangan_lain = new Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create()).build().create(ApiClient.GetGrafikKeteranganLain.class);
+
 
 
     public interface PostServices {
@@ -289,6 +305,23 @@ public class ApiClient {
         @GET("grafik/grafikprogress/{id}")
         Call<ModelGrafikProgress> getGrafikProgress(@Path("id") String id);
     }
+
+    public interface GetGrafikKeterangan {
+        @GET("grafikketerangan/grafikpendidikan/{id}")
+        Call<ModelGrafikKeterangan> getGrafikket(@Path("id") String id);
+    }
+
+
+    public interface GetGrafikKeteranganOr {
+        @GET("grafikketerangan/grafikorganisasi/{id}")
+        Call<ModelGrafikKeteranganOrganisasi> getGrafikketor(@Path("id") String id);
+    }
+
+    public interface GetGrafikKeteranganLain {
+        @GET("grafikketerangan/grafiklainlain/{id}")
+        Call<ModelGrafikKeteranganLain> getGrafikketla(@Path("id") String id);
+    }
+
 
     public interface GetGrafikProgressBelum {
         @GET("grafik/grafikprogressbelum/{id}")

@@ -4,6 +4,8 @@ package com.example.asus_desktop.remask;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +16,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.asus_desktop.remask.Api.ApiClient;
+import com.example.asus_desktop.remask.Model.SessionManager;
 import com.example.asus_desktop.remask.Model.UserProfilSiswa;
 
 import retrofit2.Call;
@@ -34,6 +37,9 @@ public class Profil extends Fragment {
     private TextView NamaSiswa,Status,Sekolah,Email;
     private UserProfilSiswa modelUserProfile;
     private String siswa_id;
+    private TextView Tentang;
+    private TextView Logout;
+    SessionManager session;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -48,6 +54,29 @@ public class Profil extends Fragment {
         Status = (TextView) view.findViewById(R.id.tvStatus);
         Sekolah = (TextView) view.findViewById(R.id.tvSekolah);
         Email = (TextView) view.findViewById(R.id.tvEmail);
+        Tentang = (TextView) view.findViewById(R.id.tvtentang);
+        Logout = (TextView) view.findViewById(R.id.tvLogout);
+
+        Tentang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment fragment = new Tools();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.frame_container,fragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
+        Logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                session = new SessionManager(getActivity());
+                session.logoutUser();
+               onStop();
+            }
+        });
+
 
 
         getActivity().setTitle("Profil Saya");

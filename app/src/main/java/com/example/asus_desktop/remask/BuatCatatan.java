@@ -101,7 +101,7 @@ public class BuatCatatan extends AppCompatActivity {
         mTitleText = (EditText) findViewById(R.id.txttitle);
         mDescriptionText = (EditText) findViewById(R.id.description);
         mSpinner = (TextView) findViewById(R.id.spinnerNoteType);
-        pickerTime = (TimePicker) findViewById(R.id.timePicker);
+     //   pickerTime = (TimePicker) findViewById(R.id.timePicker);
 
 
         ll_set_time = (LinearLayout) findViewById(R.id.ll_set_time);
@@ -143,29 +143,6 @@ public class BuatCatatan extends AppCompatActivity {
                     showTimePickerDialog(localData.get_hour(), localData.get_min());
             }
         });
-        //edit
-//        String date = sharedPreferences.getString("date", "") + " " + String.valueOf(pickerTime.getHour()) + ":" + String.valueOf(pickerTime.getMinute()) + ":00";
-//        ApiClient.services_post.updatetugas(
-//              "1",
-//              siswa_id,
-//                mTitleText.getText().toString(),
-//                "2",
-//                mDescriptionText.getText().toString(),
-//                date,
-//                "0"
-//      ).enqueue(new Callback<String>() {
-//            @Override
-//            public void onResponse(Call<String> call, Response<String> response) {
-//
-//
-//
-//            }
-//
-//            @Override
-//            public void onFailure(Call<String> call, Throwable t) {
-//
-//            }
-//        });
 
     }
 

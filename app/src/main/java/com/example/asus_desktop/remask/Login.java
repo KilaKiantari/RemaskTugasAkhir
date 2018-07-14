@@ -77,23 +77,23 @@ public class Login extends AppCompatActivity {
         txtViewSingUp = (TextView) findViewById(R.id.txtViewSingUp);
         txtViewSingUp.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
 
-       /* if (findViewById(R.id.constraintContainer)!=null)
-        {
-            if(savedInstanceState!=null){
-                return;
-            }
+//        if (findViewById(R.id.constraintContainer)!=null)
+//        {
+//            if(savedInstanceState!=null){
+//                return;
+//            }
+//
+//            if(prefConfig.readLoginStatus())
+//            {
+//                Intent intent = new Intent(Login.this, MainActivity.class);
+//                startActivity(intent);
+//            }
+//            else{
+//                Intent intent = new Intent(Login.this, Login.class);
+//                startActivity(intent);
+//            }
+//        }
 
-            if(prefConfig.readLoginStatus())
-            {
-                Intent intent = new Intent(Login.this, MainActivity.class);
-                startActivity(intent);
-            }
-            else{
-                Intent intent = new Intent(Login.this, Login.class);
-                startActivity(intent);
-            }
-        }
-        */
         sessionManager = new SessionManager(getApplicationContext());
         if (sessionManager.isLogin()) {
             Intent intent = new Intent(Login.this, MainActivity.class);
@@ -118,10 +118,10 @@ public class Login extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<ModelLoginUser> call, Response<ModelLoginUser> response) {
                     modelLogin = response.body();
-                  //  if (modelLogin != null) {
-                      //  sessionManager.setUid(modelLogin.getResult().getId());
-                     //   sessionManager.setLogin(true);
-                      //  sessionManager.setUsername(modelLogin.getResult().getUsername());
+                    if (modelLogin != null) {
+//                        sessionManager.setUid(modelLogin.getResult().getId());
+//                        sessionManager.setLogin(true);
+//                        sessionManager.setUsername(modelLogin.getResult().getUsername());
 
                         edit.putString("username", modelLogin.getResult().getUsername());
                         edit.putString("siswa_id", String.valueOf(modelLogin.getResult().getSiswaId()));
@@ -135,16 +135,16 @@ public class Login extends AppCompatActivity {
 
                         Intent intent = new Intent(Login.this, MainActivity.class);
                         startActivity(intent);
-                  //  }else {
+                    }else if (modelLogin == null) {
                         Toast.makeText(Login.this, "Akun belum terdaftar", Toast.LENGTH_SHORT).show();
-                  //  }
+                    }
 
                     progressDialog.dismiss();
 
                 }
 
                 public void onFailure(Call<ModelLoginUser> call, Throwable t) {
-                    Toast.makeText(Login.this, "Password dan Username salah", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Login.this, "Password atau Username salah", Toast.LENGTH_SHORT).show();
                     progressDialog.dismiss();
                 }
 

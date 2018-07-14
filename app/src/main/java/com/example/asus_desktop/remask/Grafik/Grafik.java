@@ -1,7 +1,6 @@
 package com.example.asus_desktop.remask.Grafik;
 
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -37,8 +36,6 @@ public class Grafik extends AppCompatActivity implements OnChartValueSelectedLis
     ModelGrafikProgress modelGrafikProgress;
     String id_tugas;
 
-    ArrayList<Entry> yValues = new ArrayList<Entry>();
-    ArrayList<String> xValues = new ArrayList<String>();
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,61 +67,51 @@ public class Grafik extends AppCompatActivity implements OnChartValueSelectedLis
                 modelGrafikProgress = response.body();
                 Log.e("Response Search ", "Code : " + response.code());
                 Integer sudah = response.body().getJml();
-                if (response.isSuccessful()) {
-                    Toast.makeText(Grafik.this, "sudah =" + sudah, Toast.LENGTH_SHORT).show();
-
-                    yValues.add(new Entry(sudah, 1));
-                    xValues.add("Sudah");
-                    progressDialog.dismiss();
-
-//                    ArrayList<Entry> yvalues = new ArrayList<Entry>();
-//                    yvalues.add(new Entry(sudah, 1));
-//                    PieDataSet dataSet = new PieDataSet(yvalues, "Election Results");
-//
-//                    ArrayList<String> xVals = new ArrayList<String>();
-//                    xVals.add("Sudah");
-//
-//                    PieData data = new PieData(xVals, dataSet);
-//                    // In Percentage term
-//                    data.setValueFormatter(new PercentFormatter());
-//                    // Default value
-//                    //data.setValueFormatter(new DefaultValueFormatter(0));
-//                    pieChart.setData(data);
-//                    dataSet.setColors(ColorTemplate.VORDIPLOM_COLORS);
-//                    data.setValueTextSize(13f);
-//                    data.setValueTextColor(Color.DKGRAY);
-
-                } else {
-                    Toast.makeText(Grafik.this, "SALAH", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            public void onFailure(Call<ModelGrafikProgress> call, Throwable t) {
-
-                Toast.makeText(Grafik.this, "" + t, Toast.LENGTH_SHORT).show();
-
-            }
-        });
-
-
-        ApiClient.services_get_grafik_progress_belum.getGrafikProgressBelum(id_tugas).enqueue(new Callback<ModelGrafikProgress>() {
-            @Override
-            public void onResponse(Call<ModelGrafikProgress> call, Response<ModelGrafikProgress> response) {
-                modelGrafikProgress = response.body();
-                Log.e("Response Search ", "Code : " + response.code());
                 Integer belum = response.body().getJmlblm();
-                if (response.isSuccessful()) {
+                if (sudah + belum == 0) {
+                    Toast.makeText(Grafik.this, "Tidak ada progress", Toast.LENGTH_SHORT).show();
+                    progressDialog.dismiss();
+                } else if (sudah + belum != 0) {
+                    Toast.makeText(Grafik.this, "sudah =" + sudah, Toast.LENGTH_SHORT).show();
                     Toast.makeText(Grafik.this, "belum =" + belum, Toast.LENGTH_SHORT).show();
 
-                    yValues.add(new Entry(belum, 2));
-                    xValues.add("Belum");
+
+                    ArrayList<Entry> yvalues = new ArrayList<Entry>();
+
+
+                    yvalues.add(new Entry(belum,0));
+                    yvalues.add(new Entry(sudah,1));
+
+
+                    PieDataSet dataSet = new PieDataSet(yvalues, "Data");
+                    Log.e("Coba ", "Nilai : " + yvalues);
+
+                    ArrayList<String> xVals = new ArrayList<String>();
+
+                    xVals.add("Sudah");
+                    xVals.add("Belum");
+
+                    PieData data = new PieData(xVals, dataSet);
+                    // In Percentage term
+                    data.setValueFormatter(new PercentFormatter());
+                    // Default value
+                    //data.setValueFormatter(new DefaultValueFormatter(0));
+                    pieChart.setData(data);
+
+                    dataSet.setColors(ColorTemplate.VORDIPLOM_COLORS);
+                    data.setValueTextSize(13f);
+                    data.setValueTextColor(Color.DKGRAY);
                     progressDialog.dismiss();
+
+                    if (belum > sudah) {
+                        pieChart.setDescription("Belum Mengerjakan Seluruhnya!");
+                    } else if (sudah > belum) {
+                        pieChart.setDescription("Tingkatkan!");
+                    }
 
                 } else {
                     Toast.makeText(Grafik.this, "SALAH", Toast.LENGTH_SHORT).show();
                 }
-
-
             }
 
             public void onFailure(Call<ModelGrafikProgress> call, Throwable t) {
@@ -135,31 +122,12 @@ public class Grafik extends AppCompatActivity implements OnChartValueSelectedLis
         });
 
 
-        progressDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialogInterface) {
-             //   Toast.makeText(Grafik.this, "yValues: "+ yValues.size() +", xValues: "+ xValues, Toast.LENGTH_SHORT).show();
 
-                PieDataSet dataSet = new PieDataSet(yValues, "Election Results");
-                PieData data = new PieData(xValues, dataSet);
-                // In Percentage term
-                data.setValueFormatter(new PercentFormatter());
-                // Default value
-                //data.setValueFormatter(new DefaultValueFormatter(0));
-                pieChart.setData(data);
-                dataSet.setColors(ColorTemplate.VORDIPLOM_COLORS);
-                data.setValueTextSize(13f);
-                data.setValueTextColor(Color.DKGRAY);
+        pieChart.setDrawHoleEnabled(true);
+        pieChart.setTransparentCircleRadius(25f);
+        pieChart.setHoleRadius(25f);
 
-                pieChart.setDescription("Belum Mengerjakan Seluruhnya");
-
-                pieChart.setDrawHoleEnabled(true);
-                pieChart.setTransparentCircleRadius(25f);
-                pieChart.setHoleRadius(25f);
-
-                pieChart.animateXY(1400, 1400);
-            }
-        });
+        pieChart.animateXY(1400, 1400);
 
 //        ArrayList<Entry> yvalues = new ArrayList<Entry>();
 //
@@ -181,9 +149,9 @@ public class Grafik extends AppCompatActivity implements OnChartValueSelectedLis
 //        data.setValueTextSize(13f);
 //        data.setValueTextColor(Color.DKGRAY);
 
+
+        pieChart.setOnChartValueSelectedListener(this);
     }
-
-
     public void onValueSelected(Entry e, int dataSetIndex, Highlight h) {
 
         if (e == null)

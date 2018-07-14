@@ -34,9 +34,11 @@
                     android:id="@+id/tvNamaLengkap"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_marginTop="7dp"
-                    android:textSize="15sp"/>
+                    android:layout_weight="1"
+                    android:drawableLeft="@drawable/ic_face_black_24dp"
+
+                    android:textSize="15sp" />
 
                 <ImageView
                     android:layout_width="24dp"
@@ -73,6 +75,7 @@
 
                 <TextView
                     android:id="@+id/tvStatus"
+                    android:drawableLeft="@drawable/ic_profil"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -117,7 +120,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginTop="7dp"
-                    android:textSize="15sp"/>
+                    android:textSize="15sp"
+                    android:drawableLeft="@drawable/ic_beranda"/>
 
                 <ImageView
                     android:layout_width="24dp"
@@ -158,7 +162,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginTop="7dp"
-                    android:textSize="15sp"/>
+                    android:textSize="15sp"
+                    android:drawableLeft="@drawable/ic_email_black_24dp"/>
 
                 <ImageView
                     android:layout_width="24dp"
@@ -259,6 +264,7 @@
                 android:layout_marginTop="14dp">
 
                 <TextView
+                    android:id="@+id/tvbantuan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="16sp"
@@ -272,6 +278,7 @@
                 android:layout_marginTop="14dp">
 
                 <TextView
+                    android:id="@+id/tvtentang"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="16sp"

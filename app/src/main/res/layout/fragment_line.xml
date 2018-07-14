@@ -28,14 +28,70 @@
         android:layout_alignParentRight="true"
         >
     </HorizontalScrollView>
-
-    <Button
-        android:id="@+id/line_button"
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:text="Random"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="17dp"
+        android:layout_marginStart="17dp"
+        android:text="Tingkatkan"
+        android:id="@+id/textViewpend2" />
+
+    <TextView
+        android:id="@+id/textViewpendidikan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/textViewpend2"
+        android:layout_alignLeft="@+id/textViewpend2"
+        android:layout_alignStart="@+id/textViewpend2"
+        android:layout_marginBottom="1dp"
+        android:text="Pendidikan : "
+        android:background="#9C27B0"
         />
+
+    <TextView
+        android:id="@+id/textViewor2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textViewpend2"
+        android:layout_alignStart="@+id/textViewpend2"
+        android:layout_below="@+id/textView4"
+        android:text="Tingkatkan" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textViewor2"
+        android:layout_alignStart="@+id/textViewor2"
+        android:layout_below="@+id/textViewpend2"
+        android:layout_marginTop="27dp"
+        android:text="Organisasi : "
+
+        android:background="#e74c3c"
+        android:id="@+id/textView4" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textViewor2"
+        android:layout_alignStart="@+id/textViewor2"
+        android:layout_below="@+id/textViewor2"
+        android:layout_marginTop="24dp"
+        android:background="#2980b9"
+        android:text="Lain Lain" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView3"
+        android:layout_alignStart="@+id/textView3"
+        android:layout_below="@+id/textView3"
+
+        android:text="Tingkatkan " />
+
 
 </RelativeLayout>
