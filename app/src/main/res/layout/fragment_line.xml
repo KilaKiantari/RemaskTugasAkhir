@@ -68,7 +68,6 @@
         android:layout_below="@+id/textViewpend2"
         android:layout_marginTop="27dp"
         android:text="Organisasi : "
-
         android:background="#e74c3c"
         android:id="@+id/textView4" />
 

@@ -204,7 +204,7 @@ public class BuatCatatan extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent setIntent = new Intent(this, MainActivity.class);
+        Intent setIntent = new Intent(this, MainActivityBackup.class);
         startActivity(setIntent);
     }
 
@@ -227,7 +227,7 @@ public class BuatCatatan extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.action_settings:
-                Intent ab = new Intent(BuatCatatan.this, MainActivity.class);
+                Intent ab = new Intent(BuatCatatan.this, MainActivityBackup.class);
                 ab.putExtra("Extra", "Tools");
                 startActivity(ab);
                 return true;
@@ -274,7 +274,7 @@ public class BuatCatatan extends AppCompatActivity {
                                             }
                                         });
 
-                                        Intent intent = new Intent(BuatCatatan.this, MainActivity.class);
+                                        Intent intent = new Intent(BuatCatatan.this, MainActivityBackup.class);
                                         startActivity(intent);
                                     }
 
@@ -292,7 +292,7 @@ public class BuatCatatan extends AppCompatActivity {
                                 Log.d("date", date);
 
                                 ApiClient.services_post.create(
-                                        "1",
+                                        siswa_id,
                                         mTitleText.getText().toString(),
                                         "2",
                                         mDescriptionText.getText().toString(),

@@ -288,7 +288,7 @@ public class ApiClient {
 
     public interface GetServicesDaftarCatatan {
         @GET("daftartugassiswa/index/{id}")
-        Call<ModelDaftarCatatan> getDaftarCatatan(@Path("id") int id);
+        Call<ModelDaftarCatatan> getDaftarCatatan(@Path("id") String id);
     }
     public interface GetSearchGroup {
         @GET("gurugroup/cari")

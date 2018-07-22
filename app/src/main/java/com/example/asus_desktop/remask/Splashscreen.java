@@ -32,7 +32,7 @@ public class Splashscreen extends Activity {
                 } finally {
 
                     if (sharedPreferences.getString("username","").isEmpty()){
-                        Intent main = new Intent(Splashscreen.this, MainActivity.class);
+                        Intent main = new Intent(Splashscreen.this, MainActivityBackup.class);
                         startActivity(main);
                     }
 

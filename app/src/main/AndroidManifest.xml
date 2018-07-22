@@ -21,7 +21,7 @@
         </activity>
         <activity android:name=".Login"></activity>
         <activity android:name=".Register"></activity>
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivityBackup"></activity>
         <activity android:name=".BuatCatatan"></activity>
         <activity android:name=".RegisterNext"></activity>
         <activity android:name=".PopActivity"

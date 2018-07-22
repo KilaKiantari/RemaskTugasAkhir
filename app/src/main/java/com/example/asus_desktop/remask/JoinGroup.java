@@ -121,7 +121,7 @@ public class JoinGroup extends AppCompatActivity implements SearchView.OnQueryTe
                 startActivity(openCreateNote);
                 return true;
             case R.id.action_settings:
-                Intent ab = new Intent(JoinGroup.this, MainActivity.class);
+                Intent ab = new Intent(JoinGroup.this, MainActivityBackup.class);
                 ab.putExtra("Extra","Tools");
                 startActivity(ab);
                 return true;

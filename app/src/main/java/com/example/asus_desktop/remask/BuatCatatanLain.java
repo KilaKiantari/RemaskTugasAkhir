@@ -202,7 +202,7 @@ public class BuatCatatanLain extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent setIntent = new Intent(this, MainActivity.class);
+        Intent setIntent = new Intent(this, MainActivityBackup.class);
         startActivity(setIntent);
     }
 
@@ -223,7 +223,7 @@ public class BuatCatatanLain extends AppCompatActivity {
 
         switch(item.getItemId()) {
             case R.id.action_settings:
-                Intent ab = new Intent(BuatCatatanLain.this, MainActivity.class);
+                Intent ab = new Intent(BuatCatatanLain.this, MainActivityBackup.class);
                 ab.putExtra("Extra","Tools");
                 startActivity(ab);
                 return true;
@@ -270,7 +270,7 @@ public class BuatCatatanLain extends AppCompatActivity {
                                     }
                                 });
 
-                                Intent intent = new Intent(BuatCatatanLain.this, MainActivity.class);
+                                Intent intent = new Intent(BuatCatatanLain.this, MainActivityBackup.class);
                                 startActivity(intent);
                             }
 

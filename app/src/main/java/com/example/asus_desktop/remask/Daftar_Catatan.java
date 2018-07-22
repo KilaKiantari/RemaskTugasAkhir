@@ -148,7 +148,7 @@ public class Daftar_Catatan extends Fragment {
         //Toast.makeText(getActivity(), ""+siswa_id, Toast.LENGTH_SHORT).show();
 
 
-        ApiClient.services_get_daftar_catatan.getDaftarCatatan(1).enqueue(new Callback<ModelDaftarCatatan>() {
+        ApiClient.services_get_daftar_catatan.getDaftarCatatan(siswa_id).enqueue(new Callback<ModelDaftarCatatan>() {
             @Override
             public void onResponse(Call<ModelDaftarCatatan> call, Response<ModelDaftarCatatan> response) {
                 if(response.isSuccessful()) {
@@ -203,7 +203,7 @@ public class Daftar_Catatan extends Fragment {
 //        siswa_id = sharedPreferences.getString("siswa_id","");
 //        Toast.makeText(getActivity(), ""+siswa_id, Toast.LENGTH_SHORT).show();
 
-        ApiClient.services_get_daftar_catatan.getDaftarCatatan(1).enqueue(new Callback<ModelDaftarCatatan>() {
+        ApiClient.services_get_daftar_catatan.getDaftarCatatan(siswa_id).enqueue(new Callback<ModelDaftarCatatan>() {
             @Override
             public void onResponse(Call<ModelDaftarCatatan> call, Response<ModelDaftarCatatan> response) {
                 modelDaftarCatatan = response.body();

@@ -85,7 +85,7 @@ public class Login extends AppCompatActivity {
 //
 //            if(prefConfig.readLoginStatus())
 //            {
-//                Intent intent = new Intent(Login.this, MainActivity.class);
+//                Intent intent = new Intent(Login.this, MainActivityBackup.class);
 //                startActivity(intent);
 //            }
 //            else{
@@ -96,7 +96,7 @@ public class Login extends AppCompatActivity {
 
         sessionManager = new SessionManager(getApplicationContext());
         if (sessionManager.isLogin()) {
-            Intent intent = new Intent(Login.this, MainActivity.class);
+            Intent intent = new Intent(Login.this, MainActivityBackup.class);
             startActivity(intent);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -133,7 +133,7 @@ public class Login extends AppCompatActivity {
                             String siswa_id = sharedPreferences.getString("siswa_id","");
                              Toast.makeText(Login.this, "siswa id = " +siswa_id, Toast.LENGTH_SHORT).show();
 
-                        Intent intent = new Intent(Login.this, MainActivity.class);
+                        Intent intent = new Intent(Login.this, MainActivityBackup.class);
                         startActivity(intent);
                     }else if (modelLogin == null) {
                         Toast.makeText(Login.this, "Akun belum terdaftar", Toast.LENGTH_SHORT).show();

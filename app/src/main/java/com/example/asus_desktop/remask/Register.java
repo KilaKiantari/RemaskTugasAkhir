@@ -55,7 +55,7 @@ public class Register extends AppCompatActivity{
 
             sessionManager = new SessionManager(getApplicationContext());
             if (sessionManager.isLogin()) {
-                Intent intent = new Intent(Register.this, MainActivity.class);
+                Intent intent = new Intent(Register.this, MainActivityBackup.class);
                 startActivity(intent);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

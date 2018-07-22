@@ -57,7 +57,7 @@ public class RegisterNext extends AppCompatActivity {
 
         sessionManager = new SessionManager(getApplicationContext());
         if (sessionManager.isLogin()) {
-            Intent intent2 = new Intent(RegisterNext.this, MainActivity.class);
+            Intent intent2 = new Intent(RegisterNext.this, MainActivityBackup.class);
             startActivity(intent2);
             intent2.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             intent2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

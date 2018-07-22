@@ -159,11 +159,12 @@ public class Buat_Catatan_Pendidikan extends AppCompatActivity {
 
         initSpinnerGroup();
 
+
         mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedName = parent.getItemAtPosition(position).toString();
-//                String selectedGroup = id_group.get(position);
+             //   String selectedGroup = id_group.get(position);
 
 //                requestDetailDosen(selectedName);
                 // Toast.makeText(Buat_Catatan_Pendidikan.this, "Kamu memilih group " + selectedName, Toast.LENGTH_SHORT).show();
@@ -248,16 +249,17 @@ public class Buat_Catatan_Pendidikan extends AppCompatActivity {
                         listspinner.add(groupJoined.get(i).getNamagroup());
                         id_group.add(groupJoined.get(i).getIdGroup());
 
-
                     }
 
                     ArrayAdapter<String> adapter = new ArrayAdapter<String>(Buat_Catatan_Pendidikan.this, android.R.layout.simple_spinner_item, listspinner);
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     mSpinner.setAdapter(adapter);
+
                 } else {
                     Toast.makeText(Buat_Catatan_Pendidikan.this, "Gagal mengambil group", Toast.LENGTH_SHORT).show();
 
                 }
+
             }
 
             @Override
@@ -270,7 +272,7 @@ public class Buat_Catatan_Pendidikan extends AppCompatActivity {
     }
 
     public void onBackPressed() {
-        Intent setIntent = new Intent(this, MainActivity.class);
+        Intent setIntent = new Intent(this, MainActivityBackup.class);
         startActivity(setIntent);
     }
 
@@ -294,7 +296,7 @@ public class Buat_Catatan_Pendidikan extends AppCompatActivity {
 
         switch(item.getItemId()) {
             case R.id.action_settings:
-                Intent ab = new Intent(Buat_Catatan_Pendidikan.this, MainActivity.class);
+                Intent ab = new Intent(Buat_Catatan_Pendidikan.this, MainActivityBackup.class);
                 ab.putExtra("Extra","Tools");
                 startActivity(ab);
                 return true;
@@ -313,10 +315,11 @@ public class Buat_Catatan_Pendidikan extends AppCompatActivity {
                                 Log.d("date", date);
 
 
-                                ApiClient.services_post.create(
+                                ApiClient.services_post.creatependidikan(
+                                       id_group,
                                         siswa_id,
                                         mTitleText.getText().toString(),
-                                        "2",
+                                        "3",
                                         mDescriptionText.getText().toString(),
                                         date,
                                         "0").enqueue(new Callback<ModelCreateTugas>() {
@@ -341,7 +344,7 @@ public class Buat_Catatan_Pendidikan extends AppCompatActivity {
                                     }
                                 });
 
-                                Intent intent = new Intent(Buat_Catatan_Pendidikan.this, MainActivity.class);
+                                Intent intent = new Intent(Buat_Catatan_Pendidikan.this, MainActivityBackup.class);
                                 startActivity(intent);
                             }
 
@@ -358,8 +361,9 @@ public class Buat_Catatan_Pendidikan extends AppCompatActivity {
                                 Log.d("desc", mDescriptionText.getText().toString());
                                 Log.d("date", date);
 
-                                ApiClient.services_post.create(
-                                        "1",
+                                ApiClient.services_post.creatependidikan(
+                                        id_group,
+                                        siswa_id,
                                         mTitleText.getText().toString(),
                                         "3",
                                         mDescriptionText.getText().toString(),

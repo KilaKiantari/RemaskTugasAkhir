@@ -27,8 +27,7 @@ import com.example.asus_desktop.remask.Model.UserProfilSiswa;
 
 //import android.app.FragmentManager;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivityBackup extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     Toolbar toolbar;
     DrawerLayout drawer;
@@ -44,11 +43,11 @@ public class MainActivity extends AppCompatActivity
     private String siswa_id;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+       // AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
     //    setContentView(R.layout.nav_header_main);
         SharedPreferences sharedPreferences = getSharedPreferences("Remask", Context.MODE_PRIVATE);
         siswa_id = sharedPreferences.getString("siswa_id","");
@@ -94,12 +93,12 @@ public class MainActivity extends AppCompatActivity
 //                    nama.setText(modelUserProfile.getNamaLengkap());
 //                    email.setText(modelUserProfile.getEmail());
 //                } else {
-//                    Toast.makeText(MainActivity.this, "SALAH", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(MainActivityBackup.this, "SALAH", Toast.LENGTH_SHORT).show();
 //                }
 //
 //            }
 //            public void onFailure(Call<UserProfilSiswa> call, Throwable t) {
-//                Toast.makeText(MainActivity.this, ""+t, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(MainActivityBackup.this, ""+t, Toast.LENGTH_SHORT).show();
 //
 //            }
 //
@@ -128,7 +127,7 @@ public class MainActivity extends AppCompatActivity
 
                     public void onClick(DialogInterface arg0, int arg1) {
                         finish();
-                        MainActivity.super.onBackPressed();
+                        MainActivityBackup.super.onBackPressed();
                     }
                 }).create().show();
     }
@@ -143,7 +142,7 @@ public class MainActivity extends AppCompatActivity
 
         switch(item.getItemId()) {
             case R.id.action_settings:
-                Intent ab = new Intent(MainActivity.this, MainActivity.class);
+                Intent ab = new Intent(MainActivityBackup.this, MainActivityBackup.class);
                 ab.putExtra("Extra","Tools");
                 startActivity(ab);
                 return true;

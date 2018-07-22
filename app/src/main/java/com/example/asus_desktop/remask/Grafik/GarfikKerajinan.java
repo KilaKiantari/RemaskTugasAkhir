@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.asus_desktop.remask.Api.ApiClient;
 import com.example.asus_desktop.remask.Model.ModelGrafikKerajinan;
 import com.example.asus_desktop.remask.Model.ModelGrafikKeterangan;
@@ -168,18 +167,18 @@ public class GarfikKerajinan extends Fragment {
                 Color.parseColor("#F44336"), Color.parseColor("#9C27B0"),
                 Color.parseColor("#2196F3")
         });
-       lineView.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View view) {
-               Toast.makeText(getContext(), "coba", Toast.LENGTH_SHORT).show();
+        lineView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getContext(), "coba", Toast.LENGTH_SHORT).show();
 
-           }
-       });
+            }
+        });
         lineView.setDrawDotLine(true);
         lineView.setShowPopup(LineView.SHOW_POPUPS_NONE);
 
 
-        }
+    }
 
 
     private void randomSet(final LineView lineViewFloat) {
@@ -229,7 +228,7 @@ public class GarfikKerajinan extends Fragment {
             public void onResponse(Call<ModelGrafikKerajinan> call, Response<ModelGrafikKerajinan> response) {
                 Log.e("Response Grafik Kerajin", "Code : " + response.code());
                 if (response.isSuccessful()) {
-                   // Toast.makeText(getActivity(), "Id siswa grafik = "+siswa_id, Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(getActivity(), "Id siswa grafik = "+siswa_id, Toast.LENGTH_SHORT).show();
                     List<Result> selisih = response.body().getResult();
                     ArrayList<Float> dataListF3 = new ArrayList<>();
                     for (int i = 0; i < selisih.size(); i++) {
@@ -237,7 +236,7 @@ public class GarfikKerajinan extends Fragment {
 
                     }
 
-                   // Toast.makeText(getActivity(), "berhasil = " + response.body().getStatus(), Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(getActivity(), "berhasil = " + response.body().getStatus(), Toast.LENGTH_SHORT).show();
                     progressDialog.dismiss();
 
                     dataListFs.add(dataListF3);
@@ -269,7 +268,7 @@ public class GarfikKerajinan extends Fragment {
 
                     }
 
-                     Toast.makeText(getActivity(), "berhasil = " + response.body().getStatus(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "berhasil = " + response.body().getStatus(), Toast.LENGTH_SHORT).show();
                     progressDialog.dismiss();
                     dataListFs.add(dataListF2);
 
@@ -333,4 +332,3 @@ public class GarfikKerajinan extends Fragment {
 
 
 }
-

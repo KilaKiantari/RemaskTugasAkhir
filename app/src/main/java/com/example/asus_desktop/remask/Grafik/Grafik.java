@@ -79,8 +79,8 @@ public class Grafik extends AppCompatActivity implements OnChartValueSelectedLis
                     ArrayList<Entry> yvalues = new ArrayList<Entry>();
 
 
-                    yvalues.add(new Entry(belum,0));
-                    yvalues.add(new Entry(sudah,1));
+                    yvalues.add(new Entry(sudah,0));
+                    yvalues.add(new Entry(belum,1));
 
 
                     PieDataSet dataSet = new PieDataSet(yvalues, "Data");

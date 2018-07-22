@@ -62,7 +62,7 @@ public class CustomDialog extends  Activity{
                         Log.d("status", response.body().toString());
                         Toast.makeText(CustomDialog.this, ""+response.body().getStatus(), Toast.LENGTH_SHORT).show();
 
-                        Intent intent = new Intent(CustomDialog.this, MainActivity.class);
+                        Intent intent = new Intent(CustomDialog.this, MainActivityBackup.class);
                         startActivity(intent);
                     }
                 }
@@ -109,7 +109,7 @@ public class CustomDialog extends  Activity{
 
         btnNo.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                Intent intent = new Intent (CustomDialog.this,MainActivity.class);
+                Intent intent = new Intent (CustomDialog.this,MainActivityBackup.class);
                 startActivity(intent);
 
             }

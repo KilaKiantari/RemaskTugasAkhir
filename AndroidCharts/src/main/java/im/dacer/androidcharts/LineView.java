@@ -74,7 +74,7 @@ public class LineView extends View {
     private int showPopupType = SHOW_POPUPS_NONE;
     private Boolean drawDotLine = false;
     private int[] colorArray = {
-            Color.parseColor("#e74c3c"), Color.parseColor("#2980b9"), Color.parseColor("#1abc9c")
+            Color.parseColor("#2980b9"), Color.parseColor("#9C27B0"), Color.parseColor("#e74c3c")
     };
     private Runnable animator = new Runnable() {
         @Override public void run() {
