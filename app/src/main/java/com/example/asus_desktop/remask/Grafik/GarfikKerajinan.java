@@ -2,6 +2,7 @@ package com.example.asus_desktop.remask.Grafik;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -12,12 +13,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.example.asus_desktop.remask.Api.ApiClient;
 import com.example.asus_desktop.remask.Model.ModelGrafikKerajinan;
 import com.example.asus_desktop.remask.Model.ModelGrafikKeterangan;
 import com.example.asus_desktop.remask.Model.ModelGrafikKeteranganLain;
 import com.example.asus_desktop.remask.Model.ModelGrafikKeteranganOrganisasi;
 import com.example.asus_desktop.remask.Model.Result;
+import com.example.asus_desktop.remask.NotificationService;
 import com.example.asus_desktop.remask.R;
 import com.github.mikephil.charting.data.LineDataSet;
 
@@ -39,6 +42,7 @@ public class GarfikKerajinan extends Fragment {
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor edit;
     private String siswa_id;
+    private Intent serviceIntent;
 
 
     public GarfikKerajinan() {
@@ -55,6 +59,8 @@ public class GarfikKerajinan extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_line, container, false);
+        serviceIntent = new Intent(getActivity(), NotificationService.class);
+
         //  final LineView lineView = (LineView) rootView.findViewById(R.id.line_view);
         final LineView lineViewFloat = (LineView) rootView.findViewById(R.id.line_view_float);
         final TextView tvSudah = (TextView) rootView.findViewById(R.id.textViewpend2);
@@ -182,43 +188,6 @@ public class GarfikKerajinan extends Fragment {
 
 
     private void randomSet(final LineView lineViewFloat) {
-//        ArrayList<Integer> dataList = new ArrayList<>();
-//        float random = (float) (Math.random() * 9 + 1);
-//        for (int i = 0; i < randomint; i++) {
-//            dataList.add((int) (Math.random() * random));
-//        }
-//
-//        ArrayList<Integer> dataList2 = new ArrayList<>();
-//        random = (int) (Math.random() * 9 + 1);
-//        for (int i = 0; i < randomint; i++) {
-//            dataList2.add((int) (Math.random() * random));
-//        }
-//
-//        ArrayList<Integer> dataList3 = new ArrayList<>();
-//        random = (int) (Math.random() * 9 + 1);
-//        for (int i = 0; i < randomint; i++) {
-//            dataList3.add((int) (Math.random() * random));
-//        }
-//
-//        ArrayList<ArrayList<Integer>> dataLists = new ArrayList<>();
-//        dataLists.add(dataList);
-//        dataLists.add(dataList2);
-//        dataLists.add(dataList3);
-//
-//        lineView.setDataList(dataLists);
-//        //merah=pendidikan
-//        ArrayList<Float> dataListF = new ArrayList<>();
-//        float coba = (-5);
-//        for (int i = 0; i < randomint; i++) {
-//            dataListF.add(coba + 1);
-//        }
-//
-//        //ungu = lain lain
-//        ArrayList<Float> dataListF2 = new ArrayList<>();
-//        coba = 100;
-//        for (int i = 0; i < randomint; i++) {
-//            dataListF2.add(coba + 1);
-//        }
         final ProgressDialog progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("Please wait....");
         progressDialog.show();
@@ -230,6 +199,7 @@ public class GarfikKerajinan extends Fragment {
                 if (response.isSuccessful()) {
                     // Toast.makeText(getActivity(), "Id siswa grafik = "+siswa_id, Toast.LENGTH_SHORT).show();
                     List<Result> selisih = response.body().getResult();
+
                     ArrayList<Float> dataListF3 = new ArrayList<>();
                     for (int i = 0; i < selisih.size(); i++) {
                         dataListF3.add(selisih.get(i).getSelisihorganisasi());
@@ -263,11 +233,35 @@ public class GarfikKerajinan extends Fragment {
                     // Toast.makeText(getActivity(), "Id siswa grafik = "+siswa_id, Toast.LENGTH_SHORT).show();
                     List<Result> selisih = response.body().getResult();
                     ArrayList<Float> dataListF2 = new ArrayList<>();
+
                     for (int i = 0; i < selisih.size(); i++) {
-                        dataListF2.add(selisih.get(i).getSelisihpendidikan());
+                   //     if (selisih.get(i).getSelisihpendidikan() == 3 || selisih.get(i).getSelisihpendidikan() == 2 || selisih.get(i).getSelisihpendidikan() == 1 || selisih.get(i).getSelisihpendidikan() == 0) {
+                            dataListF2.add(selisih.get(i).getSelisihpendidikan());
 
-                    }
+//                              final NotificationManager mgr = (NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE);
+//
+//                            Notification notification = new NotificationCompat.Builder(getContext())
+//                                    .setContentTitle("Remask")
+//                                    .setContentText("Grafik kamu menurun! Ayo kerjakan jangan dekat dengan deadline")
+//                                    .setSmallIcon(R.mipmap.ic_launcher)
+//                                 //   .setContentIntent(pendingIntent)
+//                                    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+//                                    .setAutoCancel(true)
+//                                    .setDefaults(Notification.DEFAULT_ALL)
+//                                    .build();
+//
+//                            mgr.notify(1, notification);
+//                        }
+//
+//
+//                        else{
+//                            dataListF2.add(selisih.get(i).getSelisihpendidikan());
+                        }
 
+
+
+//                    }
+                    Toast.makeText(getContext(), "Grafik Menurun", Toast.LENGTH_SHORT).show();
                     Toast.makeText(getActivity(), "berhasil = " + response.body().getStatus(), Toast.LENGTH_SHORT).show();
                     progressDialog.dismiss();
                     dataListFs.add(dataListF2);

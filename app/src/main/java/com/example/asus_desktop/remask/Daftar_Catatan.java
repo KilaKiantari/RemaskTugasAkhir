@@ -14,7 +14,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CalendarView;
-import android.widget.Toast;
 
 import com.example.asus_desktop.remask.Api.ApiClient;
 import com.example.asus_desktop.remask.Model.ModelDaftarCatatan;
@@ -88,11 +87,11 @@ public class Daftar_Catatan extends Fragment {
                 else {
                     sDay = String.valueOf(dayOfMonth);
                 }
-                Toast.makeText(getActivity().getApplicationContext(),
-                        "Year: " + year + "\n" +
-                                "Month: " + month + "\n" +
-                                "Day of Month: " + dayOfMonth,
-                        Toast.LENGTH_LONG).show();
+//                Toast.makeText(getActivity().getApplicationContext(),
+//                        "Year: " + year + "\n" +
+//                                "Month: " + month + "\n" +
+//                                "Day of Month: " + dayOfMonth,
+//                        Toast.LENGTH_LONG).show();
 
                 fillRecycler(String.valueOf(year),sMonth,sDay);
 
@@ -190,7 +189,7 @@ public class Daftar_Catatan extends Fragment {
 
 
             }
-            }
+        }
 
 
         adapter = new DaftarAdapter(getActivity(),filterResult);

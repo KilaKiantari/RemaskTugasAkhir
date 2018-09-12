@@ -3,6 +3,7 @@ package com.example.asus_desktop.remask.Api;
 import com.example.asus_desktop.remask.Model.ModelActionJoin;
 import com.example.asus_desktop.remask.Model.ModelCreateTugas;
 import com.example.asus_desktop.remask.Model.ModelDaftarCatatan;
+import com.example.asus_desktop.remask.Model.ModelDelete;
 import com.example.asus_desktop.remask.Model.ModelGrafikKerajinan;
 import com.example.asus_desktop.remask.Model.ModelGrafikKeterangan;
 import com.example.asus_desktop.remask.Model.ModelGrafikKeteranganLain;
@@ -130,9 +131,14 @@ public class ApiClient {
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create()).build().create(ApiClient.GetGrafikKeteranganLain.class);
 
+    public static GetDelete services_get_delete = new Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create()).build().create(ApiClient.GetDelete.class);
+
 
 
     public interface PostServices {
+
         @FormUrlEncoded
         @POST("login/login")
         Call<ModelLoginUser> login(
@@ -183,16 +189,12 @@ public class ApiClient {
 
 
         @FormUrlEncoded
-        @POST("daftartugassiswa/update")
-        Call<String> updatetugas(
-                @Path("id_tugas") String id_tugas,
+        @POST("daftartugassiswa/update/id_tugas")
+        Call<ModelCreateTugas> updatetugas(
+                @Path("id_tugas") Integer id_tugas,
                 @Field("siswa_id") String siswa_id,
                 @Field("nama_tugas") String nama_tugas,
-                @Field("kategori") String kategori,
-                @Field("keterangan") String keterangan,
-                @Field("tanggal_tugas") String tanggal_tugas,
-                @Field("tanggal_selesai") String tanggal_selesai
-
+                @Field("keterangan") String keterangan
         );
 
         @FormUrlEncoded
@@ -244,6 +246,11 @@ public class ApiClient {
     public interface GetServicesProfil {
         @GET("profilsiswa/{id}")
         Call<UserProfilSiswa> getProfile(@Path("id") String id);
+    }
+
+    public interface GetDelete{
+        @GET("daftartugassiswa/delete/{id}")
+        Call<ModelDelete> getDelete(@Path("id") String id);
     }
 
     public interface GetServicesHistori {

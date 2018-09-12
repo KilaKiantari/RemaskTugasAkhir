@@ -115,7 +115,7 @@ public class ProgressTugas extends Fragment {
 //        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("Remask", Context.MODE_PRIVATE);
 //        Log.d("id_tugas", String.valueOf(sharedPreferences.getInt("id_tugas", 0)));
 
-        ApiClient.services_get_progress.getProgress(139).enqueue(new Callback<ModelProgressHistori>() {
+        ApiClient.services_get_progress.getProgress(200).enqueue(new Callback<ModelProgressHistori>() {
 
 
             //progressDialog.setMessage("Please wait...");
@@ -173,7 +173,7 @@ public class ProgressTugas extends Fragment {
                                     Intent intent = new Intent(getActivity(), MainActivityProgress.class);
                                     getActivity().startActivity(intent);
                                     getActivity().finish();
-
+                                    Toast.makeText(getActivity(), ""+tgl_selesai, Toast.LENGTH_SHORT).show();
                                     progressDialog.dismiss();
 
                                 }else{

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Remask</string>
+    <string name="app_name">Remask Siswa</string>
 
     <string name="openDrawer">Drawer dibuka</string>
     <string name="closeDrawer">Drawer ditutup</string>
@@ -42,8 +42,8 @@
         <item>5 hari sebelum</item>
         <item>3 hari sebelum</item>
         <item>1 hari sebelum</item>
-        <item>3 jam sebelum</item>
-        <item>30 menit sebelum</item>
+        <item>hari ini</item>
+
 
     </string-array>
 
@@ -107,4 +107,8 @@
     <string name="sett_reminder_desc">We will remind you to make entiries of your expense</string>
     <string name="sett_reminder_time_label">Set Reminder Time</string>
     <string name="sett_reminder_time_content">8 : 00 PM</string>
+
+    <string name="next">NEXT</string>
+    <string name="skip">SKIP</string>
+    <string name="start">GOT IT</string>
 </resources>

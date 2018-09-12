@@ -24,6 +24,7 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -53,7 +54,7 @@ public class BuatCatatan extends AppCompatActivity {
     //DbHelper mDbHelper;
     EditText mTitleText;
     EditText mDescriptionText;
-    TextView mSpinner;
+    Spinner mSpinner;
     TimePicker pickerTime;
     EditText editAlert;
     TextView time;
@@ -63,6 +64,8 @@ public class BuatCatatan extends AppCompatActivity {
     private String siswa_id;
     private Integer id_tugas;
     private String status;
+    private String nama_tugas;
+    private String keterangan;
     private Context context = this;
     CustomDialog customDialog;
 
@@ -100,9 +103,16 @@ public class BuatCatatan extends AppCompatActivity {
 
         mTitleText = (EditText) findViewById(R.id.txttitle);
         mDescriptionText = (EditText) findViewById(R.id.description);
-        mSpinner = (TextView) findViewById(R.id.spinnerNoteType);
+        mSpinner = (Spinner) findViewById(R.id.spinnerAlarm);
      //   pickerTime = (TimePicker) findViewById(R.id.timePicker);
 
+        Intent grup = getIntent();
+        id_tugas = grup.getIntExtra("id_tugas", 0);
+        nama_tugas = grup.getStringExtra("nama_tugas");
+        keterangan = grup.getStringExtra("keterangan");
+
+        mTitleText.setText(nama_tugas);
+        mDescriptionText.setText(keterangan);
 
         ll_set_time = (LinearLayout) findViewById(R.id.ll_set_time);
         localData = new LocalData(getApplicationContext());
@@ -143,7 +153,7 @@ public class BuatCatatan extends AppCompatActivity {
                     showTimePickerDialog(localData.get_hour(), localData.get_min());
             }
         });
-
+//        update();
     }
 
 
@@ -219,7 +229,39 @@ public class BuatCatatan extends AppCompatActivity {
         return true;
     }
 
-
+//    public void update() {
+//        mTitleText.getText().toString();
+//        mDescriptionText.getText().toString();
+//
+//
+////        mTitleText.setText(nama_tugas);
+////        mDescriptionText.setText(keterangan);
+//
+//        ApiClient.services_post.updatetugas(
+//                id_tugas,
+//                siswa_id,
+//                mTitleText.getText().toString(),
+//                mDescriptionText.getText().toString()
+//        ).enqueue(new Callback<ModelCreateTugas>() {
+//            @Override
+//            public void onResponse(Call<ModelCreateTugas> call, Response<ModelCreateTugas> response) {
+//                String status = response.body().getStatus();
+//                if (status.equals("1")) {
+//                    Toast.makeText(BuatCatatan.this, "berhasil", Toast.LENGTH_SHORT).show();
+//                    finish();
+//                } else {
+//
+//                    Toast.makeText(BuatCatatan.this, "Terjadi Kesalahan", Toast.LENGTH_SHORT).show();
+//                    //return true;
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ModelCreateTugas> call, Throwable t) {
+//
+//            }
+//        });
+//    }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -326,10 +368,9 @@ public class BuatCatatan extends AppCompatActivity {
 
                         }).create().show();
 
-
-
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
+
 }

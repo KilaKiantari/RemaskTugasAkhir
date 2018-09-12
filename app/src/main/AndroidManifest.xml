@@ -24,6 +24,7 @@
         <activity android:name=".MainActivityBackup"></activity>
         <activity android:name=".BuatCatatan"></activity>
         <activity android:name=".RegisterNext"></activity>
+        <activity android:name=".BantuanActivity"></activity>
         <activity android:name=".PopActivity"
             android:theme="@style/AppTheme.PopMe">
         </activity>

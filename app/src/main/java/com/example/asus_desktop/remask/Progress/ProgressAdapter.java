@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.asus_desktop.remask.Model.ModelActionJoin;
 import com.example.asus_desktop.remask.Model.Result;
@@ -94,9 +93,9 @@ public class ProgressAdapter extends RecyclerView.Adapter<ProgressAdapter.Mahasi
                         .setNegativeButton(android.R.string.no, null)
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface arg0, int arg1) {
-                                Toast.makeText(mContext, "" + nama_progress, Toast.LENGTH_SHORT).show();
-                                Toast.makeText(mContext, "" + tgl_selesai, Toast.LENGTH_SHORT).show();
-                                Toast.makeText(mContext, ""+ id_progress,Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(mContext, "" + nama_progress, Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(mContext, "" + tgl_selesai, Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(mContext, ""+ id_progress,Toast.LENGTH_SHORT).show();
 
                             }
                         }).create().show();

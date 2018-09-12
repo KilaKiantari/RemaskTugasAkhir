@@ -17,7 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:background="@mipmap/ic_launcher" />
+        android:background="@drawable/student" />
 
     <TextView
         android:id="@+id/TextViewNama"
@@ -32,6 +32,6 @@
         android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="kilakiantari13@gmail.com" />
+        android:text="usersiswa@gmail.com" />
 
 </LinearLayout>

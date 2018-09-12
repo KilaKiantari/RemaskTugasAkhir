@@ -40,7 +40,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="25dp"
-                android:text="24-Maret-2018"
+                android:text="25-Juli-2018"
                 android:textColor="#000"/>
 
             <TextView
@@ -48,7 +48,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="24-Maret-2018" android:textColor="#000"/>
+                android:text="24-Maret-2018"
+                android:textColor="#000"/>
 
         </LinearLayout>
 

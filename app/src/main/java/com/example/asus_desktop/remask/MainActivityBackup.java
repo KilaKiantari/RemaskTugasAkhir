@@ -146,6 +146,14 @@ public class MainActivityBackup extends AppCompatActivity implements NavigationV
                 ab.putExtra("Extra","Tools");
                 startActivity(ab);
                 return true;
+            case R.id.action_bantuan:
+                PrefManager prefManager = new PrefManager(getApplicationContext());
+
+                // make first time launch TRUE
+                prefManager.setFirstTimeLaunch(true);
+                startActivity(new Intent(MainActivityBackup.this, BantuanActivity.class));
+                finish();
+                return true;
 
             default:
                 return super.onOptionsItemSelected(item);

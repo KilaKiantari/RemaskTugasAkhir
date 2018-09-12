@@ -1,14 +1,19 @@
 package com.example.asus_desktop.remask.HistoriTugas;
 
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,11 +25,13 @@ import android.widget.Toast;
 
 import com.example.asus_desktop.remask.Api.ApiClient;
 import com.example.asus_desktop.remask.Model.ModelActionJoin;
+import com.example.asus_desktop.remask.Model.ModelGrafikKerajinan;
 import com.example.asus_desktop.remask.Model.Result;
 import com.example.asus_desktop.remask.Model.UserHistoriSiswa;
 import com.example.asus_desktop.remask.R;
 import com.example.asus_desktop.remask.Tools;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -58,7 +65,7 @@ public class HistoriTugas extends Fragment {
     private Button btn_show;
     private ProgressDialog progressDialog;
 
-
+    ArrayList<ArrayList<Float>> dataListFs = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -141,6 +148,7 @@ public class HistoriTugas extends Fragment {
                                     fragmentTransaction.addToBackStack(null);
                                     fragmentTransaction.commit();
 
+                                    grafiknotif();
 
                                     Toast.makeText(getActivity(), ""+response.body().getStatus(),Toast.LENGTH_SHORT).show();
                                     progressDialog.dismiss();
@@ -174,6 +182,59 @@ public class HistoriTugas extends Fragment {
 
 
         return view;
+    }
+
+    public void grafiknotif() {
+        ApiClient.services_get_grafik_pendidikan.getGrafikKerajinanPendidikan(siswa_id).enqueue(new Callback<ModelGrafikKerajinan>() {
+
+            public void onResponse(Call<ModelGrafikKerajinan> call, Response<ModelGrafikKerajinan> response) {
+                Log.e("Response Grafik Kerajin", "Code : " + response.code());
+                if (response.isSuccessful()) {
+                    // Toast.makeText(getActivity(), "Id siswa grafik = "+siswa_id, Toast.LENGTH_SHORT).show();
+                    List<Result> selisih = response.body().getResult();
+                    ArrayList<Float> dataListF2 = new ArrayList<>();
+
+                    for (int i = 0; i < selisih.size(); i++) {
+                        if (selisih.get(i).getSelisihpendidikan() == 3 || selisih.get(i).getSelisihpendidikan() == 2 || selisih.get(i).getSelisihpendidikan() == 1 || selisih.get(i).getSelisihpendidikan() == 0) {
+                            dataListF2.add(selisih.get(i).getSelisihpendidikan());
+
+                            final NotificationManager mgr = (NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE);
+
+                            Notification notification = new NotificationCompat.Builder(getContext())
+                                    .setContentTitle("Remask")
+                                    .setContentText("Grafik kamu menurun! Ayo kerjakan jangan dekat dengan deadline")
+                                    .setSmallIcon(R.mipmap.ic_launcher)
+                                    //   .setContentIntent(pendingIntent)
+                                    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                                    .setAutoCancel(true)
+                                    .setDefaults(Notification.DEFAULT_ALL)
+                                    .build();
+
+                            mgr.notify(1, notification);
+                        } else {
+                            dataListF2.add(selisih.get(i).getSelisihpendidikan());
+                        }
+
+
+                    }
+                    Toast.makeText(getContext(), "Grafik Menurun", Toast.LENGTH_SHORT).show();
+          //          Toast.makeText(getActivity(), "berhasil = " + response.body().getStatus(), Toast.LENGTH_SHORT).show();
+             //       progressDialog.dismiss();
+                    dataListFs.add(dataListF2);
+
+
+                } else {
+                    Toast.makeText(getActivity(), "Gagal menampilkan grafik", Toast.LENGTH_SHORT).show();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ModelGrafikKerajinan> call, Throwable t) {
+                Toast.makeText(getActivity(), "" + t, Toast.LENGTH_SHORT).show();
+
+            }
+        });
     }
 
 

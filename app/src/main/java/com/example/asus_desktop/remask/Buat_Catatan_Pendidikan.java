@@ -310,11 +310,9 @@ public class Buat_Catatan_Pendidikan extends AppCompatActivity {
                                 String date = sharedPreferences.getString("date", "") + " " + String.valueOf(localData.get_hour()) + ":" + String.valueOf(localData.get_min()) + ":00";
                                 Log.d("id", "1");
                                 Log.d("title", mTitleText.getText().toString());
-                                Log.d("organisasi", "org");
+                                Log.d("pendidikan", "pendidikan");
                                 Log.d("desc", mDescriptionText.getText().toString());
                                 Log.d("date", date);
-
-
                                 ApiClient.services_post.creatependidikan(
                                        id_group,
                                         siswa_id,
@@ -326,13 +324,11 @@ public class Buat_Catatan_Pendidikan extends AppCompatActivity {
                                     @Override
                                     public void onResponse(Call<ModelCreateTugas> call, Response<ModelCreateTugas> response) {
                                         if (response.isSuccessful()) {
-
                                             id_tugas = response.body().getIdTugas();
                                          //   status = response.body().getStatus();
                                             Toast.makeText(Buat_Catatan_Pendidikan.this, "" + id_tugas, Toast.LENGTH_SHORT).show();
                                         //    Toast.makeText(BuatCatatan.this, "" + status, Toast.LENGTH_SHORT).show();
                                         } else {
-
                                             Toast.makeText(Buat_Catatan_Pendidikan.this, "Terjadi Kesalahan", Toast.LENGTH_SHORT).show();
                                             //return true;
                                         }
@@ -343,13 +339,11 @@ public class Buat_Catatan_Pendidikan extends AppCompatActivity {
 
                                     }
                                 });
-
                                 Intent intent = new Intent(Buat_Catatan_Pendidikan.this, MainActivityBackup.class);
                                 startActivity(intent);
                             }
 
                         })
-
 
                         .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface arg0, int arg1) {
@@ -357,7 +351,7 @@ public class Buat_Catatan_Pendidikan extends AppCompatActivity {
 
                                 Log.d("id", "1");
                                 Log.d("title", mTitleText.getText().toString());
-                                Log.d("organisasi", "org");
+                                Log.d("pendidikan", "pendidikan");
                                 Log.d("desc", mDescriptionText.getText().toString());
                                 Log.d("date", date);
 

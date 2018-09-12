@@ -9,51 +9,89 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="0.48">
+
         <ImageView
             android:id="@+id/ImageView1"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
+            android:layout_alignEnd="@+id/TextView1"
+            android:layout_alignParentTop="true"
+            android:layout_alignRight="@+id/TextView1"
+            android:layout_marginTop="86dp"
             android:background="@drawable/ic_about" />
 
         <TextView
             android:id="@+id/TextView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_centerHorizontal="true"
             android:layout_below="@+id/ImageView1"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
             android:text="REMASK" />
 
         <TextView
             android:id="@+id/TextView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_centerHorizontal="true"
             android:layout_below="@+id/TextView1"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
             android:text="Anda Mengalami Masalah?"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/TextView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_centerHorizontal="true"
             android:layout_below="@+id/TextView2"
-            android:text="Kunjungi"/>
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:text="Kunjungi" />
 
         <TextView
-            android:id="@+id/TextView4"
+            android:id="@+id/TextView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:layout_centerHorizontal="true"
-            android:layout_below="@+id/TextView3"
-            android:text="www.remask.com"
-            android:textStyle="italic"/>
+            android:layout_centerVertical="true"
+            android:text="Dibuat Oleh :"
+            android:textStyle="italic" />
+
+        <TextView
+            android:id="@+id/TextView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/TextView2"
+            android:layout_alignRight="@+id/TextView2"
+            android:layout_below="@+id/TextView5"
+            android:layout_marginEnd="11dp"
+            android:layout_marginRight="11dp"
+            android:layout_marginTop="22dp"
+            android:text="Kila Kiantari Katasya"
+            android:textStyle="italic" />
+
+        <TextView
+            android:id="@+id/TextView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/TextView5"
+            android:layout_alignStart="@+id/TextView5"
+            android:layout_below="@+id/TextView8"
+            android:layout_marginTop="19dp"
+            android:text="Rengga Asmara"
+            android:textStyle="italic" />
+
+        <TextView
+            android:id="@+id/TextView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/TextView6"
+            android:layout_alignStart="@+id/TextView6"
+            android:layout_below="@+id/TextView6"
+            android:layout_marginTop="25dp"
+            android:text="Ira Prasetyaningrum"
+            android:textStyle="italic" />
+
     </RelativeLayout>
 
 </LinearLayout>

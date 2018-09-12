@@ -290,7 +290,7 @@ public class BuatCatatanLain extends AppCompatActivity {
                                 ApiClient.services_post.create(
                                         siswa_id,
                                         mTitleText.getText().toString(),
-                                        "3",
+                                        "1",
                                         mDescriptionText.getText().toString(),
                                         date,
                                         "0").enqueue(new Callback<ModelCreateTugas>() {

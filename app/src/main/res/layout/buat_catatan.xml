@@ -139,7 +139,7 @@
             <Spinner
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/spinnerAlarm"
+                android:id="@id/spinnerAlarm"
                 android:entries="@array/set_alarm"
                 android:layout_below="@+id/spinnerNoteType"
                 android:layout_alignParentRight="true"
